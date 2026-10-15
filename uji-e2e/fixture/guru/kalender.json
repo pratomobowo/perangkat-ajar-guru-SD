@@ -1,0 +1,26 @@
+{
+  "semester": [
+    { "ke": 1, "mulai": "2026-07-13", "akhir": "2026-12-18" },
+    { "ke": 2, "mulai": "2027-01-04", "akhir": "2027-06-25" }
+  ],
+  "kegiatan": [
+    { "mulai": "2026-07-13", "akhir": "2026-07-15", "jenis": "tidak_efektif", "nama": "MPLS" },
+    { "mulai": "2026-08-17", "jenis": "libur", "nama": "HUT RI" },
+    { "mulai": "2026-08-25", "jenis": "libur", "nama": "Maulid Nabi" },
+    { "mulai": "2026-09-21", "akhir": "2026-09-25", "jenis": "tidak_efektif", "nama": "STS semester 1" },
+    { "mulai": "2026-11-30", "akhir": "2026-12-04", "jenis": "tidak_efektif", "nama": "SAS semester 1" },
+    { "mulai": "2026-12-07", "akhir": "2026-12-11", "jenis": "tidak_efektif", "nama": "Class meeting" },
+    { "mulai": "2026-12-18", "jenis": "tidak_efektif", "nama": "Bagi rapor" },
+    { "mulai": "2026-12-21", "akhir": "2027-01-01", "jenis": "libur", "nama": "Libur semester 1" },
+    { "mulai": "2027-01-16", "jenis": "libur", "nama": "Isra Mikraj" },
+    { "mulai": "2027-02-08", "akhir": "2027-02-10", "jenis": "libur", "nama": "Libur awal Ramadan" },
+    { "mulai": "2027-03-01", "akhir": "2027-03-05", "jenis": "tidak_efektif", "nama": "STS semester 2" },
+    { "mulai": "2027-03-08", "akhir": "2027-03-19", "jenis": "libur", "nama": "Libur Idul Fitri" },
+    { "mulai": "2027-03-26", "jenis": "libur", "nama": "Wafat Isa Almasih" },
+    { "mulai": "2027-05-06", "jenis": "libur", "nama": "Kenaikan Isa Almasih" },
+    { "mulai": "2027-05-17", "jenis": "libur", "nama": "Idul Adha" },
+    { "mulai": "2027-06-01", "akhir": "2027-06-05", "jenis": "tidak_efektif", "nama": "SAT" },
+    { "mulai": "2027-06-14", "akhir": "2027-06-18", "jenis": "tidak_efektif", "nama": "Class meeting" },
+    { "mulai": "2027-06-25", "jenis": "tidak_efektif", "nama": "Bagi rapor" }
+  ]
+}

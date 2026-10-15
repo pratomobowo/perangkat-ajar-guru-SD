@@ -1,0 +1,17 @@
+{
+  "mapel": "matematika", "kelas": 4, "fase": "B",
+  "cadangan_jp": { "1": 10, "2": 10 },
+  "catatan": ["[PERLU GURU: pembagian kelas 3/4 adalah usulan asisten.]"],
+  "tp": [
+    { "kode": "TP1", "semester": 1, "tujuan": "Membaca, menulis, dan membandingkan bilangan cacah sampai 10.000 berdasarkan nilai tempat", "materi": "Bilangan cacah sampai 10.000", "elemen": ["Bilangan"], "jp": 15 },
+    { "kode": "TP2", "semester": 1, "tujuan": "Menyelesaikan masalah penjumlahan dan pengurangan bilangan cacah sampai 1.000", "materi": "Penjumlahan dan pengurangan", "elemen": ["Bilangan"], "jp": 15 },
+    { "kode": "TP3", "semester": 1, "tujuan": "Menyelesaikan masalah perkalian dan pembagian bilangan cacah sampai 100", "materi": "Perkalian dan pembagian", "elemen": ["Bilangan"], "jp": 15 },
+    { "kode": "TP4", "semester": 1, "tujuan": "Menentukan nilai yang tidak diketahui dalam kalimat matematika dan melanjutkan pola", "materi": "Kalimat matematika dan pola", "elemen": ["Aljabar"], "jp": 15 },
+    { "kode": "TP5", "semester": 1, "tujuan": "Mengukur panjang dan berat dengan satuan baku dan mengonversi antarsatuan", "materi": "Panjang dan berat", "elemen": ["Pengukuran"], "jp": 20, "nilai_islam": "Jujur menakar dan menimbang" },
+    { "kode": "TP6", "semester": 2, "tujuan": "Membandingkan, mengurutkan, dan menentukan pecahan senilai", "materi": "Pecahan senilai", "elemen": ["Bilangan"], "jp": 20 },
+    { "kode": "TP7", "semester": 2, "tujuan": "Menghubungkan pecahan dengan desimal dan persen", "materi": "Desimal dan persen", "elemen": ["Bilangan"], "jp": 15 },
+    { "kode": "TP8", "semester": 2, "tujuan": "Mendeskripsikan ciri bangun datar serta menyusun dan mengurainya", "materi": "Bangun datar", "elemen": ["Geometri"], "jp": 20 },
+    { "kode": "TP9", "semester": 2, "tujuan": "Mengestimasi dan mengukur luas dan volume dengan satuan tidak baku dan baku", "materi": "Luas dan volume", "elemen": ["Pengukuran"], "jp": 15 },
+    { "kode": "TP10", "semester": 2, "tujuan": "Menyajikan dan menafsirkan data dalam tabel, piktogram, dan diagram batang", "materi": "Penyajian data", "elemen": ["Analisis Data dan Peluang"], "jp": 15 }
+  ]
+}

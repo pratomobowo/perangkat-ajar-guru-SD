@@ -1,0 +1,3 @@
+{ "nama_sekolah": "SDIT Al Hikmah", "alamat_sekolah": "Jl. Pendidikan No. 1, Bandung", "kota": "Bandung",
+  "kepala_sekolah": { "nama": "Ahmad Fauzi, S.Pd.", "nip": null }, "kertas": "A4", "huruf": null,
+  "minggu_efektif": { "min_hari_efektif": 3 }, "cadangan_jp_per_semester": 10, "bobot_nilai_rapor": null, "batas_ketuntasan": 70 }

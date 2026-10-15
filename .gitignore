@@ -1,0 +1,20 @@
+# Dependensi dan berkas yang dibuat otomatis oleh OpenCode
+node_modules/
+.opencode/package.json
+.opencode/package-lock.json
+.opencode/bun.lock
+.opencode/.gitignore
+AsistenGuru/.opencode/package*.json
+AsistenGuru/.opencode/bun.lock
+AsistenGuru/.opencode/.gitignore
+
+# Paket hasil build (lampirkan lewat GitHub Releases)
+*.zip
+
+# Keluaran uji sementara dan log mentah
+uji-e2e/fixture/out/
+uji-e2e/**/*.jsonl
+uji-e2e/**/*.err
+uji-e2e/**/.sesi
+
+.DS_Store

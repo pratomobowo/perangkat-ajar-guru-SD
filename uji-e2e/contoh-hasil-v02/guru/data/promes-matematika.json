@@ -1,0 +1,751 @@
+{
+  "mapel": "Matematika",
+  "kode": "matematika",
+  "kelas": 4,
+  "tahun_ajaran": "2026/2027",
+  "jp_per_minggu": 5,
+  "tp": {
+    "TP1": {
+      "tujuan": "Membaca, menulis, membandingkan, dan mengurutkan bilangan cacah sampai 10.000 berdasarkan nilai tempat",
+      "materi": "Bilangan cacah sampai 10.000",
+      "semester": 1,
+      "jp": 15
+    },
+    "TP2": {
+      "tujuan": "Menentukan hasil penjumlahan dan pengurangan bilangan cacah sampai 1.000 serta menyelesaikan masalah yang berkaitan dengan uang",
+      "materi": "Penjumlahan, pengurangan, dan uang",
+      "semester": 1,
+      "jp": 15
+    },
+    "TP3": {
+      "tujuan": "Menentukan hasil perkalian dan pembagian bilangan cacah sampai 100 serta menyelesaikan masalahnya",
+      "materi": "Perkalian dan pembagian sampai 100",
+      "semester": 1,
+      "jp": 15
+    },
+    "TP4": {
+      "tujuan": "Menentukan kelipatan dan faktor suatu bilangan serta menyelesaikan masalah terkait",
+      "materi": "Kelipatan dan faktor",
+      "semester": 1,
+      "jp": 10
+    },
+    "TP5": {
+      "tujuan": "Menemukan nilai yang belum diketahui dalam kalimat matematika serta mengenali dan mengembangkan pola bilangan membesar dan mengecil",
+      "materi": "Kalimat matematika dan pola bilangan",
+      "semester": 1,
+      "jp": 10
+    },
+    "TP6": {
+      "tujuan": "Mengukur panjang dan berat dengan satuan baku serta menentukan hubungan antarsatuan baku panjang dan berat",
+      "materi": "Panjang dan berat satuan baku",
+      "semester": 1,
+      "jp": 10
+    },
+    "TP7": {
+      "tujuan": "Mendeskripsikan ciri berbagai bangun datar segiempat, segitiga, dan segi banyak",
+      "materi": "Ciri bangun datar",
+      "semester": 1,
+      "jp": 10
+    },
+    "TP8": {
+      "tujuan": "Membandingkan, mengurutkan, dan menentukan pecahan senilai",
+      "materi": "Pecahan dan pecahan senilai",
+      "semester": 2,
+      "jp": 15
+    },
+    "TP9": {
+      "tujuan": "Menghubungkan pecahan dengan desimal dan persen serta menyelesaikan masalah yang berkaitan dengan uang",
+      "materi": "Desimal, persen, dan uang",
+      "semester": 2,
+      "jp": 15
+    },
+    "TP10": {
+      "tujuan": "Mengukur dan mengestimasi luas menggunakan satuan tidak baku dan satuan baku berupa bilangan cacah",
+      "materi": "Luas",
+      "semester": 2,
+      "jp": 10
+    },
+    "TP11": {
+      "tujuan": "Mengukur dan mengestimasi volume menggunakan satuan tidak baku dan satuan baku berupa bilangan cacah",
+      "materi": "Volume",
+      "semester": 2,
+      "jp": 10
+    },
+    "TP12": {
+      "tujuan": "Menyusun dan mengurai berbagai bangun datar dengan lebih dari satu cara jika memungkinkan",
+      "materi": "Menyusun dan mengurai bangun datar",
+      "semester": 2,
+      "jp": 10
+    },
+    "TP13": {
+      "tujuan": "Mengurutkan, membandingkan, dan menyajikan data dalam tabel, diagram gambar, piktogram, dan diagram batang skala satu satuan",
+      "materi": "Penyajian data",
+      "semester": 2,
+      "jp": 15
+    },
+    "TP14": {
+      "tujuan": "Menganalisis dan menginterpretasi data dalam tabel, diagram gambar, piktogram, dan diagram batang skala satu satuan",
+      "materi": "Analisis dan interpretasi data",
+      "semester": 2,
+      "jp": 10
+    }
+  },
+  "minggu": [
+    {
+      "semester": 1,
+      "ke": 1,
+      "mulai": "2026-07-13",
+      "akhir": "2026-07-17",
+      "efektif": false,
+      "keterangan": [
+        "MPLS"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 1,
+      "ke": 2,
+      "mulai": "2026-07-20",
+      "akhir": "2026-07-24",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP1",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 3,
+      "mulai": "2026-07-27",
+      "akhir": "2026-07-31",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP1",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 4,
+      "mulai": "2026-08-03",
+      "akhir": "2026-08-07",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP1",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 5,
+      "mulai": "2026-08-10",
+      "akhir": "2026-08-14",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP2",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 6,
+      "mulai": "2026-08-17",
+      "akhir": "2026-08-21",
+      "efektif": true,
+      "keterangan": [
+        "HUT RI"
+      ],
+      "alokasi": [
+        {
+          "kode": "TP2",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 7,
+      "mulai": "2026-08-24",
+      "akhir": "2026-08-28",
+      "efektif": true,
+      "keterangan": [
+        "Maulid Nabi"
+      ],
+      "alokasi": [
+        {
+          "kode": "TP2",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 8,
+      "mulai": "2026-08-31",
+      "akhir": "2026-09-04",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP3",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 9,
+      "mulai": "2026-09-07",
+      "akhir": "2026-09-11",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP3",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 10,
+      "mulai": "2026-09-14",
+      "akhir": "2026-09-18",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP3",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 11,
+      "mulai": "2026-09-21",
+      "akhir": "2026-09-25",
+      "efektif": false,
+      "keterangan": [
+        "STS"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 1,
+      "ke": 12,
+      "mulai": "2026-09-28",
+      "akhir": "2026-10-02",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP4",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 13,
+      "mulai": "2026-10-05",
+      "akhir": "2026-10-09",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP4",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 14,
+      "mulai": "2026-10-12",
+      "akhir": "2026-10-16",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP5",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 15,
+      "mulai": "2026-10-19",
+      "akhir": "2026-10-23",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP5",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 16,
+      "mulai": "2026-10-26",
+      "akhir": "2026-10-30",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP6",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 17,
+      "mulai": "2026-11-02",
+      "akhir": "2026-11-06",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP6",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 18,
+      "mulai": "2026-11-09",
+      "akhir": "2026-11-13",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP7",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 19,
+      "mulai": "2026-11-16",
+      "akhir": "2026-11-20",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP7",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 20,
+      "mulai": "2026-11-23",
+      "akhir": "2026-11-27",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "Cadangan",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 1,
+      "ke": 21,
+      "mulai": "2026-11-30",
+      "akhir": "2026-12-04",
+      "efektif": false,
+      "keterangan": [
+        "SAS"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 1,
+      "ke": 22,
+      "mulai": "2026-12-07",
+      "akhir": "2026-12-11",
+      "efektif": false,
+      "keterangan": [
+        "Class meeting"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 1,
+      "ke": 23,
+      "mulai": "2026-12-14",
+      "akhir": "2026-12-18",
+      "efektif": true,
+      "keterangan": [
+        "Bagi rapor"
+      ],
+      "alokasi": [
+        {
+          "kode": "Cadangan",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 1,
+      "mulai": "2027-01-04",
+      "akhir": "2027-01-08",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP8",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 2,
+      "mulai": "2027-01-11",
+      "akhir": "2027-01-15",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP8",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 3,
+      "mulai": "2027-01-18",
+      "akhir": "2027-01-22",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP8",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 4,
+      "mulai": "2027-01-25",
+      "akhir": "2027-01-29",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP9",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 5,
+      "mulai": "2027-02-01",
+      "akhir": "2027-02-05",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP9",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 6,
+      "mulai": "2027-02-08",
+      "akhir": "2027-02-12",
+      "efektif": false,
+      "keterangan": [
+        "Libur awal Ramadan"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 2,
+      "ke": 7,
+      "mulai": "2027-02-15",
+      "akhir": "2027-02-19",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP9",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 8,
+      "mulai": "2027-02-22",
+      "akhir": "2027-02-26",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP10",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 9,
+      "mulai": "2027-03-01",
+      "akhir": "2027-03-05",
+      "efektif": false,
+      "keterangan": [
+        "STS"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 2,
+      "ke": 10,
+      "mulai": "2027-03-08",
+      "akhir": "2027-03-12",
+      "efektif": false,
+      "keterangan": [
+        "Libur Idul Fitri"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 2,
+      "ke": 11,
+      "mulai": "2027-03-15",
+      "akhir": "2027-03-19",
+      "efektif": false,
+      "keterangan": [
+        "Libur Idul Fitri"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 2,
+      "ke": 12,
+      "mulai": "2027-03-22",
+      "akhir": "2027-03-26",
+      "efektif": true,
+      "keterangan": [
+        "Wafat Isa Almasih"
+      ],
+      "alokasi": [
+        {
+          "kode": "TP10",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 13,
+      "mulai": "2027-03-29",
+      "akhir": "2027-04-02",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP11",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 14,
+      "mulai": "2027-04-05",
+      "akhir": "2027-04-09",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP11",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 15,
+      "mulai": "2027-04-12",
+      "akhir": "2027-04-16",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP12",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 16,
+      "mulai": "2027-04-19",
+      "akhir": "2027-04-23",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP12",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 17,
+      "mulai": "2027-04-26",
+      "akhir": "2027-04-30",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP13",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 18,
+      "mulai": "2027-05-03",
+      "akhir": "2027-05-07",
+      "efektif": true,
+      "keterangan": [
+        "Kenaikan Isa Almasih"
+      ],
+      "alokasi": [
+        {
+          "kode": "TP13",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 19,
+      "mulai": "2027-05-10",
+      "akhir": "2027-05-14",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP13",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 20,
+      "mulai": "2027-05-17",
+      "akhir": "2027-05-21",
+      "efektif": true,
+      "keterangan": [
+        "Idul Adha"
+      ],
+      "alokasi": [
+        {
+          "kode": "TP14",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 21,
+      "mulai": "2027-05-24",
+      "akhir": "2027-05-28",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "TP14",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 22,
+      "mulai": "2027-05-31",
+      "akhir": "2027-06-04",
+      "efektif": false,
+      "keterangan": [
+        "SAT"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 2,
+      "ke": 23,
+      "mulai": "2027-06-07",
+      "akhir": "2027-06-11",
+      "efektif": true,
+      "keterangan": [],
+      "alokasi": [
+        {
+          "kode": "Cadangan",
+          "jp": 5
+        }
+      ]
+    },
+    {
+      "semester": 2,
+      "ke": 24,
+      "mulai": "2027-06-14",
+      "akhir": "2027-06-18",
+      "efektif": false,
+      "keterangan": [
+        "Class meeting"
+      ],
+      "alokasi": []
+    },
+    {
+      "semester": 2,
+      "ke": 25,
+      "mulai": "2027-06-21",
+      "akhir": "2027-06-25",
+      "efektif": true,
+      "keterangan": [
+        "Bagi rapor"
+      ],
+      "alokasi": [
+        {
+          "kode": "Cadangan",
+          "jp": 5
+        }
+      ]
+    }
+  ]
+}

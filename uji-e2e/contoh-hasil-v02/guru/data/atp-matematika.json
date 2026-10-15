@@ -1,0 +1,125 @@
+{
+  "mapel": "matematika",
+  "kelas": 4,
+  "fase": "B",
+  "cadangan_jp": { "1": 10, "2": 10 },
+  "elemen_tidak_di_kelas_ini": [],
+  "catatan": [
+    "[PERLU GURU: pembagian materi kelas 3 dan 4 adalah usulan asisten karena sekolah belum punya. Usulan: kelas 3 bilangan sampai 1.000 dan operasi dasar, kelas 4 melanjutkan sampai 10.000, pecahan-desimal-persen, dan pendalaman pengukuran, geometri, dan data.]",
+    "Urutan materi terinspirasi contoh ATP berbasis CP 2022, disesuaikan ke CP sekunder 046/H/KR/2025."
+  ],
+  "tp": [
+    {
+      "kode": "TP1",
+      "semester": 1,
+      "tujuan": "Membaca, menulis, membandingkan, dan mengurutkan bilangan cacah sampai 10.000 berdasarkan nilai tempat",
+      "materi": "Bilangan cacah sampai 10.000",
+      "elemen": ["Bilangan"],
+      "jp": 15
+    },
+    {
+      "kode": "TP2",
+      "semester": 1,
+      "tujuan": "Menentukan hasil penjumlahan dan pengurangan bilangan cacah sampai 1.000 serta menyelesaikan masalah yang berkaitan dengan uang",
+      "materi": "Penjumlahan, pengurangan, dan uang",
+      "elemen": ["Bilangan"],
+      "jp": 15
+    },
+    {
+      "kode": "TP3",
+      "semester": 1,
+      "tujuan": "Menentukan hasil perkalian dan pembagian bilangan cacah sampai 100 serta menyelesaikan masalahnya",
+      "materi": "Perkalian dan pembagian sampai 100",
+      "elemen": ["Bilangan"],
+      "jp": 15
+    },
+    {
+      "kode": "TP4",
+      "semester": 1,
+      "tujuan": "Menentukan kelipatan dan faktor suatu bilangan serta menyelesaikan masalah terkait",
+      "materi": "Kelipatan dan faktor",
+      "elemen": ["Bilangan"],
+      "jp": 10
+    },
+    {
+      "kode": "TP5",
+      "semester": 1,
+      "tujuan": "Menemukan nilai yang belum diketahui dalam kalimat matematika serta mengenali dan mengembangkan pola bilangan membesar dan mengecil",
+      "materi": "Kalimat matematika dan pola bilangan",
+      "elemen": ["Aljabar"],
+      "jp": 10
+    },
+    {
+      "kode": "TP6",
+      "semester": 1,
+      "tujuan": "Mengukur panjang dan berat dengan satuan baku serta menentukan hubungan antarsatuan baku panjang dan berat",
+      "materi": "Panjang dan berat satuan baku",
+      "elemen": ["Pengukuran"],
+      "jp": 10
+    },
+    {
+      "kode": "TP7",
+      "semester": 1,
+      "tujuan": "Mendeskripsikan ciri berbagai bangun datar segiempat, segitiga, dan segi banyak",
+      "materi": "Ciri bangun datar",
+      "elemen": ["Geometri"],
+      "jp": 10
+    },
+    {
+      "kode": "TP8",
+      "semester": 2,
+      "tujuan": "Membandingkan, mengurutkan, dan menentukan pecahan senilai",
+      "materi": "Pecahan dan pecahan senilai",
+      "elemen": ["Bilangan"],
+      "jp": 15
+    },
+    {
+      "kode": "TP9",
+      "semester": 2,
+      "tujuan": "Menghubungkan pecahan dengan desimal dan persen serta menyelesaikan masalah yang berkaitan dengan uang",
+      "materi": "Desimal, persen, dan uang",
+      "elemen": ["Bilangan"],
+      "jp": 15
+    },
+    {
+      "kode": "TP10",
+      "semester": 2,
+      "tujuan": "Mengukur dan mengestimasi luas menggunakan satuan tidak baku dan satuan baku berupa bilangan cacah",
+      "materi": "Luas",
+      "elemen": ["Pengukuran"],
+      "jp": 10
+    },
+    {
+      "kode": "TP11",
+      "semester": 2,
+      "tujuan": "Mengukur dan mengestimasi volume menggunakan satuan tidak baku dan satuan baku berupa bilangan cacah",
+      "materi": "Volume",
+      "elemen": ["Pengukuran"],
+      "jp": 10
+    },
+    {
+      "kode": "TP12",
+      "semester": 2,
+      "tujuan": "Menyusun dan mengurai berbagai bangun datar dengan lebih dari satu cara jika memungkinkan",
+      "materi": "Menyusun dan mengurai bangun datar",
+      "elemen": ["Geometri"],
+      "jp": 10
+    },
+    {
+      "kode": "TP13",
+      "semester": 2,
+      "tujuan": "Mengurutkan, membandingkan, dan menyajikan data dalam tabel, diagram gambar, piktogram, dan diagram batang skala satu satuan",
+      "materi": "Penyajian data",
+      "elemen": ["Analisis Data dan Peluang"],
+      "jp": 15
+    },
+    {
+      "kode": "TP14",
+      "semester": 2,
+      "tujuan": "Menganalisis dan menginterpretasi data dalam tabel, diagram gambar, piktogram, dan diagram batang skala satu satuan",
+      "materi": "Analisis dan interpretasi data",
+      "elemen": ["Analisis Data dan Peluang"],
+      "jp": 10
+    }
+  ]
+}

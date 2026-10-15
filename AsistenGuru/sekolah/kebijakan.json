@@ -1,0 +1,19 @@
+{
+  "_petunjuk": "Diisi waka kurikulum. Nilai null berarti belum ditetapkan; asisten memakai bawaan dan menandainya [PERLU GURU].",
+  "nama_sekolah": null,
+  "alamat_sekolah": null,
+  "kota": null,
+  "kepala_sekolah": { "nama": null, "nip": null },
+  "kertas": "A4",
+  "_kertas_pilihan": "A4 atau F4",
+  "huruf": "Arial",
+  "minggu_efektif": {
+    "_petunjuk": "Satu minggu dihitung efektif jika jumlah hari belajar efektifnya minimal sekian hari.",
+    "min_hari_efektif": null
+  },
+  "cadangan_jp_per_semester": null,
+  "bobot_nilai_rapor": null,
+  "_contoh_bobot_nilai_rapor": { "formatif": 50, "sts": 25, "sas": 25 },
+  "batas_ketuntasan": null,
+  "_batas_ketuntasan_petunjuk": "Angka 0-100. Nilai di bawahnya diberi warna merah di buku nilai Excel."
+}

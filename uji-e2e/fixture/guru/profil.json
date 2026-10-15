@@ -1,0 +1,44 @@
+{
+  "nama_panggilan": "Bu Rina",
+  "sekolah": "SDIT Al Hikmah",
+  "tahun_ajaran": "2026/2027",
+  "kelas": 4,
+  "fase": "B",
+  "jumlah_siswa": 28,
+  "hari_sekolah": [
+    "senin",
+    "selasa",
+    "rabu",
+    "kamis",
+    "jumat"
+  ],
+  "mapel": [
+    {
+      "nama": "Matematika",
+      "kode": "matematika",
+      "jp_per_minggu": 5,
+      "menit_per_jp": 35
+    }
+  ],
+  "jadwal": {
+    "senin": [
+      {
+        "mapel": "Matematika",
+        "jam_ke": "1-2"
+      }
+    ],
+    "rabu": [
+      {
+        "mapel": "Matematika",
+        "jam_ke": "3-4"
+      }
+    ],
+    "jumat": [
+      {
+        "mapel": "Matematika",
+        "jam_ke": "1"
+      }
+    ]
+  },
+  "nama_lengkap": "Rina Kartika, S.Pd."
+}

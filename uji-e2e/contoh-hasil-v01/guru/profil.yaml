@@ -1,0 +1,34 @@
+# guru/profil.yaml — diisi oleh skill guru-setup. Nilai yang belum diketahui: null.
+guru:
+  nama_panggilan: Bu Rina
+tahun_ajaran: "2026/2027"
+kelas: 4
+fase: B
+mapel:
+  - nama: Matematika
+    jam_per_minggu: 5
+    durasi_jp_menit: 35
+kalender:
+  semester_1: {mulai: 2026-07-13, akhir: 2026-12-18}
+  semester_2: {mulai: 2027-01-04, akhir: 2027-06-25}
+  libur:
+    - {tanggal_mulai: 2026-08-17, tanggal_akhir: 2026-08-17, keterangan: HUT RI}
+    - {tanggal_mulai: 2026-08-25, tanggal_akhir: 2026-08-25, keterangan: Maulid Nabi}
+    - {tanggal_mulai: 2026-12-21, tanggal_akhir: 2027-01-01, keterangan: Libur semester 1}
+    - {tanggal_mulai: 2027-01-16, tanggal_akhir: 2027-01-16, keterangan: Isra Mikraj (Sabtu)}
+    - {tanggal_mulai: 2027-02-08, tanggal_akhir: 2027-02-10, keterangan: Libur awal Ramadan}
+    - {tanggal_mulai: 2027-03-08, tanggal_akhir: 2027-03-19, keterangan: Libur Idul Fitri}
+    - {tanggal_mulai: 2027-03-26, tanggal_akhir: 2027-03-26, keterangan: Wafat Isa Almasih}
+    - {tanggal_mulai: 2027-05-06, tanggal_akhir: 2027-05-06, keterangan: Kenaikan Isa Almasih}
+    - {tanggal_mulai: 2027-05-17, tanggal_akhir: 2027-05-17, keterangan: Idul Adha}
+  non_efektif:
+    - {tanggal_mulai: 2026-07-13, tanggal_akhir: 2026-07-15, keterangan: MPLS}
+    - {tanggal_mulai: 2026-09-21, tanggal_akhir: 2026-09-25, keterangan: STS semester 1}
+    - {tanggal_mulai: 2026-11-30, tanggal_akhir: 2026-12-04, keterangan: SAS semester 1}
+    - {tanggal_mulai: 2026-12-07, tanggal_akhir: 2026-12-11, keterangan: Class meeting semester 1}
+    - {tanggal_mulai: 2026-12-18, tanggal_akhir: 2026-12-18, keterangan: Bagi rapor semester 1}
+    - {tanggal_mulai: 2027-03-01, tanggal_akhir: 2027-03-05, keterangan: STS semester 2 (dimajukan dari 8-12 Maret karena libur Idul Fitri)}
+    - {tanggal_mulai: 2027-06-01, tanggal_akhir: 2027-06-05, keterangan: SAT / sumatif akhir tahun}
+    - {tanggal_mulai: 2027-06-14, tanggal_akhir: 2027-06-18, keterangan: Class meeting semester 2}
+    - {tanggal_mulai: 2027-06-25, tanggal_akhir: 2027-06-25, keterangan: Bagi rapor semester 2}
+catatan: Sekolah 5 hari Senin-Jumat
