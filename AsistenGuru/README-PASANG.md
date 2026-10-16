@@ -43,7 +43,10 @@ Guru hanya perlu aplikasi untuk membukanya (Word/Excel, WPS, LibreOffice, atau G
   Akses internet asisten hanya lewat dua alat: pembaruan (hanya GitHub repositori Asisten Guru) dan riset materi (hasilnya
   disaring ke situs tepercaya yang ditetapkan sekolah). Pencarian memakai penyedia TinyFish bawaan OpenCode, tanpa akun.
 - Asisten tidak bisa membaca atau menimpa Excel di `hasil/4 Administrasi/` (berisi nama siswa).
-- Nama siswa tidak pernah dikirim ke AI. Nama diketik guru langsung di berkas Excel.
+- Nama siswa tidak pernah dikirim ke AI. Guru menaruh ekspor Dapodik/e-Rapor atau daftar hadir lama di `guru\masukan`;
+  alat di komputer guru memindahkannya ke `hasil\4 Administrasi` (terkunci dari asisten: baca, ubah, dan grep ditolak)
+  dan mengisi nama di semua Excel administrasi. Asisten hanya menerima jumlah siswa. Dokumen Word/PDF yang memuat NISN
+  tidak ditampilkan ke asisten.
 
 ## Memperbarui paket
 - Guru cukup mengetik `/perbarui` (atau "tolong perbarui asisten") di Asisten Guru. Untuk paket versi 0.2 yang belum punya

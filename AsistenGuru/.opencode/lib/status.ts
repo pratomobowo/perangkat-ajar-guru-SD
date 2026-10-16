@@ -50,6 +50,10 @@ export async function petaPerangkat(akar: string, tanggal = hariIni()) {
   if (!adaKalender) berikut.push({ judul: "Kalender pendidikan", membuat: "data kalender untuk minggu efektif dan semua jadwal", cara: "skill guru-setup (tempel kalender sekolah atau taruh berkasnya di guru/masukan)" })
   const kop = !!kebijakan.nama_sekolah && !!kebijakan.kepala_sekolah?.nama
   baris.push(`${tanda(kop ? true : null)} Data sekolah untuk kop dan tanda tangan${kop ? "" : " (belum lengkap di sekolah/kebijakan.json; kop memakai nama sekolah di profil)"}`)
+  // Daftar Siswa: hanya keberadaan dan jumlah (nama tidak pernah dibaca di sini).
+  const adaDaftar = existsSync(join(akar, "hasil", FOLDER.administrasi, "Daftar Siswa.xlsx"))
+  baris.push(`${tanda(adaDaftar)} Daftar Siswa${adaDaftar ? ` (${profil.jumlah_siswa ?? "?"} siswa; nama terisi otomatis di Excel administrasi)` : " (nama di Excel masih harus diketik)"}`)
+  if (!adaDaftar) berikut.push({ judul: "Daftar Siswa", membuat: "satu daftar nama yang otomatis mengisi daftar hadir, buku nilai, dan penilaian kokurikuler", cara: "minta guru menaruh ekspor Dapodik, format nilai e-Rapor, atau daftar hadir lama yang berisi nama di guru/masukan, lalu baca_masukan (diproses otomatis tanpa memperlihatkan nama)" })
   if (masukan.length) baris.push(`◐ Dokumen masukan di guru/masukan: ${masukan.length} berkas (${masukan.map((f) => f.split("/").pop()).join(", ")})`)
 
   // Semester berjalan dan tanggal STS/SAS dari kalender.

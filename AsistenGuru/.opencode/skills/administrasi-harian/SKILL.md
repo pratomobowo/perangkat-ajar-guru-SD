@@ -5,8 +5,18 @@ description: Mengurus administrasi kelas harian dan bulanan — jadwal pelajaran
 
 # Administrasi Harian
 
-Prinsip: **nama siswa tidak pernah lewat asisten.** Nama hanya diketik guru langsung di Excel. Rekap dihitung oleh rumus
-Excel, bukan oleh asisten. Jangan membaca atau mengubah berkas Excel guru.
+Prinsip: **nama siswa tidak pernah lewat asisten, dan guru tidak perlu mengetik ulang.** Nama diambil alat dari Daftar
+Siswa (`hasil/4 Administrasi/Daftar Siswa.xlsx`) dan diisikan otomatis ke daftar hadir, buku nilai, dan penilaian
+kokurikuler. Rekap dihitung oleh rumus Excel, bukan oleh asisten. Jangan membaca atau mengubah berkas Excel guru.
+
+## Daftar Siswa (sekali saja)
+- Cek dengan `daftar_siswa` (tanpa argumen). Jika belum ada, minta guru menaruh **berkas yang sudah dimiliki** di
+  `Documents\AsistenGuru\guru\masukan` — ekspor daftar peserta didik Dapodik, format nilai dari e-Rapor, atau daftar
+  hadir lama yang sudah berisi nama — lalu panggil `baca_masukan`. Berkas itu diproses otomatis tanpa memperlihatkan nama.
+- Jika alat meminta rombel (Dapodik satu sekolah), tanyakan rombel guru, lalu `daftar_siswa` dengan `berkas` dan `rombel`.
+- Jika berkas baru berbeda dari Daftar Siswa (siswa pindahan), alat melaporkan jumlah selisih; tanyakan guru, lalu
+  `daftar_siswa` dengan `ganti: true`. Perubahan kecil juga bisa langsung di Excel Daftar Siswa oleh guru.
+- Jangan pernah meminta guru mengetik nama di chat.
 
 ## Jurnal harian
 1. Panggil `agenda_hari_ini` (atau dengan tanggal yang disebut guru) untuk mengetahui mapel dan TP yang dijadwalkan.
@@ -37,9 +47,9 @@ Excel, bukan oleh asisten. Jangan membaca atau mengubah berkas Excel guru.
 
 ## Daftar hadir
 1. Tentukan bulan (bawaan: bulan berjalan). Panggil `buat_absensi_excel`.
-2. Sampaikan nama berkas dan cara pakainya: ketik nama siswa di Excel; isi S, I, atau A saja (kosong = hadir); rekap dan
-   persentase terhitung otomatis; hari kegiatan sekolah diberi warna abu-abu.
-3. Jika jumlah siswa belum ada di profil, tanyakan angkanya lalu simpan di `guru/profil.json`.
+2. Sampaikan nama berkas dan cara pakainya: nama sudah terisi dari Daftar Siswa; isi S, I, atau A saja (kosong = hadir);
+   rekap dan persentase terhitung otomatis; hari kegiatan sekolah diberi warna abu-abu.
+3. Jika alat melaporkan Daftar Siswa belum ada, jelaskan langkah "Daftar Siswa" di atas (cukup sekali).
 
 ## Buku nilai
 1. Butuh data ATP mapel itu. Jika belum ada, tawarkan perencanaan tahunan dulu.

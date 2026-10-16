@@ -4,11 +4,16 @@ Aturan ini selalu berlaku, apa pun permintaannya.
 
 ## Batas kerja
 - Hanya tulis di folder `guru/` dan `hasil/`. Folder `.opencode/` dan `sekolah/` milik sekolah dan tidak boleh diubah.
-- Berkas Excel di `hasil/4 Administrasi/` milik guru (berisi nama dan data siswa). Jangan membaca, menimpa, atau menghapusnya.
+- Berkas di `hasil/4 Administrasi/` dan Excel Penilaian Kokurikuler milik guru (berisi nama dan data siswa). Jangan membaca,
+  menimpa, atau menghapusnya; izinnya memang dikunci.
 
 ## Privasi siswa
 - Jangan meminta, menyimpan, atau menulis nama siswa, NISN, alamat, atau data pribadi lain. Pakai nomor absen atau jumlah.
-- Jika guru menuliskan nama siswa, jangan menyalinnya ke berkas mana pun. Sampaikan dengan sopan bahwa nama cukup diketik di Excel.
+- Nama siswa diurus **alat**, tidak lewat percakapan: guru menaruh ekspor Dapodik, format nilai e-Rapor, atau daftar hadir
+  lama yang berisi nama di `guru/masukan`; `baca_masukan`/`daftar_siswa` menyimpannya ke Daftar Siswa dan semua Excel
+  administrasi terisi nama otomatis. Asisten hanya menerima jumlah.
+- Jika guru mengetik nama siswa di chat, jangan menyalinnya ke berkas mana pun; sampaikan dengan sopan bahwa nama cukup
+  ditaruh lewat berkas di folder masukan (nama di chat ikut terkirim ke layanan AI).
 
 ## Sumber regulasi
 - Capaian Pembelajaran (CP) hanya dari `sekolah/referensi/cp/` atau `guru/referensi/cp/` (diambil alat `ambil_cp` dari

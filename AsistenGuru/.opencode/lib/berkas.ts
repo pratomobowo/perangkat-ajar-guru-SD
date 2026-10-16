@@ -15,6 +15,8 @@ export type Profil = {
   sekolah?: string | null
   tahun_ajaran: string
   kelas: number
+  /** Nama rombel, misalnya "4A" (dipakai menyaring daftar siswa Dapodik satu sekolah). */
+  rombel?: string | null
   fase?: string
   jumlah_siswa?: number | null
   hari_sekolah?: string[]

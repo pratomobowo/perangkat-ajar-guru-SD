@@ -108,7 +108,7 @@ AsistenGuru/                 ← paket yang disalin ke komputer guru (satu folde
 │  │                         buat_absensi_excel, buat_nilai_excel, perbarui_paket, baca_buku, riset_materi,
 │  │                         unduh_buku, atur_gaya, simpan_template_word, buat_kalender_pendidikan,
 │  │                         buat_jadwal_kelas, ambil_cp, buat_penilaian_kokurikuler_excel, baca_masukan,
-│  │                         status_perangkat
+│  │                         status_perangkat, daftar_siswa
 │  ├─ lib/                   kalender, perencanaan, penulis .docx/.xlsx/.zip, pustaka, riset (tanpa dependensi)
 │  └─ vendor/pdfjs/          pdf.js (Apache-2.0) untuk membaca teks PDF buku
 ├─ sekolah/                  milik sekolah: kebijakan.json, preferensi-sekolah.md, referensi CP dan buku, template
@@ -146,6 +146,7 @@ Rincian ada di [`AsistenGuru/README-PASANG.md`](AsistenGuru/README-PASANG.md).
 | Uji | Perintah | Isi |
 |---|---|---|
 | Pustaka | `cd uji-e2e/fixture && bun uji-lib.ts` | Minggu efektif, validasi ATP, Prota/Promes, agenda, Word dan Excel |
+| Daftar siswa dan privasi | `cd uji-e2e/fixture && bun uji-siswa.ts` | Daftar siswa dikenali otomatis dari ekspor Dapodik (disaring per rombel), format e-Rapor, daftar hadir lama, dan CSV; nama terisi di absensi dan buku nilai; berkas sumber dipindah ke folder terkunci; Word berisi NISN tidak ditampilkan; **tidak ada nama siswa di jawaban alat** |
 | Masukan dan status | `cd uji-e2e/fixture && bun uji-masukan.ts` | Pembaca Word/Excel/PDF guru (tanggal Excel, format lama, foto) dan peta perangkat (langkah berikutnya, STS dekat, [PERLU GURU]) |
 | CP resmi | `cd uji-e2e/fixture && bun uji-cp.ts` | Parser CP dari PDF Keputusan BSKAP 046/H/KR/2025 (judul, elemen terpotong, butir, salah ketik kelas) |
 | Template guru | `cd uji-e2e/fixture && bun uji-template.ts` | Gaya, kerangka, Word contoh (termasuk Word berbahasa Indonesia, kop di header, hasil editan guru), kunci dan template wajib sekolah; `SOFFICE=...` membuka hasil di LibreOffice |

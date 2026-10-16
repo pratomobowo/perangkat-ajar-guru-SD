@@ -5,11 +5,18 @@ import { Gagal, jalurAman, muatDasar, tulis } from "../lib/berkas.ts"
 import { absensiXlsx, tahunUntukBulan } from "../lib/administrasi.ts"
 import { NAMA_BULAN } from "../lib/kalender.ts"
 import { FOLDER } from "../lib/dokumen.ts"
+import { pastikanDaftarSiswa } from "../lib/siswa.ts"
+
+const pesanNama = (h: { namaTerisi: number }, d: { baru?: string } | null) =>
+  h.namaTerisi
+    ? `Nama ${h.namaTerisi} siswa terisi otomatis dari Daftar Siswa${d?.baru ? ` (baru dibuat dari ${d.baru})` : ""}. Jangan menyebut atau meminta nama siswa di chat.`
+    : "Daftar Siswa belum ada, jadi kolom nama kosong. Sampaikan ke guru: taruh ekspor Dapodik, format nilai e-Rapor, atau daftar hadir lama yang sudah berisi nama di folder guru\\masukan — nama akan terisi otomatis di semua Excel berikutnya. Jangan meminta guru mengetik nama di chat."
+
 
 export default alat<{ bulan: number; tahun?: number }>({
   nama: "buat_absensi_excel",
   deskripsi:
-    "Membuat berkas Excel daftar hadir satu bulan: kolom tanggal hanya hari sekolah (libur dilewati, hari kegiatan diberi warna abu-abu), rumus rekap S/I/A/H dan persentase kehadiran otomatis. Nama siswa dikosongkan untuk diketik guru sendiri. Tidak pernah menimpa berkas yang sudah ada.",
+    "Membuat berkas Excel daftar hadir satu bulan: kolom tanggal hanya hari sekolah (libur dilewati, hari kegiatan diberi warna abu-abu), rumus rekap S/I/A/H dan persentase kehadiran otomatis. Nama siswa diisi otomatis oleh alat dari Daftar Siswa (asisten tidak melihat nama). Tidak pernah menimpa berkas yang sudah ada.",
   masukan: {
     type: "object",
     properties: {
@@ -24,15 +31,17 @@ export default alat<{ bulan: number; tahun?: number }>({
     if (!Number.isInteger(bulan) || bulan < 1 || bulan > 12) throw new Gagal("Bulan harus angka 1 sampai 12.")
     const { profil, kalender, kebijakan } = await muatDasar(akar)
     const tahun = args.tahun ?? tahunUntukBulan(kalender, bulan)
-    const h = absensiXlsx(profil, kalender, kebijakan, tahun, bulan)
+    const d = await pastikanDaftarSiswa(akar)
+    const h = absensiXlsx(profil, kalender, kebijakan, tahun, bulan, d?.siswa)
     const dasar = `hasil/${FOLDER.administrasi}/Daftar Hadir Kelas ${profil.kelas} ${tahun}-${String(bulan).padStart(2, "0")} ${NAMA_BULAN[bulan]}`
     let rel = `${dasar}.xlsx`
     for (let i = 2; existsSync(join(akar, jalurAman(rel))); i++) rel = `${dasar} (${i}).xlsx`
     rel = await tulis(akar, rel, h.data)
     return [
       `Selesai: ${rel} — ${NAMA_BULAN[bulan]} ${tahun}, ${h.hari} hari sekolah, ${h.siswa} baris siswa.`,
-      h.perkiraanSiswa ? "Jumlah siswa belum ada di profil, jadi dibuat 30 baris. Tanyakan jumlah siswa dan simpan di guru/profil.json." : "",
-      "Sampaikan ke guru: ketik nama siswa langsung di Excel, isi S/I/A saja (kosong = hadir), rekap terhitung otomatis.",
+      pesanNama(h, d),
+      h.perkiraanSiswa ? "Jumlah siswa belum diketahui, jadi dibuat 30 baris." : "",
+      "Sampaikan ke guru: isi S/I/A saja (kosong = hadir), rekap terhitung otomatis.",
     ]
       .filter(Boolean)
       .join("\n")

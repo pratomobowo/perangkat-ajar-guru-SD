@@ -66,8 +66,8 @@ function tanggalExcel(n: number): string {
 
 const kolomKeIndeks = (c: string) => [...c].reduce((a, ch) => a * 26 + ch.charCodeAt(0) - 64, 0) - 1
 
-/** Excel (.xlsx) → Markdown: satu tabel per lembar. Tanggal (format tanggal) diubah menjadi YYYY-MM-DD. */
-export function xlsxKeMarkdown(data: Uint8Array, maksBaris = 300, maksKolom = 30): string {
+/** Excel (.xlsx) → tabel mentah per lembar (nilai sel sebagai teks; tanggal berformat tanggal menjadi YYYY-MM-DD). */
+export function bacaTabelXlsx(data: Uint8Array, maksBaris = 300, maksKolom = 30): { nama: string; sel: string[][] }[] {
   const isi = bacaZip(data)
   const t = (n: string) => (isi.has(n) ? dec.decode(isi.get(n)!) : "")
   const wb = t("xl/workbook.xml")
@@ -84,9 +84,9 @@ export function xlsxKeMarkdown(data: Uint8Array, maksBaris = 300, maksKolom = 30
     return !!f && /[dy]/i.test(f.replace(/\[[^\]]*\]|"[^"]*"/g, ""))
   })
   const rels = t("xl/_rels/workbook.xml.rels")
-  const out: string[] = []
+  const out: { nama: string; sel: string[][] }[] = []
   for (const s of wb.matchAll(/<sheet\b[^>]*>/g)) {
-    const namaLembar = entitas(s[0].match(/name="([^"]*)"/)?.[1] ?? "Lembar")
+    const nama = entitas(s[0].match(/name="([^"]*)"/)?.[1] ?? "Lembar")
     const rid = s[0].match(/r:id="([^"]*)"/)?.[1]
     const target = rels.match(new RegExp(`<Relationship[^>]*Id="${rid}"[^>]*>`))?.[0]?.match(/Target="([^"]*)"/)?.[1]
     if (!target) continue
@@ -105,12 +105,21 @@ export function xlsxKeMarkdown(data: Uint8Array, maksBaris = 300, maksKolom = 30
       if (jenis === "s" && v !== undefined) nilai = shared[Number(v)] ?? ""
       else if (jenis === "inlineStr") nilai = entitas([...dalam.matchAll(/<t(?:\s[^>]*)?>([^<]*)<\/t>/g)].map((x) => x[1]).join(""))
       else if (v !== undefined) nilai = gayaTanggal[gaya] && /^\d+(\.\d+)?$/.test(v) ? tanggalExcel(Number(v)) : entitas(v)
-      ;(sel[r] ??= [])[k] = nilai.replace(/\|/g, "\\|").replace(/\n/g, "<br>")
+      ;(sel[r] ??= [])[k] = nilai
     }
-    const baris = sel.map((b) => b ?? []).filter((b) => b.some((x) => x && x.trim()))
+    out.push({ nama, sel: Array.from({ length: sel.length }, (_, i) => sel[i] ?? []) })
+  }
+  return out
+}
+
+/** Excel (.xlsx) → Markdown: satu tabel per lembar. Tanggal (format tanggal) diubah menjadi YYYY-MM-DD. */
+export function xlsxKeMarkdown(data: Uint8Array, maksBaris = 300, maksKolom = 30): string {
+  const out: string[] = []
+  for (const { nama, sel } of bacaTabelXlsx(data, maksBaris, maksKolom)) {
+    const baris = sel.map((b) => Array.from({ length: b.length }, (_, k) => (b[k] ?? "").replace(/\|/g, "\\|").replace(/\n/g, "<br>"))).filter((b) => b.some((x) => x && x.trim()))
     if (!baris.length) continue
     const n = Math.max(...baris.map((b) => b.length))
-    out.push(`## Lembar: ${namaLembar}`, "", `| ${Array.from({ length: n }, (_, i) => baris[0][i] ?? "").join(" | ")} |`, `|${Array.from({ length: n }, () => "---").join("|")}|`)
+    out.push(`## Lembar: ${nama}`, "", `| ${Array.from({ length: n }, (_, i) => baris[0][i] ?? "").join(" | ")} |`, `|${Array.from({ length: n }, () => "---").join("|")}|`)
     for (const b of baris.slice(1)) out.push(`| ${Array.from({ length: n }, (_, i) => b[i] ?? "").join(" | ")} |`)
     out.push("")
   }

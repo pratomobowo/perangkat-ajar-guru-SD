@@ -31,12 +31,32 @@
     },
     {
       "action": "edit",
-      "resource": "hasil/4 Administrasi/*.xlsx",
+      "resource": "hasil/4 Administrasi/*",
       "effect": "deny"
     },
     {
       "action": "read",
-      "resource": "hasil/4 Administrasi/*.xlsx",
+      "resource": "hasil/4 Administrasi/*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "hasil/5 Kokurikuler/Penilaian Kokurikuler*",
+      "effect": "deny"
+    },
+    {
+      "action": "edit",
+      "resource": "hasil/5 Kokurikuler/Penilaian Kokurikuler*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "guru/masukan/*",
+      "effect": "deny"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
       "effect": "deny"
     },
     {

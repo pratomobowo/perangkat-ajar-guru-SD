@@ -30,6 +30,7 @@ Panggil `status_perangkat`. Sampaikan ringkas (≤ 6 baris): yang sudah ada, yan
    | Kalender pendidikan | `guru/kalender.json` (format di skill guru-setup); lalu `hitung_minggu_efektif` |
    | Jadwal pelajaran | `guru/jadwal-kelas.json` dan `jadwal` di `guru/profil.json`; lalu `buat_jadwal_kelas` |
    | Data guru/SK pembagian tugas | `guru/profil.json` (kelas, mapel, JP) — tanpa data murid |
+   | Daftar siswa (Dapodik, format e-Rapor, daftar hadir lama) | otomatis oleh `baca_masukan` → Daftar Siswa (isi tidak ditampilkan); bila diminta rombel, tanyakan lalu `daftar_siswa` |
    | CP | Jika dokumen resmi Keputusan BSKAP 046/H/KR/2025 → `ambil_cp`. Jika dokumen CP sekolah → salin **kata per kata** ke `guru/referensi/cp/<kode>-fase-<fase>.md` dengan frontmatter seperti hasil `ambil_cp` (`elemen` persis, `sumber: Dokumen sekolah <nama berkas>`, `status: DARI-SEKOLAH`). Jika teksnya memakai "peserta didik"/"Profil Pelajar Pancasila", beri tahu bahwa itu kemungkinan CP versi lama dan tawarkan `ambil_cp` (CP 2025). |
    | ATP/TP dari sekolah | dasar untuk `guru/data/atp-<mapel>.json` (skill perencanaan-tahunan) |
    | KKTP sekolah | `guru/data/kktp-<mapel>.json` (format di skill asesmen) |

@@ -2,6 +2,7 @@
 // dimensi/subdimensi profil lulusan, lalu daftar dimensi yang menguat/perlu penguatan dan draf deskripsi rapor.
 // Rapor kokurikuler berupa deskripsi tanpa angka (Panduan Kokurikuler hlm. 56; Panduan Pembelajaran dan Asesmen).
 
+import type { Siswa } from "./siswa.ts"
 import { ISI, kopExcel, ttdExcel } from "./administrasi.ts"
 import { type Kebijakan, type Profil, Gagal } from "./berkas.ts"
 import { G, type Lembar, type Sel, buatXlsx, kolom } from "./xlsx.ts"
@@ -49,11 +50,11 @@ export function periksaKokurikuler(k: Kokurikuler): string[] {
 
 const kutip = (s: string) => s.replace(/"/g, '""')
 
-export function penilaianKokurikulerXlsx(profil: Profil, kebijakan: Kebijakan, k: Kokurikuler) {
+export function penilaianKokurikulerXlsx(profil: Profil, kebijakan: Kebijakan, k: Kokurikuler, siswa?: Siswa[] | null) {
   const salah = periksaKokurikuler(k)
   if (salah.length) throw new Gagal(`Data kokurikuler belum lengkap: ${salah.join("; ")}.`)
   const skala = SKALA[k.skala ?? "SB/B/C/K"]
-  const n = profil.jumlah_siswa ?? 30
+  const n = siswa?.length || (profil.jumlah_siswa ?? 30)
   const nD = k.dimensi.length
   const kD = 2
   const kCat = kD + nD
@@ -94,7 +95,7 @@ export function penilaianKokurikulerXlsx(profil: Profil, kebijakan: Kebijakan, k
     const kuat = `${kolom(kKuat)}${r}`
     const perlu = `${kolom(kPerlu)}${r}`
     baris.push([
-      { v: i + 1, s: G.tengah }, { v: "", s: G.selInput }, ...ISI(nD, G.tengahInput), { v: "", s: G.selInput },
+      { v: i + 1, s: G.tengah }, { v: siswa?.[i]?.nama ?? "", s: G.selInput }, ...ISI(nD, G.tengahInput), { v: "", s: G.selInput },
       { f: daftar(r, true), s: G.sel },
       { f: daftar(r, false), s: G.sel },
       {
@@ -140,5 +141,5 @@ export function penilaianKokurikulerXlsx(profil: Profil, kebijakan: Kebijakan, k
     lebar: [36, 40, 60],
     cetak: { kertas: kebijakan.kertas === "F4" ? "F4" : "A4" },
   }
-  return { data: buatXlsx([lembar, ket]), dimensi: nD, siswa: n, perkiraanSiswa: profil.jumlah_siswa == null }
+  return { data: buatXlsx([lembar, ket]), dimensi: nD, siswa: n, perkiraanSiswa: !siswa?.length && profil.jumlah_siswa == null, namaTerisi: siswa?.length ?? 0 }
 }

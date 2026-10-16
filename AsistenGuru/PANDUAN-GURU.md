@@ -5,7 +5,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 
 | Ketik | Untuk |
 |---|---|
-| `/siapkan` | Taruh dokumen sekolah (CP, kalender, jadwal, contoh RPP, KKTP) di folder `guru\masukan`, lalu semua perangkat disiapkan bertahap; bilang "jalankan semua" agar otomatis |
+| `/siapkan` | Taruh dokumen sekolah (CP, kalender, jadwal, contoh RPP, KKTP, daftar siswa dari Dapodik/e-Rapor) di folder `guru\masukan`, lalu semua perangkat disiapkan bertahap; bilang "jalankan semua" agar otomatis |
 | `/status` | Melihat perangkat yang sudah dan belum ada, serta langkah berikutnya |
 | `/mulai` | Menyiapkan profil, jadwal, dan kalender (sekali di awal tahun) |
 | `/hari-ini` | Melihat agenda hari ini, rencana minggu ini, dan pengingat |
@@ -17,7 +17,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | "carikan materi pecahan senilai" | Mencari isi materi di buku resmi dan situs tepercaya, lengkap dengan sumbernya |
 | `/soal sumatif bab pecahan` | Membuat KKTP, kisi-kisi, soal, dan kunci |
 | `/jurnal tadi mengajar TP3, 2 anak sakit` | Mencatat jurnal mengajar |
-| `/absen oktober` | Membuat Excel daftar hadir |
+| `/absen oktober` | Membuat Excel daftar hadir (nama siswa terisi otomatis) |
 | `/nilai matematika 1` | Membuat Excel buku nilai semester 1 |
 | `/ingat` | Melihat aturan yang diingat asisten |
 | `/format` | Mengatur format Word Anda (huruf, margin, kop, atau pakai Word Anda sendiri sebagai contoh) |
@@ -32,7 +32,10 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 - Materi diambil dari buku resmi di pustaka. Ketik `/buku` sekali di awal tahun supaya asisten mengunduh buku paket Anda.
   Sumber selalu dicantumkan di dokumen.
 - Di Excel, isi sel kuning saja. Rumus dikunci agar tidak terhapus.
-- **Jangan mengetik nama siswa ke asisten.** Ketik nama langsung di berkas Excel.
+- **Jangan mengetik nama siswa ke asisten.** Cukup taruh sekali ekspor daftar siswa dari Dapodik, format nilai e-Rapor,
+  atau daftar hadir lama yang sudah berisi nama di folder `guru\masukan`. Nama lalu terisi otomatis di semua daftar hadir,
+  buku nilai, dan penilaian kokurikuler, tanpa dibaca asisten. Siswa pindahan: ubah langsung di
+  `hasil\4 Administrasi\Daftar Siswa.xlsx`, atau taruh daftar baru di folder masukan.
 - Ingin format Word sesuai selera? Katakan saja, misalnya "hurufnya Times New Roman 12", "LKPD tanpa kop", atau edit Word
   hasil asisten di Word lalu katakan "pakai yang ini sebagai contoh LKPD". Format itu dipakai untuk dokumen berikutnya.
 - Ingin asisten selalu melakukan sesuatu? Katakan "mulai sekarang selalu ...", maka asisten akan mengingatnya.

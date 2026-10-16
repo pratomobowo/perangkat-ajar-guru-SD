@@ -1,9 +1,18 @@
 # Versi Paket
 
-**Versi:** 0.9.2
+**Versi:** 0.10.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.10.0 — **Daftar Siswa otomatis**: guru cukup menaruh berkas yang sudah ada (ekspor daftar peserta didik Dapodik,
+  format nilai e-Rapor, daftar hadir lama yang berisi nama, atau CSV) di `guru/masukan`. Alat mengenalinya, menyaring
+  rombel kelas guru, menyimpannya sebagai `hasil/4 Administrasi/Daftar Siswa.xlsx`, dan memindahkan berkas sumber ke
+  folder yang terkunci dari asisten. Daftar hadir, buku nilai, dan penilaian kokurikuler kini terisi nama otomatis — tidak
+  perlu mengetik ulang tiap bulan. Bila Daftar Siswa belum ada, dibuat otomatis dari Excel administrasi lama yang sudah
+  berisi nama. Alat baru `daftar_siswa` (ringkasan jumlah, impor, ganti untuk siswa pindahan). Privasi diperketat: nama
+  tidak pernah muncul di jawaban alat; asisten tidak bisa membaca berkas di folder administrasi, Excel penilaian
+  kokurikuler, dan isi `guru/masukan` secara langsung (hanya lewat alat), dan pencarian isi berkas (grep) dimatikan;
+  Word/PDF yang memuat NISN tidak ditampilkan.
 - 0.9.2 — Media ajar interaktif HTML (0.9.0–0.9.1) ditiadakan; isi paket kembali sama dengan 0.8.0. Media tetap bisa
   dibuat sebagai kartu Word (blok `kartu` di `Media.md`).
 - 0.8.0 — **Siapkan semua** (`/siapkan`, `/status`): guru menaruh dokumen sekolah (PDF teks, Word, Excel) di `guru/masukan`;

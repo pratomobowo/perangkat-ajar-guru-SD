@@ -1,9 +1,11 @@
 // Agenda harian dan berkas Excel administrasi (daftar hadir, buku nilai).
-// Nama siswa TIDAK pernah diisi asisten: kolom nama dikosongkan untuk diketik guru di Excel.
+// Nama siswa TIDAK pernah lewat asisten: alat mengisinya dari Daftar Siswa (lib/siswa.ts) di komputer guru, atau
+// kolom nama dikosongkan untuk diketik guru bila daftar belum ada.
 
 import type { ATP, Kalender, Kebijakan, Profil } from "./berkas.ts"
 import { Gagal } from "./berkas.ts"
 import { NAMA_BULAN, NAMA_HARI, fmt, hariSekolah, statusTanggal, tambah, tgl, tglIndo } from "./kalender.ts"
+import type { Siswa } from "./siswa.ts"
 import { DXF, G, type Lembar, type Sel, buatXlsx, kolom } from "./xlsx.ts"
 
 type PromesJson = {
@@ -164,10 +166,10 @@ export function ttdExcel(
 
 // ---------- Daftar hadir ----------
 
-export function absensiXlsx(profil: Profil, kal: Kalender, kebijakan: Kebijakan, tahun: number, bulan: number) {
+export function absensiXlsx(profil: Profil, kal: Kalender, kebijakan: Kebijakan, tahun: number, bulan: number, siswa?: Siswa[] | null) {
   const hari = hariBelajarBulan(profil, kal, tahun, bulan)
   if (!hari.length) throw new Gagal(`Tidak ada hari sekolah pada ${NAMA_BULAN[bulan]} ${tahun} menurut kalender.`)
-  const n = profil.jumlah_siswa ?? 30
+  const n = siswa?.length || (profil.jumlah_siswa ?? 30)
   const nH = hari.length
   const kT = 2 // kolom tanggal pertama (C)
   const kR = kT + nH // kolom rekap pertama
@@ -190,7 +192,7 @@ export function absensiXlsx(profil: Profil, kal: Kalender, kebijakan: Kebijakan,
   const rng = (r: number) => `${kolom(kT)}${r}:${kolom(kR - 1)}${r}`
   for (let i = 0; i < n; i++) {
     const r = awal + i
-    const row: Sel[] = [{ v: i + 1, s: G.tengah }, { v: "", s: G.selInput }]
+    const row: Sel[] = [{ v: i + 1, s: G.tengah }, { v: siswa?.[i]?.nama ?? "", s: G.selInput }]
     hari.forEach((d) => row.push({ v: "", s: statusTanggal(d, kal).jenis ? G.libur : G.tengahInput }))
     const S = `${kolom(kR)}${r}`, I = `${kolom(kR + 1)}${r}`, A = `${kolom(kR + 2)}${r}`, Hh = `${kolom(kR + 3)}${r}`
     row.push(
@@ -211,7 +213,7 @@ export function absensiXlsx(profil: Profil, kal: Kalender, kebijakan: Kebijakan,
   const kegiatan = hari.filter((d) => statusTanggal(d, kal).jenis).map((d) => `${d.getUTCDate()} (${statusTanggal(d, kal).nama.join(", ")})`)
   baris.push([])
   baris.push([{ v: `Keterangan: S = sakit, I = izin, A = alpa. Sel kosong = hadir. Jumlah hari sekolah bulan ini: ${nH}.${kegiatan.length ? ` Kolom abu-abu = kegiatan sekolah: ${kegiatan.join("; ")}.` : ""}`, s: G.catatan }])
-  baris.push([{ v: "Rumus terkunci agar tidak terhapus (tanpa kata sandi: Tinjau > Buka Proteksi Lembar). Ketik nama siswa langsung di berkas ini.", s: G.catatan }])
+  baris.push([{ v: `Rumus terkunci agar tidak terhapus (tanpa kata sandi: Tinjau > Buka Proteksi Lembar). ${siswa?.length ? "Nama siswa diambil dari Daftar Siswa." : "Ketik nama siswa langsung di berkas ini."}`, s: G.catatan }])
   const tglAkhir = hari[hari.length - 1]
   ttdExcel(baris, gabung, [1, 1], [kR, kR + 4], kebijakan, profil, `${tglAkhir.getUTCDate()} ${NAMA_BULAN[bulan]} ${tahun}`)
 
@@ -228,7 +230,7 @@ export function absensiXlsx(profil: Profil, kal: Kalender, kebijakan: Kebijakan,
     cetak: { kertas: kebijakan.kertas === "F4" ? "F4" : "A4", judulBaris: [H1, H1 + 2] },
     tinggi: { 2: 22 },
   }
-  return { data: buatXlsx([lembar]), hari: nH, siswa: n, perkiraanSiswa: profil.jumlah_siswa == null }
+  return { data: buatXlsx([lembar]), hari: nH, siswa: n, perkiraanSiswa: !siswa?.length && profil.jumlah_siswa == null, namaTerisi: siswa?.length ?? 0 }
 }
 
 // ---------- Buku nilai ----------
@@ -236,12 +238,12 @@ export function absensiXlsx(profil: Profil, kal: Kalender, kebijakan: Kebijakan,
 /** Data KKTP per TP (ditulis skill asesmen di guru/data/kktp-<mapel>.json). */
 export type KKTP = { mapel?: string; tp: Record<string, { batas?: number; kriteria?: string }> }
 
-export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelNama: string, semester: number, kktp?: KKTP | null) {
+export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelNama: string, semester: number, kktp?: KKTP | null, siswa?: Siswa[] | null) {
   const tp = atp.tp.filter((t) => t.semester === semester)
   if (!tp.length) throw new Gagal(`Tidak ada TP untuk semester ${semester} di data ATP.`)
   const bobot = kebijakan.bobot_nilai_rapor ?? { formatif: 50, sts: 25, sas: 25 }
   const bobotSekolah = !!kebijakan.bobot_nilai_rapor
-  const n = profil.jumlah_siswa ?? 30
+  const n = siswa?.length || (profil.jumlah_siswa ?? 30)
   const nT = tp.length
   const kT = 2
   const kRata = kT + nT
@@ -284,7 +286,7 @@ export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelN
     const r = awal + i
     const rata = `${kolom(kRata)}${r}`, sts = `${kolom(kRata + 1)}${r}`, sas = `${kolom(kRata + 2)}${r}`
     baris.push([
-      { v: i + 1, s: G.tengah }, { v: "", s: G.selInput }, ...ISI(nT, G.isian),
+      { v: i + 1, s: G.tengah }, { v: siswa?.[i]?.nama ?? "", s: G.selInput }, ...ISI(nT, G.isian),
       { f: `IF(COUNT(${tpR(r)})=0,"",ROUND(AVERAGE(${tpR(r)}),0))`, s: G.tengah },
       { v: "", s: G.isian }, { v: "", s: G.isian },
       { f: `IF(OR(${rata}="",${sts}="",${sas}=""),"",ROUND((${rata}*${BF}+${sts}*${BS}+${sas}*${BA})/(${BF}+${BS}+${BA}),0))`, s: G.tengahTebal },
@@ -349,5 +351,5 @@ export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelN
     lebar: [8, 60, 6, 9, 60],
     cetak: { kertas: kebijakan.kertas === "F4" ? "F4" : "A4" },
   }
-  return { data: buatXlsx([lembar, ket]), tp: nT, siswa: n, perkiraanSiswa: profil.jumlah_siswa == null, bobotSekolah, kktpTp: tp.filter((t) => typeof kktp?.tp?.[t.kode]?.batas === "number").length }
+  return { data: buatXlsx([lembar, ket]), tp: nT, siswa: n, perkiraanSiswa: !siswa?.length && profil.jumlah_siswa == null, namaTerisi: siswa?.length ?? 0, bobotSekolah, kktpTp: tp.filter((t) => typeof kktp?.tp?.[t.kode]?.batas === "number").length }
 }
