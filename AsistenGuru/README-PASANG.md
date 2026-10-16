@@ -10,6 +10,10 @@ pembuat Word/Excel memakai sistem plugin OpenCode 2.
    `[ISI]` di `sekolah/preferensi-sekolah.md`.
    Boleh diedit dengan Notepad. Pastikan tanda kutip dan koma JSON tetap utuh.
 3. Taruh contoh format sekolah di `sekolah/template/` jika ada.
+4. Taruh PDF buku teks resmi (Buku Siswa dan Buku Guru) di `sekolah/referensi/buku/` (lihat README di folder itu).
+   Asisten memakainya sebagai sumber utama materi dan mencantumkan halamannya.
+5. Riset web: bawaan hanya memakai situs resmi dan tepercaya. Ubah daftarnya di `riset.domain_tepercaya` pada
+   `sekolah/kebijakan.json`, atau matikan dengan `"web": false`.
 
 ## Di komputer guru (Windows)
 Cara termudah: buka OpenCode, tempel link https://github.com/pratomobowo/perangkat-ajar-guru-SD lalu ketik
@@ -31,7 +35,8 @@ Guru hanya perlu aplikasi untuk membukanya (Word/Excel, WPS, LibreOffice, atau G
 
 ## Keamanan bawaan
 - Asisten hanya bisa menulis di `guru/` dan `hasil/`. Perintah terminal, akses internet, subagent, dan berbagi sesi dimatikan.
-  Satu-satunya akses internet milik asisten adalah alat pembaruan, yang hanya menghubungi GitHub repositori Asisten Guru.
+  Akses internet asisten hanya lewat dua alat: pembaruan (hanya GitHub repositori Asisten Guru) dan riset materi (hasilnya
+  disaring ke situs tepercaya yang ditetapkan sekolah). Pencarian memakai penyedia TinyFish bawaan OpenCode, tanpa akun.
 - Asisten tidak bisa membaca atau menimpa Excel di `hasil/4 Administrasi/` (berisi nama siswa).
 - Nama siswa tidak pernah dikirim ke AI. Nama diketik guru langsung di berkas Excel.
 

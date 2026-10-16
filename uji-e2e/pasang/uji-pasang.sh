@@ -6,10 +6,11 @@ set -u
 DIR=$(cd "$(dirname "$0")" && pwd); REPO=$(cd "$DIR/../.." && pwd)
 KERJA=$(mktemp -d); trap 'rm -rf "$KERJA"' EXIT
 PWSH=${PWSH:-$(command -v pwsh || true)}
+VERSI=$(sed -n 's/.*"versi": *"\([^"]*\)".*/\1/p' "$REPO/AsistenGuru/.opencode/paket.json")
 
 # Arsip seperti yang dibuat GitHub untuk tag (git archive memakai .gitattributes export-ignore).
 git -C "$REPO" add -A
-git -C "$REPO" archive --format=zip --prefix=perangkat-ajar-guru-SD-0.3.0/ -o "$KERJA/baru.zip" "$(git -C "$REPO" write-tree)"
+git -C "$REPO" archive --format=zip --prefix=perangkat-ajar-guru-SD-$VERSI/ -o "$KERJA/baru.zip" "$(git -C "$REPO" write-tree)"
 git -C "$REPO" archive --format=zip --prefix=perangkat-ajar-guru-SD-0.2.0/ -o "$KERJA/v02.zip" 88cf711
 
 GAGAL=0
@@ -32,10 +33,10 @@ for P in ts sh ps1; do
   T=$KERJA/$P-baru
   pasang $P "$KERJA/baru.zip" "$T"; echo "     (exit $?)"
   cek "pasang baru: plugin dan alat ada" "[[ -f '$T/.opencode/plugins/asisten-guru.ts' && -f '$T/.opencode/alat/perbarui_paket.ts' ]]"
-  cek "pasang baru: versi 0.3.0" "grep -q '\"versi\": \"0.3.0\"' '$T/.opencode/paket.json'"
+  cek "pasang baru: versi $VERSI" "grep -q '\"versi\": \"$VERSI\"' '$T/.opencode/paket.json'"
   cek "pasang baru: folder guru, hasil, sekolah" "[[ -d '$T/guru' && -d '$T/hasil' && -f '$T/sekolah/kebijakan.json' ]]"
   cek "pasang baru: tanpa cadangan" "[[ ! -d '$T/.cadangan' ]]"
-  [[ $P != ts ]] && cek "pasang baru: penanda selesai untuk AI" "grep -q 'ASISTEN_GURU_SELESAI versi=0.3.0' '$KERJA/log'"
+  [[ $P != ts ]] && cek "pasang baru: penanda selesai untuk AI" "grep -q 'ASISTEN_GURU_SELESAI versi=$VERSI' '$KERJA/log'"
 
   U=$KERJA/$P-update
   pasang sh "$KERJA/v02.zip" "$U" # instalasi lama v0.2
@@ -55,7 +56,7 @@ for P in ts sh ps1; do
   cek "perbarui: cadangan berisi alat lama" "ls '$U'/.cadangan/*/.opencode/tools/ekspor_word.ts > /dev/null 2>&1"
   cek "perbarui: cadangan bukan data guru" "! ls '$U'/.cadangan/*/guru > /dev/null 2>&1"
   for i in 1 2 3 4; do sleep 1; pasang $P "$KERJA/baru.zip" "$U"; done
-  cek "pasang ulang: tetap 0.3.0 dan lengkap" "grep -q '0.3.0' '$U/.opencode/paket.json' && [[ -f '$U/.opencode/alat/ekspor_word.ts' ]]"
+  cek "pasang ulang: tetap $VERSI dan lengkap" "grep -q '$VERSI' '$U/.opencode/paket.json' && [[ -f '$U/.opencode/alat/ekspor_word.ts' ]]"
   cek "pasang ulang: cadangan paling banyak 3" "[[ \$(ls -1 '$U/.cadangan' | wc -l) -le 3 ]]"
   cek "pasang ulang: tidak ada berkas berlebih di .opencode" "diff <(cd '$T/.opencode' && find . -type f | sort) <(cd '$U/.opencode' && find . -type f ! -path './node_modules/*' ! -name package.json | sort) > /dev/null"
 done

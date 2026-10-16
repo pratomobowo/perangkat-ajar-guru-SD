@@ -1,0 +1,44 @@
+---
+name: riset-materi
+description: Meriset isi materi pelajaran dari sumber tepercaya sebelum menulis modul, LKPD, bahan bacaan, atau soal — buku resmi di pustaka (baca_buku) lalu situs tepercaya (riset_materi) — dan mencantumkan sumbernya. Gunakan saat guru meminta "cari materi", "riset", "referensi", "sumber", "buku paket", "buku siswa/buku guru halaman berapa", "apa kata buku tentang ...", "materi terbaru", "data terbaru", atau ketika skill modul-ajar/asesmen membutuhkan isi materi. Juga untuk menyimpan PDF buku resmi ke pustaka guru.
+---
+
+# Riset Materi
+
+Tujuan: isi materi mengikuti **buku resmi** dan **sumber tepercaya**, bukan ingatan model, dan guru bisa mengecek asalnya.
+CP tetap hanya dari `sekolah/referensi/cp/` (bukan dari riset).
+
+## Urutan sumber
+1. **Pustaka buku** (`baca_buku`). Selalu coba dulu.
+   - `baca_buku` dengan `cari: "<topik>"` → pilih 1–3 halaman teratas yang memang membahas topik (bukan daftar isi),
+     lalu baca lengkap dengan `buku` + `halaman` (boleh rentang, misalnya "78-81").
+   - Ikuti istilah, urutan konsep, contoh, dan tingkat kesulitan buku sesuai kelas guru.
+2. **Situs tepercaya** (`riset_materi`). Jika pustaka kosong, topik tidak ada di buku, atau butuh data/peristiwa terbaru.
+   - Pertanyaan berisi topik dan jenjang, misalnya "siklus air kelas 5 SD". **Jangan** memasukkan nama murid, nama sekolah,
+     atau data pribadi.
+   - Alat hanya mengembalikan situs yang ditetapkan sekolah. Jangan mencari dengan cara lain.
+   - Jika hasilnya PDF buku resmi yang berguna, tawarkan ke guru untuk disimpan (`riset_materi` dengan `simpan_pdf`), supaya
+     berikutnya bisa dibaca lewat `baca_buku`.
+3. **Pengetahuan umum model**: hanya jika 1 dan 2 tidak menghasilkan apa pun. Tandai bagian itu
+   `[PERLU GURU: cek kebenaran, belum ada sumber]`.
+
+## Menulis dari sumber
+- Tulis ulang dengan bahasa sesuai usia murid. Jangan menyalin paragraf panjang. Gambar di buku tidak terbaca; jika kegiatan
+  di buku bergantung pada gambar, jelaskan dengan kata-kata atau sebut "lihat gambar di buku halaman ...".
+- Angka, definisi, dan fakta harus sama dengan sumber. Jika sumber saling berbeda, pakai buku resmi dan sebutkan bedanya ke guru.
+- Untuk topik agama (dalil, ayat, hadis) tetap ikuti AGENTS.md: hanya dari guru, selain itu `[PERLU DIVERIFIKASI guru agama]`.
+
+## Bagian Sumber (wajib di modul, RPM, bahan bacaan, dan kunci jawaban)
+Tambahkan di akhir dokumen guru (bukan di lembar murid):
+```
+## Sumber
+- Buku Siswa Matematika untuk SD/MI Kelas IV, halaman 66–69 (PDF 78–81).
+- Ruang GTK Kemendikdasmen, "Judul Halaman", https://guru.kemendikdasmen.go.id/...
+```
+Gunakan nomor halaman cetak bila alat menyebutkannya; selain itu tulis "halaman PDF n".
+
+## Jika guru bertanya langsung
+- "Materi X ada di buku halaman berapa?" → `baca_buku` dengan `cari`, jawab buku dan halamannya.
+- "Tolong carikan materi X" → ringkas temuan dalam ≤ 6 baris beserta sumbernya, lalu tawarkan dibuatkan bahan ajar/LKPD.
+- Pustaka kosong → jelaskan satu kalimat: buku resmi bisa diunduh gratis dari buku.kemendikdasmen.go.id dan ditaruh di
+  folder `guru/buku` (atau oleh operator di `sekolah/referensi/buku`), lalu lanjutkan dengan riset web.

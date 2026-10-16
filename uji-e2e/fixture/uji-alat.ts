@@ -29,6 +29,7 @@ function siapkan(windows: boolean) {
   writeFileSync(join(akar, "sekolah/kebijakan.json"), notepad(readFileSync(join(SINI, "sekolah/kebijakan.json"), "utf8")))
   writeFileSync(join(akar, "sekolah/referensi/cp/matematika-fase-b.md"), notepad(readFileSync(CP, "utf8")))
   cpSync(DRAF, join(akar, "guru/draf"), { recursive: true })
+  cpSync(join(SINI, "buku/uji-buku.pdf"), join(akar, "sekolah/referensi/buku/Buku Uji Pecahan.pdf"))
   return akar
 }
 
@@ -38,6 +39,18 @@ async function daftarAlat(akar: string) {
   await plugin.setup({
     location: { directory: akar },
     tool: { transform: async (f: any) => f({ add: (t: any) => (alat[t.name] = t) }) },
+    websearch: { query: async () => { throw new Error("tidak ada penyedia") } },
+  })
+  return alat
+}
+
+/** Seperti daftarAlat, dengan `ctx.websearch.query` tiruan (bentuk respons klien OpenCode 2). */
+async function daftarAlatDengan(akar: string, cari: () => Promise<any[]>) {
+  const alat: Record<string, any> = {}
+  await plugin.setup({
+    location: { directory: akar },
+    tool: { transform: async (f: any) => f({ add: (t: any) => (alat[t.name] = t) }) },
+    websearch: { query: async () => ({ data: { providerID: "tiruan", results: await cari() } }) },
   })
   return alat
 }
@@ -48,7 +61,7 @@ for (const windows of [false, true]) {
   try {
     const alat = await daftarAlat(akar)
     const jalan = async (n: string, input: any = {}) => (await alat[n].execute(input, {})).content as string
-    cek("plugin mendaftarkan 7 alat", Object.keys(alat).length === 7, Object.keys(alat).join(", "))
+    cek("plugin mendaftarkan 9 alat", Object.keys(alat).length === 9, Object.keys(alat).join(", "))
     cek("semua alat bukan Code Mode", Object.values(alat).every((t: any) => t.options?.codemode === false))
 
     let r = await jalan("hitung_minggu_efektif")
@@ -97,15 +110,48 @@ for (const windows of [false, true]) {
     cek("buat_nilai_excel: semester 1", r.startsWith("Selesai") && r.includes("kolom TP"), r)
     r = await jalan("buat_nilai_excel", { mapel: "IPAS", semester: 1 })
     cek("buat_nilai_excel: mapel tidak ada → GAGAL", r.startsWith("GAGAL"), r)
+    // Pustaka buku dan riset web (pencarian ditiru; tidak butuh internet).
+    r = await jalan("baca_buku")
+    cek("baca_buku: daftar buku", r.includes("Buku Uji Pecahan"), r)
+    r = await jalan("baca_buku", { cari: "pecahan senilai" })
+    cek("baca_buku: pencarian menemukan halaman", r.includes("halaman PDF 1"), r)
+    r = await jalan("baca_buku", { buku: "uji", halaman: "1" })
+    cek("baca_buku: teks halaman terbaca", r.includes("ZEBRA-4417") && r.includes("1/2 = 2/4 = 3/6"), r)
+    r = await jalan("baca_buku", { buku: "uji", halaman: "1-40" })
+    cek("baca_buku: halaman di luar jangkauan dipangkas", r.includes("ZEBRA-4417"), r)
+    r = await jalan("baca_buku", { buku: "tidak-ada" })
+    cek("baca_buku: buku tidak ada → GAGAL", r.startsWith("GAGAL"), r)
+    const tiruCari = async () => [
+      { url: "https://www.youtube.com/watch?v=x", title: "Video", content: "pecahan senilai" },
+      { url: "https://evil-kemendikdasmen.go.id.example.com/a", title: "Tiruan", content: "pecahan senilai" },
+      { url: "https://guru.kemendikdasmen.go.id/materi", title: "Materi Pecahan", content: "Pecahan senilai adalah pecahan yang nilainya sama." },
+    ]
+    const jalanWeb = async (input: any) => (await alat.riset_materi.execute(input, {})).content as string
+    const fetchSimpan = globalThis.fetch
+    globalThis.fetch = (async () => { throw new Error("offline") }) as any
+    try {
+      const plug = await daftarAlatDengan(akar, tiruCari)
+      r = (await plug.riset_materi.execute({ pertanyaan: "pecahan senilai" }, {})).content
+      cek("riset_materi: hanya domain tepercaya dipakai", r.includes("guru.kemendikdasmen.go.id/materi") && !r.includes("### Video") && !r.includes("### Tiruan"), r)
+      cek("riset_materi: domain tiruan tidak lolos", r.includes("evil-kemendikdasmen.go.id.example.com"), r)
+      r = (await plug.riset_materi.execute({ simpan_pdf: "https://contoh.com/buku.pdf" }, {})).content
+      cek("riset_materi: simpan PDF dari situs lain ditolak", r.startsWith("GAGAL"), r)
+      r = await jalanWeb({ pertanyaan: "pecahan" })
+      cek("riset_materi: tanpa layanan pencarian → GAGAL yang jelas", r.startsWith("GAGAL"), r)
+    } finally {
+      globalThis.fetch = fetchSimpan
+    }
+
     // perbarui_paket: GitHub ditiru supaya uji tidak butuh internet (pemasangan penuh diuji di uji-e2e/pasang/).
     const fetchAsli = globalThis.fetch
     const tiruTag = (tags: string[]) =>
       (globalThis.fetch = (async () => new Response(JSON.stringify(tags.map((name) => ({ name }))))) as any)
     try {
-      tiruTag(["v0.2.0", "v0.3.0", "uji"])
+      const versi = JSON.parse(readFileSync(join(PAKET, ".opencode/paket.json"), "utf8")).versi
+      tiruTag(["v0.2.0", `v${versi}`, "uji"])
       r = await jalan("perbarui_paket", { cek_saja: true })
-      cek("perbarui_paket: sudah versi terbaru", r.includes("Versi terpasang: 0.3.0") && r.includes("Sudah versi terbaru"), r)
-      tiruTag(["v0.3.0", "v0.10.0", "v0.9.1"])
+      cek("perbarui_paket: sudah versi terbaru", r.includes(`Versi terpasang: ${versi}`) && r.includes("Sudah versi terbaru"), r)
+      tiruTag([`v${versi}`, "v0.10.0", "v0.9.1"])
       r = await jalan("perbarui_paket", { cek_saja: true })
       cek("perbarui_paket: ada pembaruan 0.10.0 (urutan versi angka)", r.includes("Versi terbaru: 0.10.0") && r.includes("Ada pembaruan"), r)
       globalThis.fetch = (async () => { throw new Error("offline") }) as any

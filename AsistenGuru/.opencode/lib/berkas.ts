@@ -34,6 +34,7 @@ export type Kebijakan = {
   minggu_efektif?: { min_hari_efektif?: number }
   cadangan_jp_per_semester?: number | null
   bobot_nilai_rapor?: { formatif: number; sts: number; sas: number } | null
+  riset?: { web?: boolean; domain_tepercaya?: string[] | null } | null
 }
 export type TP = {
   kode: string

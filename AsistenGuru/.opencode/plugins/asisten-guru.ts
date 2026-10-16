@@ -2,22 +2,31 @@
 // Sengaja tanpa import "@opencode/plugin" (Plugin.define hanya mengembalikan objeknya), supaya tidak ada paket
 // yang perlu diunduh di komputer guru. Logika alat ada di ../alat/, pustaka bersama di ../lib/.
 
-import type { Alat } from "../lib/alat.ts"
+import type { Alat, Konteks } from "../lib/alat.ts"
 import { Gagal, cariAkar } from "../lib/berkas.ts"
 import agendaHariIni from "../alat/agenda_hari_ini.ts"
+import bacaBuku from "../alat/baca_buku.ts"
 import buatAbsensiExcel from "../alat/buat_absensi_excel.ts"
 import buatNilaiExcel from "../alat/buat_nilai_excel.ts"
 import eksporWord from "../alat/ekspor_word.ts"
 import hitungMingguEfektif from "../alat/hitung_minggu_efektif.ts"
 import perbaruiPaket from "../alat/perbarui_paket.ts"
+import risetMateri from "../alat/riset_materi.ts"
 import susunPerencanaan from "../alat/susun_perencanaan.ts"
 
-const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket]
+const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri]
 
 export default {
   id: "asisten-guru",
   async setup(ctx: any) {
     const akar = cariAkar(ctx.location.directory)
+    const konteks: Konteks = {
+      // Pencarian lewat penyedia web search OpenCode; penyaringan domain dilakukan alat riset_materi.
+      cariWeb: async (kueri) => {
+        const r = await ctx.websearch.query({ query: kueri })
+        return r?.data?.results ?? r?.results ?? []
+      },
+    }
     await ctx.tool.transform((editor: any) => {
       for (const a of ALAT) {
         editor.add({
@@ -28,7 +37,7 @@ export default {
           options: { codemode: false },
           execute: async (input: unknown) => {
             try {
-              return { content: await a.jalankan((input ?? {}) as any, akar) }
+              return { content: await a.jalankan((input ?? {}) as any, akar, konteks) }
             } catch (e) {
               if (e instanceof Gagal) return { content: `GAGAL: ${e.message}` }
               throw e

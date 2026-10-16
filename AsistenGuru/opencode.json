@@ -2,21 +2,72 @@
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "asisten-guru",
   "share": "disabled",
+  "websearch": {
+    "provider": "tinyfish"
+  },
   "agents": {
-    "build": { "disabled": true },
-    "plan": { "disabled": true }
+    "build": {
+      "disabled": true
+    },
+    "plan": {
+      "disabled": true
+    }
   },
   "permissions": [
-    { "action": "edit", "resource": "*", "effect": "deny" },
-    { "action": "edit", "resource": "guru/*", "effect": "allow" },
-    { "action": "edit", "resource": "hasil/*", "effect": "allow" },
-    { "action": "edit", "resource": "hasil/4 Administrasi/*.xlsx", "effect": "deny" },
-    { "action": "read", "resource": "hasil/4 Administrasi/*.xlsx", "effect": "deny" },
-    { "action": "shell", "resource": "*", "effect": "deny" },
-    { "action": "webfetch", "resource": "*", "effect": "deny" },
-    { "action": "websearch", "resource": "*", "effect": "deny" },
-    { "action": "external_directory", "resource": "*", "effect": "deny" },
-    { "action": "subagent", "resource": "*", "effect": "deny" },
-    { "action": "execute", "resource": "*", "effect": "deny" }
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "edit",
+      "resource": "guru/*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "hasil/*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "hasil/4 Administrasi/*.xlsx",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "hasil/4 Administrasi/*.xlsx",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "execute",
+      "resource": "*",
+      "effect": "deny"
+    }
   ]
 }

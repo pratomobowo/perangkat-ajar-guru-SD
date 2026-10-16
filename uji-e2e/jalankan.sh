@@ -16,7 +16,9 @@ ARGS=(--auto -m "$MODEL" --format json)
 if [[ $MODE == lanjut ]]; then ARGS+=(--session "$(cat "$LOG/.sesi")"); fi
 
 ISOENV=(HOME="$ISO" XDG_CONFIG_HOME="$ISO/.config" XDG_DATA_HOME="$ISO/.local/share" XDG_STATE_HOME="$ISO/.local/state" XDG_CACHE_HOME="$ISO/.cache")
-env "${ISOENV[@]}" opencode service set port "${PORT:-49601}" > /dev/null
+if ! env "${ISOENV[@]}" opencode service get 2>/dev/null | grep -q "\"port\": ${PORT:-49601}\b"; then
+  env "${ISOENV[@]}" opencode service set port "${PORT:-49601}" > /dev/null
+fi
 
 cd "$WS"
 printf '%s\n' "$PESAN" > "$LOG/$LABEL.pesan.txt"

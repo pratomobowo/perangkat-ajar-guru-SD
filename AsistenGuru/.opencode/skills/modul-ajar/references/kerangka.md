@@ -11,9 +11,10 @@ memuat tujuan, langkah, dan asesmen. Jangan menambah bagian yang tidak diminta s
 4. **Pengalaman belajar per pertemuan**: Pembuka → *Memahami* → *Mengaplikasi* → *Merefleksi* → Penutup,
    masing-masing dengan menit. Pengalaman belajar dirancang berkesadaran, bermakna, dan menggembirakan.
 5. **Asesmen**: awal (singkat), proses (observasi/LKPD), akhir (kuis/produk) dengan kriteria sederhana.
+6. **Sumber**: buku dan halaman, atau judul dan URL situs tepercaya (lihat skill `riset-materi`).
 
 ## Modul Ajar ringkas (bila sekolah memakai istilah ini)
 Identitas → Tujuan pembelajaran → Pemahaman bermakna dan pertanyaan pemantik → Kegiatan per pertemuan
-(pendahuluan, inti, penutup, dengan menit) → Asesmen → Remedial dan pengayaan → Lampiran (LKPD, bahan bacaan).
+(pendahuluan, inti, penutup, dengan menit) → Asesmen → Remedial dan pengayaan → Lampiran (LKPD, bahan bacaan) → Sumber.
 
 [Jika sekolah memakai komponen resmi yang berbeda, ikuti template sekolah.]

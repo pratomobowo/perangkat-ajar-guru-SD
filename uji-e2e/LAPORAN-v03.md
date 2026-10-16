@@ -96,6 +96,27 @@ Catatan:
 - `pasang.ps1` belum diuji di Windows PowerShell 5.1 sungguhan (diuji dengan PowerShell 7.6 di Linux). Hanya fitur
   bawaan 5.1 yang dipakai.
 
+## Riset materi (v0.4.0)
+
+Materi kini diambil dari sumber tepercaya: pustaka buku resmi (PDF) lewat `baca_buku`, lalu web lewat `riset_materi`
+yang hanya meneruskan situs yang ditetapkan sekolah.
+
+| Uji | Hasil |
+|---|---|
+| Membaca PDF lewat tool `read` bawaan OpenCode | Tergantung model: `muse-spark` bisa, `deepseek-v4.1-flash` tidak; dibatasi 20 MB. Karena itu dibuat alat sendiri |
+| pdf.js disertakan (`vendor/pdfjs`, 1,8 MB, Apache-2.0) pada Buku Siswa Matematika Kelas IV resmi (7 MB, 224 halaman) | Ekstraksi 0,9 detik; nomor halaman cetak terdeteksi di 187/224 halaman, 0 salah |
+| Pencarian "pecahan senilai" | Halaman bab "C. Pecahan Senilai" (cetak 66) di urutan atas; daftar isi diturunkan |
+| Web search OpenCode 2 tanpa API key (TinyFish) | Jalan. Hasil mentah didominasi YouTube/Scribd/TikTok; setelah disaring tersisa belajar.id, guru.kemendikdasmen.go.id, Wikipedia |
+| PDF bahan ajar resmi dari hasil riset (belajar.id, 13 halaman) | Isi halaman paling relevan terbaca langsung (evaporasi, kondensasi, presipitasi) |
+| E2E OpenCode 2: "Materi pecahan senilai ada di buku siswa halaman berapa?" | `riset-materi` → `baca_buku` cari + baca PDF 78–81 → jawab halaman cetak 66–69; isi cocok dengan buku |
+| E2E: "carikan materi siklus air" (tidak ada di buku Matematika) | Buku dicek dulu, lalu `riset_materi`; ringkasan dengan URL belajar.id dan Wikipedia |
+| E2E: riset web gagal (sebelum perbaikan bentuk input API) | Asisten tidak mengarang sumber: memberi ringkasan bertanda `[PERLU GURU: cek kebenaran]` dan menyarankan buku IPAS |
+| E2E: `/modul pecahan senilai` | RPM, LKPD, Kunci dari buku; `## Sumber` di RPM dan Kunci (cetak 66–69, PDF 78–81), tidak di LKPD murid; 13/13 kunci benar |
+
+Catatan:
+- Tautan lama `static.buku.kemdikbud.go.id` sudah tidak ada di DNS. Buku resmi kini diunduh dari buku.kemendikdasmen.go.id.
+- PDF hasil pindaian (gambar) tidak punya teks dan tidak bisa dibaca `baca_buku`.
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu

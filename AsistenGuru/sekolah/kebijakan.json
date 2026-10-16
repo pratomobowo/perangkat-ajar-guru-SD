@@ -15,5 +15,10 @@
   "bobot_nilai_rapor": null,
   "_contoh_bobot_nilai_rapor": { "formatif": 50, "sts": 25, "sas": 25 },
   "batas_ketuntasan": null,
-  "_batas_ketuntasan_petunjuk": "Angka 0-100. Nilai di bawahnya diberi warna merah di buku nilai Excel."
+  "_batas_ketuntasan_petunjuk": "Angka 0-100. Nilai di bawahnya diberi warna merah di buku nilai Excel.",
+  "riset": {
+    "_petunjuk": "web: false untuk mematikan riset web. domain_tepercaya: situs yang boleh dipakai sebagai sumber materi (subdomain ikut). null = bawaan: kemendikdasmen.go.id, kemdikbud.go.id, kemenag.go.id, belajar.id, bps.go.id, bmkg.go.id, id.wikipedia.org.",
+    "web": true,
+    "domain_tepercaya": null
+  }
 }

@@ -15,10 +15,14 @@ description: Menyiapkan bahan mengajar untuk satu topik atau TP — Modul Ajar, 
 - Tanyakan paling banyak 3 hal yang tidak bisa diturunkan: jumlah pertemuan dan JP per pertemuan, kemampuan awal murid,
   serta sarana yang tersedia (fotokopi, proyektor, alat peraga).
 
-## 2. Tulis dokumen
+## 2. Riset materi
+Sebelum menulis, ikuti skill `riset-materi`: cari topiknya di pustaka buku (`baca_buku`) dan baca halaman yang relevan;
+jika tidak ada, pakai `riset_materi`. Catat sumber yang dipakai.
+
+## 3. Tulis dokumen
 Simpan draf di `guru/draf/2 Modul dan LKPD/<Mapel> <Kode TP> <Topik Singkat>/` (ikuti "Format draf" di instruksi agent):
 - `Modul Ajar.md` (atau `RPM.md` jika sekolah memakai RPM) — modul ajar/RPM. Jumlah menit kegiatan per pertemuan harus sama dengan JP × menit per JP dari profil.
-  Sertakan daftar "Yang perlu dibawa ke kelas" berupa checklist (`- [ ]`).
+  Sertakan daftar "Yang perlu dibawa ke kelas" berupa checklist (`- [ ]`) dan bagian `## Sumber` di akhir.
 - `LKPD.md` — lembar siswa siap fotokopi: kolom nama, petunjuk singkat, soal bertahap dari mudah ke menantang.
   Pisahkan tiap pertemuan dengan `<!-- halaman-baru -->`. **Jangan** memasukkan kunci jawaban di berkas ini.
 - `Kunci LKPD.md` — kunci dan pembahasan singkat untuk guru.
@@ -29,10 +33,11 @@ Pedoman isi:
 - Diferensiasi singkat: bantuan untuk yang belum lancar, tantangan untuk yang cepat.
 - Tanpa nama murid sungguhan. Untuk soal cerita, pakai nama umum.
 
-## 3. Periksa sebelum menyerahkan
+## 4. Periksa sebelum menyerahkan
 - Kerjakan ulang setiap soal LKPD tanpa melihat kunci. Jika jawabanmu berbeda dari kunci, perbaiki.
 - Cocokkan: setiap kegiatan mendukung TP, total menit pas, dan setiap soal di LKPD punya kunci.
+- Definisi, angka, dan fakta sama dengan sumber. Isi tanpa sumber sudah ditandai `[PERLU GURU: cek kebenaran ...]`.
 
-## 4. Serahkan
+## 5. Serahkan
 Panggil `ekspor_word` untuk ketiga draf (jenis ditebak otomatis dari nama berkas). Sampaikan dalam paling banyak 5 baris: isi tiap berkas Word, barang yang perlu
-dibawa, dan bagian `[PERLU GURU]`. Tanyakan apa yang ingin diubah.
+dibawa, sumber utama (buku dan halaman), dan bagian `[PERLU GURU]`. Tanyakan apa yang ingin diubah.

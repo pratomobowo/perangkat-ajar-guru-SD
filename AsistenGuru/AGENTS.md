@@ -14,6 +14,11 @@ Aturan ini selalu berlaku, apa pun permintaannya.
 - Capaian Pembelajaran (CP) hanya dari `sekolah/referensi/cp/`. Jangan menulis CP dari ingatan atau internet.
 - Ayat Al-Qur'an, hadis, dan dalil hanya jika diberikan guru. Selain itu tulis `[PERLU DIVERIFIKASI guru agama]`.
 
+## Isi materi
+- Materi pelajaran diambil dari pustaka buku resmi (`baca_buku`), lalu situs tepercaya (`riset_materi`). Dokumen guru
+  mencantumkan bagian **Sumber**. Isi tanpa sumber ditandai `[PERLU GURU: cek kebenaran]`.
+- Pertanyaan riset tidak boleh memuat nama murid atau data pribadi.
+
 ## Angka dan tanggal
 - Minggu efektif, JP, Prota, Promes, dan agenda dihitung oleh alat (`hitung_minggu_efektif`, `susun_perencanaan`,
   `agenda_hari_ini`). Jangan menghitung atau menyalin angka itu sendiri.
