@@ -2,15 +2,21 @@
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "asisten-guru",
   "share": "disabled",
-  "agent": {
-    "build": { "disable": true },
-    "plan": { "disable": true }
+  "agents": {
+    "build": { "disabled": true },
+    "plan": { "disabled": true }
   },
-  "permission": {
-    "edit": { "*": "deny", "guru/*": "allow", "hasil/*": "allow" },
-    "bash": "deny",
-    "webfetch": "deny",
-    "websearch": "deny",
-    "external_directory": "deny"
-  }
+  "permissions": [
+    { "action": "edit", "resource": "*", "effect": "deny" },
+    { "action": "edit", "resource": "guru/*", "effect": "allow" },
+    { "action": "edit", "resource": "hasil/*", "effect": "allow" },
+    { "action": "edit", "resource": "hasil/4 Administrasi/*.xlsx", "effect": "deny" },
+    { "action": "read", "resource": "hasil/4 Administrasi/*.xlsx", "effect": "deny" },
+    { "action": "shell", "resource": "*", "effect": "deny" },
+    { "action": "webfetch", "resource": "*", "effect": "deny" },
+    { "action": "websearch", "resource": "*", "effect": "deny" },
+    { "action": "external_directory", "resource": "*", "effect": "deny" },
+    { "action": "subagent", "resource": "*", "effect": "deny" },
+    { "action": "execute", "resource": "*", "effect": "deny" }
+  ]
 }

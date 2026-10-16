@@ -42,14 +42,15 @@ akan terpicu dari kata kuncinya.
 ## 3. Arsitektur
 
 ```
-AsistenGuru/                      ← satu folder per guru, dibuka dengan OpenCode
+AsistenGuru/                      ← satu folder per guru, dibuka dengan OpenCode 2 (Desktop/CLI, umumnya di Windows)
 ├─ opencode.json                  agent bawaan = asisten-guru, agent lain dimatikan, share dimatikan
 ├─ AGENTS.md                      aturan inti yang selalu aktif
 ├─ .opencode/
 │  ├─ agents/asisten-guru.md      persona, peta tugas, izin (hanya boleh menulis guru/ dan hasil/, tanpa shell/internet)
 │  ├─ commands/*.md               menu slash untuk guru: /mulai /hari-ini /rencana /modul /soal /jurnal /absen /nilai /ingat /word /bantuan
 │  ├─ skills/<nama>/SKILL.md      pengetahuan per tugas (dimuat saat dibutuhkan)
-│  ├─ tools/*.ts                  alat deterministik: hitung, susun, ekspor Word/Excel, agenda
+│  ├─ plugins/asisten-guru.ts     plugin OpenCode 2 yang mendaftarkan alat (tanpa paket npm)
+│  ├─ alat/*.ts                   alat deterministik: hitung, susun, ekspor Word/Excel, agenda
 │  └─ lib/*.ts                    pustaka bersama: kalender, docx, xlsx, zip
 ├─ sekolah/        (milik sekolah, diganti saat pembaruan)
 │  ├─ kebijakan.json              angka kebijakan: aturan minggu efektif, cadangan JP, bobot nilai
@@ -113,7 +114,7 @@ Pembaruan paket hanya mengganti `.opencode/`, `sekolah/`, `AGENTS.md`, dan `open
 |---|---|
 | v0.1 | Skill perencanaan, profil, umpan balik. Uji e2e: pemicuan dan pagar CP lulus, tetapi hitungan tidak konsisten. |
 | **v0.2** ✔ | Agent khusus, menu slash, tool deterministik (minggu efektif, Prota, Promes, agenda), Word/Excel siap cetak, skill modul ajar, asesmen, dan administrasi harian. Uji e2e 12/12 lulus dengan model gratis. |
-| v0.3 | Mengisi template Word milik sekolah, deskripsi capaian rapor dari nomor absen dan level TP, KKTP yang tersambung ke buku nilai. |
+| v0.3 | Port ke OpenCode 2 dan ketahanan Windows (BOM/CRLF dari Notepad, jalur backslash, nama berkas). Mengisi template Word milik sekolah, deskripsi capaian rapor dari nomor absen dan level TP, KKTP yang tersambung ke buku nilai. |
 | v0.4 | Banyak mapel untuk guru kelas, kokurikuler mengikuti kebijakan terbaru, varian MI (Kemenag). |
 | v1.0 | CP resmi terpusat (`skills.urls`) supaya sekolah tidak menyalin manual, panduan instalasi satu klik, dan antarmuka OpenCode desktop/web untuk guru. |
 
