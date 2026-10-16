@@ -64,7 +64,6 @@ Bagian ini untuk asisten AI (misalnya OpenCode) yang diminta memasang atau mempe
 | `/hari-ini` | Agenda: status hari, jadwal, TP minggu ini dan depan, bahan yang belum dibuat, pengingat jurnal |
 | `/rencana matematika` | Rincian minggu efektif, ATP, Prota, dan Promes (Word) |
 | `/modul pecahan senilai` | Modul Ajar/RPM, LKPD siap fotokopi, dan kunci terpisah (Word), dengan materi dari buku resmi dan sumbernya |
-| `/media bangun ruang kelas 5` | Media ajar interaktif satu berkas HTML untuk smart TV/papan sentuh/proyektor/HP, tanpa internet: kuis, kartu kilat, pasangkan/memori, urutkan, roda nomor absen, bingo, ular tangga, alat peraga (pecahan, jam, garis bilangan, Dienes), bangun ruang 3D dengan jaring-jaring, volume kubus satuan. Bisa dicetak |
 | `/buku` | Mencari dan mengunduh Buku Siswa dan Panduan Guru resmi (SIBI) untuk kelas guru ke pustaka |
 | "carikan materi siklus air" | Riset dari pustaka buku resmi (PDF) lalu situs tepercaya, lengkap dengan halaman/URL sumber |
 | `/soal ulangan harian TP3` | KKTP, kisi-kisi, lembar soal, serta kunci dan penskoran (Word) |
@@ -109,11 +108,9 @@ AsistenGuru/                 ← paket yang disalin ke komputer guru (satu folde
 │  │                         buat_absensi_excel, buat_nilai_excel, perbarui_paket, baca_buku, riset_materi,
 │  │                         unduh_buku, atur_gaya, simpan_template_word, buat_kalender_pendidikan,
 │  │                         buat_jadwal_kelas, ambil_cp, buat_penilaian_kokurikuler_excel, baca_masukan,
-│  │                         status_perangkat, buat_media
-│  ├─ lib/                   kalender, perencanaan, penulis .docx/.xlsx/.zip, pustaka, riset (tanpa dependensi);
-│  │                         lib/media/ = mesin media interaktif (gambar SVG, bangun ruang, runtime peramban, 3D)
-│  ├─ vendor/pdfjs/          pdf.js (Apache-2.0) untuk membaca teks PDF buku
-│  └─ vendor/three/          three.js r162 (MIT), bundel kecil untuk media 3D (disisipkan hanya bila dipakai)
+│  │                         status_perangkat
+│  ├─ lib/                   kalender, perencanaan, penulis .docx/.xlsx/.zip, pustaka, riset (tanpa dependensi)
+│  └─ vendor/pdfjs/          pdf.js (Apache-2.0) untuk membaca teks PDF buku
 ├─ sekolah/                  milik sekolah: kebijakan.json, preferensi-sekolah.md, referensi CP dan buku, template
 ├─ guru/                     milik guru: profil, kalender, preferensi, gaya dan template Word, buku, data ATP/Promes, draf
 ├─ hasil/                    Word dan Excel siap cetak (1 Perencanaan, 2 Modul dan LKPD, 3 Asesmen, 4 Administrasi,
@@ -149,7 +146,6 @@ Rincian ada di [`AsistenGuru/README-PASANG.md`](AsistenGuru/README-PASANG.md).
 | Uji | Perintah | Isi |
 |---|---|---|
 | Pustaka | `cd uji-e2e/fixture && bun uji-lib.ts` | Minggu efektif, validasi ATP, Prota/Promes, agenda, Word dan Excel |
-| Media interaktif | `cd uji-e2e/fixture && PERAMBAN=/jalur/chrome bun uji-media.ts` | Gambar peraga (arsir pecahan, sudut jarum jam, blok Dienes), jaring-jaring yang dilipat menjadi bangun tertutup (sisi/rusuk/titik sudut, Euler), validasi spesifikasi, tampilan cetak, dan interaksi sungguhan di Chrome tanpa tampilan (kuis, pasangkan, urutkan, tantangan peraga, dadu ular tangga, 3D WebGL, volume, PDF) |
 | Masukan dan status | `cd uji-e2e/fixture && bun uji-masukan.ts` | Pembaca Word/Excel/PDF guru (tanggal Excel, format lama, foto) dan peta perangkat (langkah berikutnya, STS dekat, [PERLU GURU]) |
 | CP resmi | `cd uji-e2e/fixture && bun uji-cp.ts` | Parser CP dari PDF Keputusan BSKAP 046/H/KR/2025 (judul, elemen terpotong, butir, salah ketik kelas) |
 | Template guru | `cd uji-e2e/fixture && bun uji-template.ts` | Gaya, kerangka, Word contoh (termasuk Word berbahasa Indonesia, kop di header, hasil editan guru), kunci dan template wajib sekolah; `SOFFICE=...` membuka hasil di LibreOffice |

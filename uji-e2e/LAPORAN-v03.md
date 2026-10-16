@@ -192,26 +192,7 @@ Pemeriksaan: 27/27 Word/Excel terbuka di LibreOffice; kunci UH TP4 6/6 benar; RP
 dan dibuat dari Word contoh sekolah. Temuan diperbaiki: nama berkas rencana kini mengikuti template (RPP/Modul Ajar/RPM);
 STS yang tanggalnya sudah lewat tidak lagi ditandai kurang.
 
-## Media ajar interaktif (v0.9.0)
-
-| Uji | Hasil |
-|---|---|
-| `uji-media.ts` tanpa peramban | Arsir pecahan, sudut jarum jam, blok Dienes (termasuk menukar), garis bilangan; 5 jaring-jaring sisi datar dilipat menjadi bangun tertutup (tiap rusuk dipakai tepat 2 sisi, jumlah sisi/rusuk/titik sudut, Euler), limas/prisma pada tinggi yang benar, kerucut dan tabung (utuh dan dibuka); validasi spesifikasi dengan pesan yang bisa diperbaiki model; tampilan cetak (bingo, kartu bolak-balik dicerminkan, jaring-jaring siap gunting, kuis tanpa kunci); three.js hanya disisipkan bila dipakai; teks guru di-escape |
-| `uji-media.ts` dengan Chrome tanpa tampilan | Interaksi sungguhan: kuis 2/2 (pilihan dan isian " 2 "), pasangkan selesai, urutkan menolak klik salah, peraga pecahan menerima 4/8 untuk 1/2 ("senilai"), jam 19.30 untuk 07.30, Dienes 1 ratusan + 14 puluhan + 7 satuan ditukar → 247, dadu 3 → naik tangga ke 22, WebGL: jaring kubus dibuka penuh dan ganti ke tabung, volume 3 × 2 × 2 = 12 tersusun; tanpa galat JavaScript; PDF versi cetak A4 |
-| E2E model gratis: `/media bangun ruang kelas 5 … kubus, balok, tabung, kerucut, plus kuis 4 soal dan volume kubus satuan` | Sekali jalan: membaca `references/media.md`, menulis spesifikasi 3 bagian (ruang 4 bangun, kuis 4 soal, volume 4 × 3 × 2), `buat_media` berhasil tanpa GAGAL. Temuan isi: soal "titik sudut kerucut" dijawab 1 (seharusnya 0, 1 titik puncak) → ditambahkan tabel fakta bangun ruang di `references/media.md` |
-
-Uji lanjutan v0.9.1 — media dibuat sepenuhnya oleh OpenCode (model gratis), paket v0.9.0 bersih, berkas tidak disunting:
-
-| Pesan guru | Hasil OpenCode |
-|---|---|
-| `/media pecahan senilai untuk kelas 4, anak-anak suka main game, kelas kami ada smart TV layar sentuh` | Memilih sendiri 4 bagian: peraga pecahan (tantangan 1/2, 2/4, 4/8), kartu memori 6 pasang, kuis 5 soal, ular tangga 2 tim dengan 3 soal; riset buku dulu; semua kunci benar |
-| "tolong buatkan media interaktif IPAS kelas 4 tentang bagian-bagian tumbuhan dan fungsinya, buat kuis dan permainan mencocokkan" | Materi singkat, pasangkan 6 bagian–fungsi, kuis 5 soal; kunci benar |
-| `/media jam untuk kelas 2 …` | Materi, peraga jam (5 tantangan), kuis 5 soal bergambar jam, pasangkan; **1 kunci salah** (gambar 09.15, kunci 09.45) |
-| "media jam kelas 2 tadi tolong dibuat ulang ya, saya mau pakai besok" (setelah pemeriksaan gambar–kunci ditambahkan) | `buat_media` → `GAGAL: Soal kuis 3: gambar menunjukkan 09.15 (pilihan B), tetapi jawabannya C (09.45)` → OpenCode memperbaiki dan memanggil lagi, lalu memberi tahu guru; 5/5 kunci cocok dengan gambar |
-
-Ketiga HTML dibuka di Chrome tanpa tampilan: tanpa galat JavaScript, semua layar interaktif terisi.
-
 ## Cara mengulang
-1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && PERAMBAN=/jalur/chrome bun uji-media.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
+1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
    jalankan `jalankan.sh` per langkah. Pesan guru ada di `log-v02-final/*.pesan.txt`.

@@ -1,21 +1,11 @@
 # Versi Paket
 
-**Versi:** 0.9.1
+**Versi:** 0.9.2
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
-- 0.9.1 — Media: soal kuis "membaca gambar" (jam berapa, pecahan berapa yang diarsir) diperiksa otomatis; bila kunci tidak
-  sama dengan gambarnya, `buat_media` menolak dengan pesan jelas dan asisten memperbaikinya sendiri.
-- 0.9.0 — **Media ajar interaktif** (`/media`, alat `buat_media`): satu berkas HTML yang berjalan tanpa internet di smart
-  TV/papan sentuh, laptop + proyektor, atau HP. Bagian yang tersedia: kuis (pilihan ganda/isian, skor, pembahasan),
-  kartu kilat yang bisa dibalik, pasangkan dan kartu memori, urutkan, roda putar nomor absen, bingo dengan pemanggil,
-  ular tangga digital (dadu, 2–4 tim, soal di petak), alat peraga (pecahan dengan tantangan senilai, jam yang jarumnya
-  digeser, garis bilangan berloncatan, blok Dienes dengan menukar/memecah, tabel perkalian), serta 3D dengan three.js:
-  bangun ruang yang diputar dengan jari dan dibuka menjadi jaring-jaring (sisi/rusuk/titik sudut ditandai) dan volume
-  kubus satuan yang disusun lapis demi lapis. Ada pewaktu kelas, skor tim, suara, dan layar penuh. Asisten hanya menulis
-  spesifikasi pendek; gambar dan logika dibuat alat secara tepat dan diuji (termasuk di peramban). Berkas yang sama bisa
-  dicetak (versi statis: papan bingo, kartu bolak-balik, jaring-jaring siap gunting); `pdf: true` membuat PDF lewat
-  Edge/Chrome di komputer guru.
+- 0.9.2 — Media ajar interaktif HTML (0.9.0–0.9.1) ditiadakan; isi paket kembali sama dengan 0.8.0. Media tetap bisa
+  dibuat sebagai kartu Word (blok `kartu` di `Media.md`).
 - 0.8.0 — **Siapkan semua** (`/siapkan`, `/status`): guru menaruh dokumen sekolah (PDF teks, Word, Excel) di `guru/masukan`;
   asisten membaca dan mengenalinya (kalender, jadwal, CP, ATP, KKTP, format RPP/modul, buku), menyimpannya ke tempat yang
   benar, lalu menyusun perangkat tahap demi tahap dengan laporan "selesai / perlu dicek / berikutnya" — atau otomatis

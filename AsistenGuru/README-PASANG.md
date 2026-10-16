@@ -44,11 +44,6 @@ Guru hanya perlu aplikasi untuk membukanya (Word/Excel, WPS, LibreOffice, atau G
   disaring ke situs tepercaya yang ditetapkan sekolah). Pencarian memakai penyedia TinyFish bawaan OpenCode, tanpa akun.
 - Asisten tidak bisa membaca atau menimpa Excel di `hasil/4 Administrasi/` (berisi nama siswa).
 - Nama siswa tidak pernah dikirim ke AI. Nama diketik guru langsung di berkas Excel.
-- Media interaktif (`/media`) berupa satu berkas HTML yang berjalan tanpa internet dan tidak mengirim data ke mana pun.
-  Roda acak memakai nomor absen, bukan nama. Bila guru meminta PDF, alat menjalankan Edge/Chrome yang sudah ada di
-  komputer tanpa tampilan, hanya untuk mencetak berkas HTML lokal itu (profil peramban sementara, tidak ada yang diunduh).
-- Media dibuka di Edge/Chrome versi 2020 ke atas, termasuk peramban smart TV/papan sentuh Android. Bagian 3D butuh WebGL;
-  bila tidak ada, bagian itu otomatis menampilkan gambar biasa.
 
 ## Memperbarui paket
 - Guru cukup mengetik `/perbarui` (atau "tolong perbarui asisten") di Asisten Guru. Untuk paket versi 0.2 yang belum punya
