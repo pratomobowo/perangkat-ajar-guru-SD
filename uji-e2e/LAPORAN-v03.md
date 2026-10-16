@@ -78,7 +78,25 @@
 - CP masih fixture sekunder. Kualitas pedagogis TP tetap perlu dinilai guru.
 - `uji-rumus-e2e.ts` masih mengandaikan tata letak 7 TP dari uji v0.2; buku nilai e2e kali ini berisi 6 TP.
 
+## Pemasangan dari link GitHub (v0.3.0)
+
+Guru cukup menempel link repositori di OpenCode dan meminta dipasangkan. README memuat "Petunjuk untuk asisten AI", dan
+pemasang resmi (`pasang.ps1` untuk Windows, `pasang.sh` untuk macOS/Linux) mengambil rilis bertag terbaru.
+
+| Uji | Hasil |
+|---|---|
+| `uji-e2e/pasang/uji-pasang.sh`: alat `perbarui_paket`, `pasang.sh`, `pasang.ps1` (PowerShell 7.6). Untuk tiap jalur: pasang baru, perbarui dari v0.2 berisi data guru/sekolah, pasang ulang 4×, dan batas cadangan | Semua lulus. Isian sekolah, data guru, dan berkas lain di akar utuh; `.opencode/tools` lama dihapus dan dicadangkan; cadangan paling banyak 3 |
+| Pemasang langsung dari GitHub (`curl … pasang.sh \| bash` dan `irm … pasang.ps1 \| iex`) ke HOME baru | Keduanya memasang 57 berkas yang sama, tanpa `uji-e2e/` |
+| OpenCode 2 kosong (agent bawaan), pesan guru: "https://github.com/pratomobowo/perangkat-ajar-guru-SD tolong pasang ini ya, saya guru SD" | AI membaca README, menjalankan `pasang.sh`, memeriksa hasil, lalu menjelaskan letak folder, cara membuka (Open Project), dan `/mulai` |
+| `/perbarui` di dalam Asisten Guru (sebelum tag ada) | Skill `kelola-asisten` dan alat `perbarui_paket` jalan; pesan "belum ada versi baru" disampaikan dengan bahasa guru |
+
+Catatan:
+- Di uji non-interaktif, AI mencoba meminta izin lewat tool `question` lalu melanjutkan karena tidak ada yang menjawab.
+  Di Desktop, pertanyaan itu tampil sebagai pilihan yang bisa diklik guru. Perlu diuji di Desktop.
+- `pasang.ps1` belum diuji di Windows PowerShell 5.1 sungguhan (diuji dengan PowerShell 7.6 di Linux). Hanya fitur
+  bawaan 5.1 yang dipakai.
+
 ## Cara mengulang
-1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts`, lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
+1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
    jalankan `jalankan.sh` per langkah. Pesan guru ada di `log-v02-final/*.pesan.txt`.
