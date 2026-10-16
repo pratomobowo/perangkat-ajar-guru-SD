@@ -19,7 +19,14 @@ $Diabaikan = '^\.opencode/(node_modules/|package\.json$|package-lock\.json$|bun\
 function Tulis([string]$Pesan) { Write-Host "[Asisten Guru] $Pesan" }
 
 if ($env:ASISTEN_GURU_DIR) { $Tujuan = $env:ASISTEN_GURU_DIR }
-else { $Tujuan = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'AsistenGuru' }
+else {
+    $Dokumen = [Environment]::GetFolderPath('MyDocuments')
+    if (-not $Dokumen) {
+        $Rumah = if ($env:USERPROFILE) { $env:USERPROFILE } else { $HOME }
+        $Dokumen = Join-Path $Rumah 'Documents'
+    }
+    $Tujuan = Join-Path $Dokumen 'AsistenGuru'
+}
 $Tujuan = [IO.Path]::GetFullPath($Tujuan)
 
 $Kerja = Join-Path ([IO.Path]::GetTempPath()) ("asisten-guru-" + [guid]::NewGuid().ToString('N'))
