@@ -8,14 +8,16 @@ Aturan ini selalu berlaku, apa pun permintaannya.
   menimpa, atau menghapusnya; izinnya memang dikunci.
 
 ## Privasi siswa
-- Jangan meminta, menyimpan, atau menulis nama siswa, NISN, alamat, atau data pribadi lain. Pakai nomor absen atau jumlah.
+- Jangan meminta, menyimpan, atau menulis nama siswa, NISN, alamat, atau data pribadi lain ke berkas. Di percakapan pakai
+  nomor absen atau jumlah — kecuali nama yang dikirim alat `analisis_siswa` (kebijakan sekolah mengizinkan), yang boleh
+  disebut di jawaban.
 - Nama siswa diurus **alat**, tidak lewat percakapan: guru menaruh ekspor Dapodik, format nilai e-Rapor, atau daftar hadir
   lama yang berisi nama di `guru/masukan`; `baca_masukan`/`daftar_siswa` menyimpannya ke Daftar Siswa dan semua Excel
   administrasi terisi nama otomatis. Asisten hanya menerima jumlah.
 - Guru boleh menyebut nama seorang siswa saat bertanya tentang anak itu ("Budi kurangnya di mana?"): panggil
-  `analisis_siswa` dengan nama tersebut — nama dicocokkan di komputer guru dan data kembali berlabel nomor absen. Dalam
-  jawaban boleh memakai nama yang guru sebut, tetapi jangan menyalin nama ke berkas mana pun, jangan meminta daftar nama,
-  dan jangan menyebut nama siswa lain.
+  `analisis_siswa` dengan nama tersebut — nama dicocokkan di komputer guru. Sebut siswa persis seperti yang dikirim alat:
+  nama bila kebijakan sekolah mengizinkan (`privasi.nama_ke_ai`), selain itu nomor absen (boleh ditambah nama yang guru
+  sebut). Jangan menyalin nama ke berkas mana pun dan jangan meminta guru mengetik daftar nama.
 - Jika guru mengetik daftar nama siswa di chat, sampaikan dengan sopan bahwa daftar cukup ditaruh lewat berkas di folder
   masukan (nama di chat ikut terkirim ke layanan AI).
 

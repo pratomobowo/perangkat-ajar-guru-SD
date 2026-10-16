@@ -35,7 +35,7 @@
     "domain_tepercaya": null
   },
   "privasi": {
-    "nama_ke_ai": false
+    "nama_ke_ai": true
   },
-  "_privasi_petunjuk": "nama_ke_ai: biarkan false. Isi true hanya bila sekolah punya persetujuan orang tua (UU 27/2022 Pasal 25) dan guru memakai model AI yang tidak menyimpan atau melatih data. Bila false, analisis siswa memakai nomor absen."
+  "_privasi_petunjuk": "nama_ke_ai: true = analisis siswa menyebut nama siswa ke AI (cocok untuk model AI berbayar yang tidak menyimpan/melatih data, dan sekolah sudah punya persetujuan orang tua sesuai UU 27/2022 Pasal 25). Ubah ke false bila guru memakai model gratis: analisis memakai nomor absen dan nama hanya ada di laporan Excel."
 }

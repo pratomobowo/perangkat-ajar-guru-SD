@@ -228,6 +228,13 @@ sekolah tidak punya template.
 | Pemeriksaan log | Selain nama yang diketik guru, 0 dari 7 nama siswa lain muncul di log percakapan |
 
 
+Uji v0.12.1 (`privasi.nama_ke_ai: true`, bawaan baru): "Siapa saja yang perlu remedial matematika di kelas saya?" →
+asisten menyebut nama + nomor sesuai Daftar Siswa (TP3: Salsabila No. 2, Bintang No. 5, Daffa No. 7; TP4: Fikri No. 3,
+Daffa No. 7; Fikri alpa ≥ 3). Temuan: pada percobaan pertama asisten tetap memakai nomor karena aturan lama di AGENTS.md
+→ aturan diperjelas dan alat menyertakan petunjuk kebijakan. Catatan: model gratis sempat menulis "TP5 sudah tuntas semua"
+padahal No. 3 belum tuntas TP5 (data alat benar; kesalahan merangkum).
+
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu

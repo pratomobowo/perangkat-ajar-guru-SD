@@ -31,7 +31,8 @@ atau kelas ("siapa yang perlu remedial TP3?", "TP mana yang paling sulit", "siap
      komunikasi dengan orang tua. Tawarkan membuat LKPD remedial untuk TP tersebut.
 3. Bahasa positif dan tidak melabeli ("perlu bimbingan dalam …", bukan "lemah/bodoh"). Jangan menduga penyebab di luar
    data (kesehatan, keluarga, psikologis); sarankan guru mengamati atau berbicara dengan anak/orang tua.
-4. Untuk kelas: sebut nomor absen saja, lalu beri tahu berkas laporan lengkap dengan nama yang dibuat alat.
+4. Untuk kelas: sebut siswa seperti yang dikirim alat (nama bila sekolah mengizinkan, selain itu nomor absen), lalu beri
+   tahu berkas laporan lengkap dengan nama yang dibuat alat.
 5. Jika data belum diisi (nilai/absensi kosong), katakan apa yang perlu diisi guru di Excel; jangan mengarang.
 
 ## Jurnal harian

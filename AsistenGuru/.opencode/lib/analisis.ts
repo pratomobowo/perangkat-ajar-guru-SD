@@ -177,7 +177,7 @@ export function analisisSiswa(d: Awaited<ReturnType<typeof muatData>>, no: numbe
     out.push(`## Kokurikuler: ${k.tema}`, ...k.dimensi.map((dim, j) => `- ${dim}: ${r.nilai[j] || "–"}`), "")
   }
   if (out.length <= 3) out.push("Belum ada data yang diisi guru (nilai, kehadiran, atau kokurikuler) untuk siswa ini.")
-  out.push("Gunakan data ini apa adanya; jangan menebak hal yang tidak ada di data. Sebut siswa dengan nama yang diketik guru atau nomornya.")
+  out.push(`Gunakan data ini apa adanya; jangan menebak hal yang tidak ada di data. ${opsi.namaKeAi ? "Kebijakan sekolah mengizinkan menyebut nama siswa: sebut namanya di jawaban." : "Sebut siswa dengan nama yang diketik guru atau nomornya."}`)
   return out.join("\n")
 }
 
@@ -220,6 +220,7 @@ export async function analisisKelas(akar: string, d: Awaited<ReturnType<typeof m
   let laporan: string | null = null
   if (lembar.length) laporan = await tulis(akar, `hasil/${FOLDER.administrasi}/Analisis Kelas ${tanggal}.xlsx`, buatXlsx(lembar))
   if (!nilai.length && !d.hadir.length) out.push("Belum ada buku nilai atau daftar hadir yang diisi.")
+  out.push(opsi.namaKeAi ? "Kebijakan sekolah mengizinkan menyebut nama siswa: sebut nama (dan nomor absen) di jawaban." : "Sebut siswa dengan nomor absen.")
   out.push(laporan ? `Laporan lengkap dengan nama siswa: ${laporan} (sampaikan ke guru untuk dibuka di Excel; asisten tidak bisa membukanya).` : "")
   return out.join("\n")
 }

@@ -1,9 +1,12 @@
 # Versi Paket
 
-**Versi:** 0.12.0
+**Versi:** 0.12.1
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.12.1 — Bawaan kebijakan sekolah `privasi.nama_ke_ai` menjadi `true`: analisis siswa menyebut nama (untuk model AI
+  berbayar yang tidak menyimpan data). Sekolah yang gurunya memakai model gratis mengubahnya ke `false`. Pembaruan paket
+  tidak menimpa `sekolah/kebijakan.json` yang sudah ada.
 - 0.12.0 — **Analisis siswa** (`analisis_siswa`): guru cukup bertanya "Budi kurangnya di mana?" atau "siapa yang perlu
   remedial TP3?". Alat membaca buku nilai, daftar hadir, dan penilaian kokurikuler yang sudah diisi guru di komputer guru,
   lalu memberi asisten data anak itu berlabel nomor absen: nilai tiap TP dibanding batas tuntas dan rata-rata kelas,

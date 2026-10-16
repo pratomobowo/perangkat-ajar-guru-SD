@@ -83,6 +83,8 @@ try {
   const isiLap = laporan ? JSON.stringify(bacaTabelXlsx(readFileSync(join(adm, laporan)), 50, 20)) : ""
   cek("laporan Excel kelas dengan nama dibuat di folder terkunci", !!laporan && NAMA.every((n) => isiLap.includes(n)) && r.includes(`hasil/4 Administrasi/${laporan}`), r)
 
+  const paket = JSON.parse(readFileSync(join(SINI, "../../AsistenGuru/sekolah/kebijakan.json"), "utf8"))
+  cek("kebijakan bawaan paket: privasi.nama_ke_ai = true (untuk model berbayar; sekolah bisa mengubah ke false)", paket.privasi?.nama_ke_ai === true)
   // Saklar sekolah: nama boleh ke AI (dengan persetujuan orang tua).
   const kp = join(akar, "sekolah/kebijakan.json")
   writeFileSync(kp, JSON.stringify({ ...JSON.parse(readFileSync(kp, "utf8")), privasi: { nama_ke_ai: true } }))
