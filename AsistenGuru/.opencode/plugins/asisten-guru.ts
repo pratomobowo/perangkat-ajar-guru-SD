@@ -9,9 +9,10 @@ import buatAbsensiExcel from "../alat/buat_absensi_excel.ts"
 import buatNilaiExcel from "../alat/buat_nilai_excel.ts"
 import eksporWord from "../alat/ekspor_word.ts"
 import hitungMingguEfektif from "../alat/hitung_minggu_efektif.ts"
+import perbaruiPaket from "../alat/perbarui_paket.ts"
 import susunPerencanaan from "../alat/susun_perencanaan.ts"
 
-const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel]
+const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket]
 
 export default {
   id: "asisten-guru",

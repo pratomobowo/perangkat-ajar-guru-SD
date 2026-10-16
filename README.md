@@ -4,8 +4,47 @@ Asisten pribadi guru SD/SDIT berbasis [OpenCode 2](https://opencode.ai) yang men
 kalender → minggu efektif → ATP → Prota/Promes → modul ajar/RPM dan LKPD → asesmen → jurnal, daftar hadir, dan buku nilai.
 Guru cukup bercerita dan memeriksa. Dokumen Word dan Excel yang rapi dan siap cetak disiapkan oleh asisten.
 
-> Status: **v0.3-dev**, port ke OpenCode 2 untuk guru pengguna Windows (Desktop atau CLI). Uji coba Matematika Kelas 4 (Fase B).
-> Lihat [`uji-e2e/LAPORAN-v03.md`](uji-e2e/LAPORAN-v03.md) dan, untuk versi OpenCode 1, [`uji-e2e/LAPORAN-v02.md`](uji-e2e/LAPORAN-v02.md).
+> Status: **v0.3.0**, untuk OpenCode 2 (Desktop atau CLI), utamanya guru pengguna Windows. Uji coba Matematika Kelas 4 (Fase B).
+> Lihat [`uji-e2e/LAPORAN-v03.md`](uji-e2e/LAPORAN-v03.md).
+
+## Cara pasang paling mudah (untuk guru)
+
+1. Pasang **OpenCode Desktop** dari [opencode.ai/download](https://opencode.ai/download), lalu buka.
+2. Tempel link repositori ini ke kolom chat OpenCode, lalu ketik:
+   **"Tolong pasang Asisten Guru dari link ini."**
+   Saat OpenCode meminta izin menjalankan perintah, pilih izinkan.
+3. Setelah selesai, buka folder **Documents → AsistenGuru** di OpenCode (menu Open Project), lalu ketik **`/mulai`**.
+
+Untuk memperbarui di kemudian hari, cukup ketik "tolong perbarui asisten" di dalam Asisten Guru. Data Anda tetap aman.
+
+## Petunjuk untuk asisten AI
+
+Bagian ini untuk asisten AI (misalnya OpenCode) yang diminta memasang atau memperbarui Asisten Guru dari repositori ini.
+
+1. **Jangan meng-clone repositori atau menyalin berkas satu per satu.** Jalankan satu perintah pemasang resmi sesuai sistem
+   operasi pengguna. Pemasang mengunduh rilis bertag terbaru dan memasangnya ke `Documents/AsistenGuru`.
+   - Windows (bisa dari PowerShell, cmd, maupun bash):
+     ```
+     powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/pratomobowo/perangkat-ajar-guru-SD/main/pasang.ps1 | iex"
+     ```
+   - macOS dan Linux:
+     ```
+     curl -fsSL https://raw.githubusercontent.com/pratomobowo/perangkat-ajar-guru-SD/main/pasang.sh | bash
+     ```
+   Sebelum menjalankannya, jelaskan ke pengguna dalam satu kalimat bahwa perintah ini mengunduh dan memasang Asisten Guru
+   ke folder Documents, lalu minta izin.
+2. **Berhasil** jika keluaran memuat baris `ASISTEN_GURU_SELESAI versi=<versi> folder=<folder>`. Jika gagal, sampaikan
+   pesan bertanda `[Asisten Guru]` apa adanya dengan bahasa sederhana. Jangan memperbaiki dengan cara lain, misalnya
+   menyalin berkas manual.
+3. Pemasang yang sama dipakai untuk **memperbarui**. Aman diulang: `.opencode/` dan berkas paket diganti (yang lama
+   dicadangkan di `.cadangan/`), `sekolah/` hanya ditambah berkas baru, sedangkan `guru/` dan `hasil/` tidak disentuh.
+4. Setelah berhasil, sampaikan ke pengguna (guru, bukan orang teknis) dengan singkat:
+   - letak folder (dari baris `ASISTEN_GURU_SELESAI`);
+   - cara membuka: di OpenCode Desktop pilih **Open Project** lalu folder itu; di terminal `cd` ke folder itu lalu `opencode`;
+   - setelah terbuka, ketik `/mulai` untuk menyiapkan profil, atau `/bantuan` untuk melihat menu;
+   - jika `[Asisten Guru] PERHATIAN` menyebut OpenCode 1, minta pengguna memasang OpenCode 2 dulu.
+5. Asisten Guru butuh **OpenCode 2**. Di dalam folder AsistenGuru, agent `asisten-guru` dan aturan di `AGENTS.md`
+   yang mengurus pemakaian sehari-hari. Jangan mengubah berkas di folder itu dari sesi lain.
 
 ## Fitur
 
@@ -43,27 +82,31 @@ AsistenGuru/                 ← paket yang disalin ke komputer guru (satu folde
 ├─ .opencode/
 │  ├─ agents/asisten-guru.md persona, peta tugas, format draf, izin (tulis hanya guru/ dan hasil/)
 │  ├─ commands/              menu slash
-│  ├─ skills/                guru-setup, perencanaan-tahunan, modul-ajar, asesmen, administrasi-harian, umpan-balik-guru
+│  ├─ skills/                guru-setup, perencanaan-tahunan, modul-ajar, asesmen, administrasi-harian, umpan-balik-guru,
+│  │                         kelola-asisten
+│  ├─ paket.json             nama dan versi paket (dipakai pemasang dan alat perbarui_paket)
 │  ├─ plugins/asisten-guru.ts plugin OpenCode 2 yang mendaftarkan alat (tanpa paket npm)
 │  ├─ alat/                  hitung_minggu_efektif, susun_perencanaan, agenda_hari_ini, ekspor_word,
-│  │                         buat_absensi_excel, buat_nilai_excel
+│  │                         buat_absensi_excel, buat_nilai_excel, perbarui_paket
 │  └─ lib/                   kalender, perencanaan, penulis .docx/.xlsx/.zip tanpa dependensi
 ├─ sekolah/                  milik sekolah: kebijakan.json, preferensi-sekolah.md, referensi CP, template
 ├─ guru/                     milik guru: profil, kalender, preferensi, data ATP/Promes, draf
 ├─ hasil/                    Word dan Excel siap cetak (1 Perencanaan, 2 Modul dan LKPD, 3 Asesmen, 4 Administrasi)
+├─ VERSI.md                  versi paket dan catatan perubahan
 ├─ README-PASANG.md          panduan operator sekolah
 └─ PANDUAN-GURU.md           panduan satu halaman untuk guru
+pasang.ps1, pasang.sh        pemasang dan pembaru satu perintah (Windows; macOS/Linux)
 KONSEP.md                    konsep produk, arsitektur, peran, dan peta jalan
 uji-e2e/                     skrip uji, transkrip, contoh hasil, dan laporan v0.1 serta v0.2
 ```
 
-## Memasang
+## Memasang secara manual (operator sekolah)
 
 Kebutuhan: [OpenCode 2](https://opencode.ai/download) (Desktop atau CLI, versi 2.0.30 atau lebih baru) dan koneksi internet
 untuk model AI. Tidak perlu Python, Node.js, pandoc, atau Office untuk membuat berkas, karena alat berjalan di runtime bawaan
 OpenCode dan tidak memakai paket npm. OpenCode 1 tidak didukung lagi.
 
-1. Salin folder `AsistenGuru/` ke komputer guru, misalnya ke `Documents\AsistenGuru` di Windows.
+1. Jalankan pemasang di atas, atau salin folder `AsistenGuru/` ke komputer guru, misalnya ke `Documents\AsistenGuru` di Windows.
 2. Operator atau waka kurikulum mengisi:
    - `sekolah/referensi/cp/<mapel>-fase-<x>.md` dengan CP resmi (Keputusan Kepala BSKAP No. 046/H/KR/2025). Isi `elemen`
      dan ubah `status` menjadi `TERVERIFIKASI` setelah diperiksa.
@@ -82,6 +125,7 @@ Rincian ada di [`AsistenGuru/README-PASANG.md`](AsistenGuru/README-PASANG.md).
 | Pustaka | `cd uji-e2e/fixture && bun uji-lib.ts` | Minggu efektif, validasi ATP, Prota/Promes, agenda, Word dan Excel |
 | Alat dan plugin | `cd uji-e2e/fixture && bun uji-alat.ts` | Keenam alat lewat plugin OpenCode 2, termasuk berkas ala Notepad Windows (BOM, CRLF) dan jalur Windows |
 | Rumus Excel | `cd uji-e2e/rumus && bun install && bun uji-rumus-fixture.ts ../fixture` | Menghitung rumus dengan HyperFormula dan membandingkannya dengan nilai harapan |
+| Pemasang | `uji-e2e/pasang/uji-pasang.sh` | `perbarui_paket`, `pasang.sh`, dan `pasang.ps1` (jika `pwsh` ada): pasang baru, perbarui dari v0.2 berisi data, pasang ulang |
 | End-to-end | `uji-e2e/jalankan.sh` | Menjalankan OpenCode 2 terisolasi dengan skenario guru (lihat komentar di skrip) |
 
 Hasil uji v0.2: kalender dan minggu efektif cocok dengan hitungan manual, 28/28 kunci jawaban benar, semua rumus Excel benar,

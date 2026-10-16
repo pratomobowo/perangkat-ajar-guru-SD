@@ -13,4 +13,4 @@ Folder ini satu-satunya sumber regulasi bagi asisten.
      Selama belum terverifikasi, semua dokumen perencanaan berlabel DRAF.
 4. Jangan menyalin dari blog atau contoh ATP di internet. Banyak yang masih memakai CP 2022.
 
-Jika CP resmi diganti, perbarui berkas dan naikkan nomor versi di `sekolah/VERSI.md`.
+Jika CP resmi diganti, perbarui berkasnya lalu isi ulang `diverifikasi_oleh` dan `tanggal_verifikasi`.

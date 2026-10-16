@@ -48,7 +48,7 @@ for (const windows of [false, true]) {
   try {
     const alat = await daftarAlat(akar)
     const jalan = async (n: string, input: any = {}) => (await alat[n].execute(input, {})).content as string
-    cek("plugin mendaftarkan 6 alat", Object.keys(alat).length === 6, Object.keys(alat).join(", "))
+    cek("plugin mendaftarkan 7 alat", Object.keys(alat).length === 7, Object.keys(alat).join(", "))
     cek("semua alat bukan Code Mode", Object.values(alat).every((t: any) => t.options?.codemode === false))
 
     let r = await jalan("hitung_minggu_efektif")
@@ -97,6 +97,23 @@ for (const windows of [false, true]) {
     cek("buat_nilai_excel: semester 1", r.startsWith("Selesai") && r.includes("kolom TP"), r)
     r = await jalan("buat_nilai_excel", { mapel: "IPAS", semester: 1 })
     cek("buat_nilai_excel: mapel tidak ada → GAGAL", r.startsWith("GAGAL"), r)
+    // perbarui_paket: GitHub ditiru supaya uji tidak butuh internet (pemasangan penuh diuji di uji-e2e/pasang/).
+    const fetchAsli = globalThis.fetch
+    const tiruTag = (tags: string[]) =>
+      (globalThis.fetch = (async () => new Response(JSON.stringify(tags.map((name) => ({ name }))))) as any)
+    try {
+      tiruTag(["v0.2.0", "v0.3.0", "uji"])
+      r = await jalan("perbarui_paket", { cek_saja: true })
+      cek("perbarui_paket: sudah versi terbaru", r.includes("Versi terpasang: 0.3.0") && r.includes("Sudah versi terbaru"), r)
+      tiruTag(["v0.3.0", "v0.10.0", "v0.9.1"])
+      r = await jalan("perbarui_paket", { cek_saja: true })
+      cek("perbarui_paket: ada pembaruan 0.10.0 (urutan versi angka)", r.includes("Versi terbaru: 0.10.0") && r.includes("Ada pembaruan"), r)
+      globalThis.fetch = (async () => { throw new Error("offline") }) as any
+      r = await jalan("perbarui_paket", { cek_saja: true })
+      cek("perbarui_paket: tanpa internet → GAGAL yang jelas", r.startsWith("GAGAL") && r.includes("koneksi internet"), r)
+    } finally {
+      globalThis.fetch = fetchAsli
+    }
   } finally {
     rmSync(akar, { recursive: true, force: true })
   }

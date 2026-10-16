@@ -98,8 +98,10 @@ identitas, opsi `A.`, garis `______`, `<!-- halaman-baru -->`). Rincian standar 
 | **Operator / waka kurikulum** | Mengisi CP resmi dan memverifikasinya, mengisi `kebijakan.json` dan `preferensi-sekolah.md`, menaruh template, membagikan paket. |
 | **Guru** | Menjalankan `/mulai` sekali, memakai sehari-hari, memeriksa hasil, memberi umpan balik. |
 
-Pembaruan paket hanya mengganti `.opencode/`, `sekolah/`, `AGENTS.md`, dan `opencode.json`. Folder `guru/` dan
-`hasil/` tidak disentuh.
+Guru memasang dengan menempel link GitHub di OpenCode dan meminta "tolong pasang". AI menjalankan pemasang resmi
+(`pasang.ps1`/`pasang.sh`) yang mengambil rilis bertag terbaru. Pembaruan lewat `/perbarui` atau pemasang yang sama hanya
+mengganti `.opencode/`, `AGENTS.md`, `opencode.json`, dan panduan (yang lama dicadangkan). `sekolah/` hanya ditambah berkas
+baru, sedangkan `guru/` dan `hasil/` tidak disentuh.
 
 ## 5. Model AI
 
@@ -114,7 +116,7 @@ Pembaruan paket hanya mengganti `.opencode/`, `sekolah/`, `AGENTS.md`, dan `open
 |---|---|
 | v0.1 | Skill perencanaan, profil, umpan balik. Uji e2e: pemicuan dan pagar CP lulus, tetapi hitungan tidak konsisten. |
 | **v0.2** ✔ | Agent khusus, menu slash, tool deterministik (minggu efektif, Prota, Promes, agenda), Word/Excel siap cetak, skill modul ajar, asesmen, dan administrasi harian. Uji e2e 12/12 lulus dengan model gratis. |
-| v0.3 | Port ke OpenCode 2 dan ketahanan Windows (BOM/CRLF dari Notepad, jalur backslash, nama berkas). Mengisi template Word milik sekolah, deskripsi capaian rapor dari nomor absen dan level TP, KKTP yang tersambung ke buku nilai. |
+| v0.3 | Port ke OpenCode 2, ketahanan Windows, pemasangan dengan menempel link GitHub di OpenCode, dan `/perbarui`. Mengisi template Word milik sekolah, deskripsi capaian rapor dari nomor absen dan level TP, KKTP yang tersambung ke buku nilai. |
 | v0.4 | Banyak mapel untuk guru kelas, kokurikuler mengikuti kebijakan terbaru, varian MI (Kemenag). |
 | v1.0 | CP resmi terpusat (`skills.urls`) supaya sekolah tidak menyalin manual, panduan instalasi satu klik, dan antarmuka OpenCode desktop/web untuk guru. |
 

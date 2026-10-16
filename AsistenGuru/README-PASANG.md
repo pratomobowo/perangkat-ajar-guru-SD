@@ -12,6 +12,11 @@ pembuat Word/Excel memakai sistem plugin OpenCode 2.
 3. Taruh contoh format sekolah di `sekolah/template/` jika ada.
 
 ## Di komputer guru (Windows)
+Cara termudah: buka OpenCode, tempel link https://github.com/pratomobowo/perangkat-ajar-guru-SD lalu ketik
+"Tolong pasang Asisten Guru dari link ini". OpenCode menjalankan pemasang resmi dan memasang ke `Documents\AsistenGuru`.
+Isian sekolah bisa disalin ke `sekolah\` sesudahnya.
+
+Cara manual:
 1. Unduh dan pasang **OpenCode Desktop** untuk Windows (x64, atau ARM64 untuk laptop ARM) dari opencode.ai/download.
    Jika lebih suka terminal, unduh binary CLI Windows dari halaman yang sama. Winget, Scoop, dan Chocolatey tidak didukung.
 2. Salin folder `AsistenGuru` ke komputer guru, misalnya ke `Documents\AsistenGuru`. **Satu folder untuk satu guru.**
@@ -26,13 +31,16 @@ Guru hanya perlu aplikasi untuk membukanya (Word/Excel, WPS, LibreOffice, atau G
 
 ## Keamanan bawaan
 - Asisten hanya bisa menulis di `guru/` dan `hasil/`. Perintah terminal, akses internet, subagent, dan berbagi sesi dimatikan.
+  Satu-satunya akses internet milik asisten adalah alat pembaruan, yang hanya menghubungi GitHub repositori Asisten Guru.
 - Asisten tidak bisa membaca atau menimpa Excel di `hasil/4 Administrasi/` (berisi nama siswa).
 - Nama siswa tidak pernah dikirim ke AI. Nama diketik guru langsung di berkas Excel.
 
 ## Memperbarui paket
-Ganti **hanya** `.opencode/`, `sekolah/`, `AGENTS.md`, `opencode.json`, dan berkas panduan.
-**Jangan** menyentuh `guru/` dan `hasil/`, karena di sana ada profil, data, dan dokumen milik guru.
-Paket versi 0.2 memakai folder `.opencode/tools/`. Hapus folder itu saat memperbarui ke versi 0.3 atau lebih baru.
+- Guru cukup mengetik `/perbarui` (atau "tolong perbarui asisten") di Asisten Guru. Untuk paket versi 0.2 yang belum punya
+  perintah itu, jalankan lagi pemasang (lihat README repositori) atau minta OpenCode memasangnya dari link GitHub.
+- Pembaruan mengganti `.opencode/`, `AGENTS.md`, `opencode.json`, `VERSI.md`, dan panduan; berkas lama dicadangkan di
+  `.cadangan/`. `sekolah/` hanya ditambah berkas yang belum ada. `guru/` dan `hasil/` tidak pernah disentuh.
+- Untuk membagikan isian sekolah (CP, kebijakan) ke banyak guru, salin isi `sekolah/` ke folder AsistenGuru tiap guru.
 
 ## Jika ada masalah
 - Asisten diam lebih dari 5 menit: tekan Esc, lalu kirim ulang pesannya. Server model gratis kadang macet.

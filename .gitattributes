@@ -1,0 +1,2 @@
+# Arsip rilis (zip yang diunduh pasang.ps1/pasang.sh dan alat perbarui_paket) tidak perlu berkas uji.
+uji-e2e/ export-ignore

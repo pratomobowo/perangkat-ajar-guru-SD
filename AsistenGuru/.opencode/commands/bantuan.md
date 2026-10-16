@@ -15,5 +15,6 @@ Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 - `/nilai matematika 1` — Excel buku nilai semester 1
 - `/ingat` — aturan yang saya ingat untuk Anda
 - `/word nama-berkas` — ubah dokumen ke Word
+- `/perbarui` — cek versi dan perbarui Asisten Guru
 
 Bisa juga bercerita biasa, misalnya: "minggu depan saya mengajar pecahan, tolong siapkan bahannya".
