@@ -39,7 +39,7 @@ export function opsiDokumen(profil: Profil, kebijakan: Kebijakan, jenis: JenisDo
 export function tebakJenis(nama: string): JenisDokumen {
   const n = nama.toLowerCase()
   if (n.includes("kunci")) return "kunci"
-  if (/(^|\/)(lkpd|soal|lembar)[^/]*$/.test(n)) return "lembar_siswa"
+  if (/(^|\/)(lkpd|soal|lembar|media|kartu)[^/]*$/.test(n)) return "lembar_siswa"
   return "dokumen_guru"
 }
 

@@ -2,7 +2,7 @@ import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { alat } from "../lib/alat.ts"
 import { type ATP, Gagal, bacaJson, cariMapel, jalurAman, muatDasar, slug, tulis } from "../lib/berkas.ts"
-import { nilaiXlsx } from "../lib/administrasi.ts"
+import { type KKTP, nilaiXlsx } from "../lib/administrasi.ts"
 import { FOLDER } from "../lib/dokumen.ts"
 
 export default alat<{ mapel: string; semester: number }>({
@@ -29,7 +29,8 @@ export default alat<{ mapel: string; semester: number }>({
       `guru/data/atp-${kode}.json`,
       `Data ATP ${mapel.nama} belum ada, jadi kolom TP belum bisa dibuat. Buat perencanaan dulu (skill perencanaan-tahunan).`,
     )
-    const h = nilaiXlsx(profil, kebijakan, atp, mapel.nama, semester)
+    const kktp = await bacaJson<KKTP>(akar, `guru/data/kktp-${kode}.json`)
+    const h = nilaiXlsx(profil, kebijakan, atp, mapel.nama, semester, Object.keys(kktp).length ? kktp : null)
     const dasar = `hasil/${FOLDER.administrasi}/Buku Nilai ${mapel.nama} Kelas ${profil.kelas} Semester ${semester} ${profil.tahun_ajaran.replace("/", "-")}`
     let rel = `${dasar}.xlsx`
     for (let i = 2; existsSync(join(akar, jalurAman(rel))); i++) rel = `${dasar} (${i}).xlsx`
@@ -38,6 +39,7 @@ export default alat<{ mapel: string; semester: number }>({
       `Selesai: ${rel} — ${h.tp} kolom TP, ${h.siswa} baris siswa.`,
       h.bobotSekolah ? "" : "Bobot nilai rapor memakai bawaan 50/25/25 (formatif/STS/SAS) karena sekolah belum menetapkan; sampaikan sebagai [PERLU GURU].",
       h.perkiraanSiswa ? "Jumlah siswa belum ada di profil, jadi dibuat 30 baris." : "",
+      h.kktpTp ? `Batas tuntas ${h.kktpTp} dari ${h.tp} TP diambil dari KKTP; kolom TP Belum Tuntas menandai TP yang perlu remedial tiap murid.` : `KKTP belum ada untuk TP semester ini (guru/data/kktp-${kode}.json); batas tuntas memakai kebijakan sekolah bila ada. Tawarkan membuat KKTP (skill asesmen).`,
     ]
       .filter(Boolean)
       .join("\n")

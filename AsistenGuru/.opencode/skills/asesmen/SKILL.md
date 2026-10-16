@@ -7,7 +7,10 @@ description: Menyusun instrumen penilaian dalam bentuk Word — KKTP (Kriteria K
 
 ## 1. Tentukan cakupan
 - Ambil TP dari `guru/data/atp-<mapel>.json`. Untuk STS/SAS, cakupannya TP yang sudah diajarkan menurut
-  `guru/data/promes-<mapel>.json` sampai minggu asesmen. Konfirmasi daftar TP ke guru.
+  `guru/data/promes-<mapel>.json` sampai minggu asesmen (lihat tanggal STS/SAS di `guru/kalender.json`; Promes mencatat
+  minggu tiap TP). STS = TP dari awal semester sampai sebelum STS; SAS = semua TP semester itu (atau sesuai kebijakan
+  sekolah). Konfirmasi daftar TP ke guru.
+- Untuk STS/SAS, sebaran soal per TP sebanding dengan JP tiap TP (sebutkan perhitungannya di kisi-kisi).
 - Tanyakan paling banyak 3 hal: jenis asesmen, jumlah dan bentuk soal, serta waktu pengerjaan. Jika sekolah punya
   ketentuan di `sekolah/preferensi-sekolah.md`, ikuti tanpa bertanya.
 
@@ -15,6 +18,14 @@ description: Menyusun instrumen penilaian dalam bentuk Word — KKTP (Kriteria K
 Ikuti bentuk KKTP sekolah. Jika tidak diatur, pakai **rubrik 4 tingkat** per TP: *Perlu bimbingan*, *Cukup*, *Baik*,
 *Sangat baik*. Setiap tingkat berisi deskripsi perilaku yang bisa diamati, bukan sekadar angka. Tandai `[PERLU GURU]`
 jika rentang nilai belum ditetapkan sekolah.
+
+Selain dokumen KKTP, simpan juga datanya di `guru/data/kktp-<kode-mapel>.json` supaya buku nilai Excel memakai batas
+tuntas per TP dan menandai TP yang perlu remedial. Gabungkan dengan isi lama (jangan menghapus TP lain):
+```json
+{ "mapel": "Matematika", "tp": { "TP3": { "batas": 75, "kriteria": "Baik: menyelesaikan soal cerita perkalian dengan langkah yang benar" } } }
+```
+`batas` = nilai minimal dianggap tuntas (0–100) sesuai rentang KKTP; `kriteria` = ringkasan tingkat tuntas satu kalimat.
+Setelah itu tawarkan membuat ulang buku nilai (`/nilai`) bila sudah ada.
 
 ## 3. Riset materi
 Untuk soal, ikuti skill `riset-materi`: cocokkan istilah, notasi, dan tingkat kesulitan dengan buku resmi (`baca_buku`).

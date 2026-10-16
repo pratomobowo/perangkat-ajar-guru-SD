@@ -26,6 +26,16 @@ Simpan draf di `guru/draf/2 Modul dan LKPD/<Mapel> <Kode TP> <Topik Singkat>/` (
 - `LKPD.md` — lembar siswa siap fotokopi: kolom nama, petunjuk singkat, soal bertahap dari mudah ke menantang.
   Pisahkan tiap pertemuan dengan `<!-- halaman-baru -->`. **Jangan** memasukkan kunci jawaban di berkas ini.
 - `Kunci LKPD.md` — kunci dan pembahasan singkat untuk guru.
+- `Media.md` (jika kegiatan memakai kartu, gambar, atau papan permainan yang bisa dicetak) — media siap cetak dan gunting.
+  Tulis kartu dengan blok `kartu` (satu baris satu kartu; `||` untuk keterangan kecil; opsi `kolom`, `ukuran` pt,
+  `tinggi` cm), lalu petunjuk singkat cara memakai, jumlah set yang dicetak, dan bahan (karton, gunting). Contoh:
+  ````
+  ```kartu kolom=3 ukuran=40 tinggi=5
+  1/2 || setengah
+  2/4 || dua perempat
+  ```
+  ````
+  Gambar tidak bisa dibuat; untuk gambar, tulis deskripsi singkat yang bisa digambar tangan atau rujuk gambar di buku.
 
 Pedoman isi:
 - Bahasa untuk murid sesuai usia: kalimat pendek dan contoh dekat dengan kehidupan anak.

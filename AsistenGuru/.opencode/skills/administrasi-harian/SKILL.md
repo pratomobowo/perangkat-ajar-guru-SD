@@ -1,6 +1,6 @@
 ---
 name: administrasi-harian
-description: Mengurus administrasi kelas harian dan bulanan — jurnal mengajar harian, daftar hadir/absensi siswa dalam Excel dengan rekap otomatis, buku nilai Excel per TP dengan rumus nilai rapor, serta kalimat deskripsi capaian rapor. Gunakan saat guru berkata "isi jurnal", "tadi saya mengajar ...", "absen", "daftar hadir", "rekap kehadiran", "buku nilai", "olah nilai", "nilai rapor", atau "deskripsi rapor".
+description: Mengurus administrasi kelas harian dan bulanan — jadwal pelajaran kelas dalam Word, jurnal mengajar harian, daftar hadir/absensi siswa dalam Excel dengan rekap otomatis, buku nilai Excel per TP dengan rumus nilai rapor, serta kalimat deskripsi capaian rapor. Gunakan saat guru berkata "isi jurnal", "tadi saya mengajar ...", "absen", "daftar hadir", "rekap kehadiran", "buku nilai", "olah nilai", "nilai rapor", atau "deskripsi rapor".
 ---
 
 # Administrasi Harian
@@ -25,6 +25,15 @@ Excel, bukan oleh asisten. Jangan membaca atau mengubah berkas Excel guru.
    ```
    Judul `## YYYY-MM-DD` wajib persis begitu karena dipakai untuk pengingat jurnal.
 5. Panggil `ekspor_word` untuk berkas jurnal bulan itu. Konfirmasi singkat ke guru.
+
+## Jadwal pelajaran kelas
+1. Jika `guru/jadwal-kelas.json` belum ada, tanyakan (paling banyak 3 hal sekaligus): jam masuk dan lama 1 JP, jam istirahat,
+   lalu mapel tiap hari beserta jam ke- (termasuk mapel yang diajar guru lain, misalnya PJOK atau agama, dan nama
+   gurunya bila ingin dicantumkan). Guru boleh menempelkan jadwal dari sekolah apa adanya.
+2. Tulis `guru/jadwal-kelas.json` sesuai format di skill guru-setup (`references/format-profil.md`). Mapel yang diajar guru
+   sendiri juga diperbarui di `jadwal` pada `guru/profil.json` supaya agenda harian ikut benar.
+3. Panggil `buat_jadwal_kelas`. Sampaikan nama berkas Word dan hasil pemeriksaan (✔/✖) apa adanya; jika ada ✖ (bentrok jam
+   atau JP tidak sesuai profil), tanyakan mana yang benar lalu perbaiki dan panggil lagi.
 
 ## Daftar hadir
 1. Tentukan bulan (bawaan: bulan berjalan). Panggil `buat_absensi_excel`.

@@ -22,4 +22,6 @@ for (const [n, f] of [["lkpd", `${M}/LKPD.md`], ["kunci", `${M}/Kunci LKPD.md`],
 }
 writeFileSync("out/absen.xlsx", absensiXlsx(profil, kalender, kebijakan, 2026, 10).data)
 writeFileSync("out/nilai.xlsx", nilaiXlsx(profil, kebijakan, atp, "Matematika", 1).data)
+// Dengan KKTP: batas TP1 85, TP3 75; TP lain memakai batas ketuntasan sekolah (70)
+writeFileSync("out/nilai-kktp.xlsx", nilaiXlsx(profil, kebijakan, atp, "Matematika", 1, { tp: { TP1: { batas: 85, kriteria: "Menjelaskan nilai tempat" }, TP3: { batas: 75 } } }).data)
 console.log(agenda({ tanggal: "2026-10-16", profil, kalender, promes: [h.promesJson], jurnal: () => null }))

@@ -30,6 +30,23 @@ Tulis JSON yang sah: tanda kutip ganda, tanpa koma di akhir daftar, tanggal `YYY
 - `hari_sekolah`: tambahkan `"sabtu"` jika sekolah 6 hari.
 - `jadwal`: boleh `null` jika belum diketahui. Nama hari huruf kecil tanpa tanda kutip tunggal (`jumat`).
 
+## guru/jadwal-kelas.json (opsional, untuk dokumen jadwal pelajaran kelas)
+Semua mapel kelas, termasuk yang diajar guru lain. `jam` berurutan dari pagi; istirahat ditulis sebagai baris sendiri.
+```json
+{
+  "jam": [
+    { "ke": 1, "mulai": "07.15", "akhir": "07.50" },
+    { "ke": 2, "mulai": "07.50", "akhir": "08.25" },
+    { "istirahat": true, "mulai": "09.35", "akhir": "09.50", "nama": "Istirahat" }
+  ],
+  "hari": {
+    "senin": [{ "jam_ke": "1", "mapel": "Upacara" }, { "jam_ke": "2-3", "mapel": "Matematika" }, { "jam_ke": "4-5", "mapel": "PJOK", "guru": "Pak Dedi" }]
+  }
+}
+```
+- `jam_ke` satu angka atau rentang (`"2-3"`). `guru` diisi hanya untuk mapel yang diajar guru lain.
+- Nama mapel sama dengan di profil supaya jumlah JP bisa dicek.
+
 ## guru/kalender.json
 ```json
 {

@@ -233,7 +233,10 @@ export function absensiXlsx(profil: Profil, kal: Kalender, kebijakan: Kebijakan,
 
 // ---------- Buku nilai ----------
 
-export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelNama: string, semester: number) {
+/** Data KKTP per TP (ditulis skill asesmen di guru/data/kktp-<mapel>.json). */
+export type KKTP = { mapel?: string; tp: Record<string, { batas?: number; kriteria?: string }> }
+
+export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelNama: string, semester: number, kktp?: KKTP | null) {
   const tp = atp.tp.filter((t) => t.semester === semester)
   if (!tp.length) throw new Gagal(`Tidak ada TP untuk semester ${semester} di data ATP.`)
   const bobot = kebijakan.bobot_nilai_rapor ?? { formatif: 50, sts: 25, sas: 25 }
@@ -242,7 +245,10 @@ export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelN
   const nT = tp.length
   const kT = 2
   const kRata = kT + nT
-  const nKol = kRata + 6
+  const nKol = kRata + 7
+  // Batas tuntas per TP: dari KKTP bila ada, selain itu batas ketuntasan sekolah.
+  const batasTp = tp.map((t) => (typeof kktp?.tp?.[t.kode]?.batas === "number" ? kktp.tp[t.kode].batas! : typeof kebijakan.batas_ketuntasan === "number" ? kebijakan.batas_ketuntasan : null))
+  const adaBatas = batasTp.some((b) => b !== null)
   const baris: Sel[][] = []
   const gabung: string[] = []
   kopExcel(baris, gabung, nKol, kebijakan.nama_sekolah ?? profil.sekolah, `BUKU NILAI ${mapelNama.toUpperCase()}`,
@@ -263,12 +269,12 @@ export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelN
 
   const H1 = baris.length + 1
   const r1: Sel[] = [{ v: "No", s: G.kepala }, { v: "Nama Siswa", s: G.kepala }, { v: "Nilai Formatif per TP", s: G.kepala }, ...ISI(nT - 1, G.kepala),
-    ...["Rata-rata Formatif", "STS", "SAS", "Nilai Rapor", "TP Tertinggi", "TP Terendah"].map((v) => ({ v, s: G.kepala }))]
-  const r2: Sel[] = [...ISI(2, G.kepala), ...tp.map((t) => ({ v: t.kode, s: G.kepala })), ...ISI(6, G.kepala)]
+    ...["Rata-rata Formatif", "STS", "SAS", "Nilai Rapor", "TP Tertinggi", "TP Terendah", "TP Belum Tuntas"].map((v) => ({ v, s: G.kepala }))]
+  const r2: Sel[] = [...ISI(2, G.kepala), ...tp.map((t) => ({ v: t.kode, s: G.kepala })), ...ISI(7, G.kepala)]
   baris.push(r1, r2)
   gabung.push(`A${H1}:A${H1 + 1}`, `B${H1}:B${H1 + 1}`)
   if (nT > 1) gabung.push(`${kolom(kT)}${H1}:${kolom(kRata - 1)}${H1}`)
-  for (let k = 0; k < 6; k++) gabung.push(`${kolom(kRata + k)}${H1}:${kolom(kRata + k)}${H1 + 1}`)
+  for (let k = 0; k < 7; k++) gabung.push(`${kolom(kRata + k)}${H1}:${kolom(kRata + k)}${H1 + 1}`)
   const hdrTp = `$${kolom(kT)}$${H1 + 1}:$${kolom(kRata - 1)}$${H1 + 1}`
 
   const awal = H1 + 2
@@ -284,12 +290,16 @@ export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelN
       { f: `IF(OR(${rata}="",${sts}="",${sas}=""),"",ROUND((${rata}*${BF}+${sts}*${BS}+${sas}*${BA})/(${BF}+${BS}+${BA}),0))`, s: G.tengahTebal },
       { f: `IF(COUNT(${tpR(r)})=0,"",INDEX(${hdrTp},1,MATCH(MAX(${tpR(r)}),${tpR(r)},0)))`, s: G.tengah },
       { f: `IF(COUNT(${tpR(r)})=0,"",INDEX(${hdrTp},1,MATCH(MIN(${tpR(r)}),${tpR(r)},0)))`, s: G.tengah },
+      // Daftar TP di bawah batas tuntas (untuk remedial); rumus IF biasa agar jalan di Excel lama, WPS, dan LibreOffice.
+      adaBatas
+        ? { f: `TRIM(${tp.map((t, k) => (batasTp[k] === null ? `""` : `IF(AND(${kolom(kT + k)}${r}<>"",${kolom(kT + k)}${r}<${batasTp[k]}),"${t.kode} ","")`)).join("&")})`, s: G.tengah }
+        : { v: "", s: G.tengah },
     ])
   }
   const ringkas = (label: string, fn: string) => {
     const row: Sel[] = [{ v: "", s: G.tengahTebal }, { v: label, s: G.kiriTebal }]
     for (let k = kT; k <= kRata + 3; k++) row.push({ f: `IF(COUNT(${kolom(k)}${awal}:${kolom(k)}${akhir})=0,"",ROUND(${fn}(${kolom(k)}${awal}:${kolom(k)}${akhir}),0))`, s: G.tengahTebal })
-    row.push({ v: "", s: G.tengahTebal }, { v: "", s: G.tengahTebal })
+    row.push({ v: "", s: G.tengahTebal }, { v: "", s: G.tengahTebal }, { v: "", s: G.tengahTebal })
     baris.push(row)
   }
   ringkas("Rata-rata kelas", "AVERAGE")
@@ -298,19 +308,24 @@ export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelN
 
   baris.push([])
   baris.push([{ v: "Isi nilai 0–100 pada sel kuning. Rata-rata formatif, nilai rapor, dan TP tertinggi/terendah terhitung otomatis. TP tertinggi/terendah membantu menulis deskripsi capaian rapor.", s: G.catatan }])
-  if (typeof kebijakan.batas_ketuntasan === "number")
-    baris.push([{ v: `Nilai di bawah ${kebijakan.batas_ketuntasan} (batas ketuntasan sekolah) otomatis berwarna merah.`, s: G.catatan }])
+  if (kktp && Object.keys(kktp.tp ?? {}).length)
+    baris.push([{ v: "Nilai di bawah batas tuntas tiap TP (dari KKTP) berwarna merah dan TP-nya tercantum di kolom TP Belum Tuntas untuk remedial. Kriteria KKTP ada di lembar kedua.", s: G.catatan }])
+  else if (typeof kebijakan.batas_ketuntasan === "number")
+    baris.push([{ v: `Nilai di bawah ${kebijakan.batas_ketuntasan} (batas ketuntasan sekolah) otomatis berwarna merah dan TP-nya tercantum di kolom TP Belum Tuntas.`, s: G.catatan }])
   baris.push([{ v: "Rumus terkunci agar tidak terhapus (tanpa kata sandi: Tinjau > Buka Proteksi Lembar). Keterangan TP ada di lembar kedua.", s: G.catatan }])
   ttdExcel(baris, gabung, [1, 1], [kRata + 2, kRata + 5], kebijakan, profil, "....................")
 
   const isianNilai = [`${kolom(kT)}${awal}:${kolom(kRata - 1)}${akhir}`, `${kolom(kRata + 1)}${awal}:${kolom(kRata + 2)}${akhir}`].join(" ")
-  const warna = typeof kebijakan.batas_ketuntasan === "number"
-    ? [{ sqref: `${kolom(kT)}${awal}:${kolom(kRata + 3)}${akhir}`, aturan: [{ op: "lessThan" as const, nilai: String(kebijakan.batas_ketuntasan), dxf: DXF.kurang }] }]
-    : []
+  const warna = [
+    ...tp.flatMap((_, k) => (batasTp[k] === null ? [] : [{ sqref: `${kolom(kT + k)}${awal}:${kolom(kT + k)}${akhir}`, aturan: [{ op: "lessThan" as const, nilai: String(batasTp[k]), dxf: DXF.kurang }] }])),
+    ...(typeof kebijakan.batas_ketuntasan === "number"
+      ? [{ sqref: `${kolom(kRata)}${awal}:${kolom(kRata + 3)}${akhir}`, aturan: [{ op: "lessThan" as const, nilai: String(kebijakan.batas_ketuntasan), dxf: DXF.kurang }] }]
+      : []),
+  ]
   const lembar: Lembar = {
     nama: `Nilai Semester ${semester}`,
     baris,
-    lebar: [4.5, 26, ...tp.map(() => 6.5), 10, 6.5, 6.5, 8, 9, 9],
+    lebar: [4.5, 26, ...tp.map(() => 6.5), 10, 6.5, 6.5, 8, 9, 9, 14],
     gabung,
     beku: { baris: H1 + 1, kolom: 2 },
     kunci: true,
@@ -327,12 +342,12 @@ export function nilaiXlsx(profil: Profil, kebijakan: Kebijakan, atp: ATP, mapelN
     baris: [
       [{ v: `KETERANGAN TUJUAN PEMBELAJARAN — ${mapelNama.toUpperCase()} SEMESTER ${semester}`, s: G.subjudul }],
       [],
-      [{ v: "Kode", s: G.kepala }, { v: "Tujuan Pembelajaran", s: G.kepala }, { v: "JP", s: G.kepala }],
-      ...tp.map((t) => [{ v: t.kode, s: G.tengah }, { v: t.tujuan, s: G.sel }, { v: t.jp, s: G.tengah }] as Sel[]),
+      [{ v: "Kode", s: G.kepala }, { v: "Tujuan Pembelajaran", s: G.kepala }, { v: "JP", s: G.kepala }, { v: "Batas Tuntas", s: G.kepala }, { v: "Kriteria (KKTP)", s: G.kepala }],
+      ...tp.map((t, k) => [{ v: t.kode, s: G.tengah }, { v: t.tujuan, s: G.sel }, { v: t.jp, s: G.tengah }, { v: batasTp[k] ?? "", s: G.tengah }, { v: kktp?.tp?.[t.kode]?.kriteria ?? "", s: G.sel }] as Sel[]),
     ],
-    gabung: ["A1:C1"],
-    lebar: [8, 90, 6],
+    gabung: ["A1:E1"],
+    lebar: [8, 60, 6, 9, 60],
     cetak: { kertas: kebijakan.kertas === "F4" ? "F4" : "A4" },
   }
-  return { data: buatXlsx([lembar, ket]), tp: nT, siswa: n, perkiraanSiswa: profil.jumlah_siswa == null, bobotSekolah }
+  return { data: buatXlsx([lembar, ket]), tp: nT, siswa: n, perkiraanSiswa: profil.jumlah_siswa == null, bobotSekolah, kktpTp: tp.filter((t) => typeof kktp?.tp?.[t.kode]?.batas === "number").length }
 }

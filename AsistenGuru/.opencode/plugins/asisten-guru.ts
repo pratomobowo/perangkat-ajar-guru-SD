@@ -7,6 +7,8 @@ import { Gagal, cariAkar } from "../lib/berkas.ts"
 import agendaHariIni from "../alat/agenda_hari_ini.ts"
 import aturGaya from "../alat/atur_gaya.ts"
 import bacaBuku from "../alat/baca_buku.ts"
+import buatJadwalKelas from "../alat/buat_jadwal_kelas.ts"
+import buatKalenderPendidikan from "../alat/buat_kalender_pendidikan.ts"
 import buatAbsensiExcel from "../alat/buat_absensi_excel.ts"
 import buatNilaiExcel from "../alat/buat_nilai_excel.ts"
 import eksporWord from "../alat/ekspor_word.ts"
@@ -17,7 +19,7 @@ import simpanTemplateWord from "../alat/simpan_template_word.ts"
 import susunPerencanaan from "../alat/susun_perencanaan.ts"
 import unduhBuku from "../alat/unduh_buku.ts"
 
-const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord]
+const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas]
 
 export default {
   id: "asisten-guru",

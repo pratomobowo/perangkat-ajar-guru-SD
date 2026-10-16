@@ -61,7 +61,7 @@ for (const windows of [false, true]) {
   try {
     const alat = await daftarAlat(akar)
     const jalan = async (n: string, input: any = {}) => (await alat[n].execute(input, {})).content as string
-    cek("plugin mendaftarkan 12 alat", Object.keys(alat).length === 12, Object.keys(alat).join(", "))
+    cek("plugin mendaftarkan 14 alat", Object.keys(alat).length === 14, Object.keys(alat).join(", "))
     cek("semua alat bukan Code Mode", Object.values(alat).every((t: any) => t.options?.codemode === false))
 
     let r = await jalan("hitung_minggu_efektif")
@@ -110,6 +110,25 @@ for (const windows of [false, true]) {
     cek("buat_nilai_excel: semester 1", r.startsWith("Selesai") && r.includes("kolom TP"), r)
     r = await jalan("buat_nilai_excel", { mapel: "IPAS", semester: 1 })
     cek("buat_nilai_excel: mapel tidak ada → GAGAL", r.startsWith("GAGAL"), r)
+    // Kalender pendidikan, jadwal kelas, dan media kartu
+    r = await jalan("buat_kalender_pendidikan")
+    cek("buat_kalender_pendidikan: Word tersimpan", r.startsWith("Selesai: hasil/1 Perencanaan/Kalender Pendidikan 2026-2027.docx") && r.includes("hari belajar efektif"), r)
+    const kalDoc = new TextDecoder().decode((await import("../../AsistenGuru/.opencode/lib/unzip.ts")).bacaZip(new Uint8Array(readFileSync(join(akar, "hasil/1 Perencanaan/Kalender Pendidikan 2026-2027.docx")))).get("word/document.xml")!)
+    cek("kalender: tanda K untuk MPLS dan L untuk HUT RI", kalDoc.includes(">13 K<") && kalDoc.includes(">17 L<") && !kalDoc.includes('w:orient="landscape"'))
+    r = await jalan("buat_jadwal_kelas")
+    cek("buat_jadwal_kelas: tanpa data → GAGAL dengan petunjuk", r.startsWith("GAGAL") && r.includes("jadwal-kelas.json"), r)
+    writeFileSync(join(akar, "guru/jadwal-kelas.json"), JSON.stringify({
+      jam: [{ ke: 1, mulai: "07.15", akhir: "07.50" }, { ke: 2, mulai: "07.50", akhir: "08.25" }, { istirahat: true, mulai: "08.25", akhir: "08.40" }, { ke: 3, mulai: "08.40", akhir: "09.15" }],
+      hari: { senin: [{ jam_ke: "1-2", mapel: "Matematika" }, { jam_ke: "3", mapel: "PJOK", guru: "Pak Dedi" }], rabu: [{ jam_ke: "1-2", mapel: "Matematika" }], jumat: [{ jam_ke: "3", mapel: "Matematika" }] },
+    }))
+    r = await jalan("buat_jadwal_kelas")
+    cek("buat_jadwal_kelas: Word lanskap + JP sesuai profil", r.includes("Jadwal Pelajaran Kelas 4") && r.includes("✔ Matematika: 5 JP"), r)
+    const media = "guru/draf/2 Modul dan LKPD/Matematika TP5 Kalimat Matematika dan Pola Bilangan/Media.md"
+    writeFileSync(join(akar, media), "# KARTU PECAHAN\n\nGunting sesuai garis putus-putus.\n\n```kartu kolom=3 ukuran=40 tinggi=5\n1/2 || setengah\n2/4\n3/6\n4/8\n```\n")
+    r = await jalan("ekspor_word", { berkas: media })
+    const medDoc = new TextDecoder().decode((await import("../../AsistenGuru/.opencode/lib/unzip.ts")).bacaZip(new Uint8Array(readFileSync(join(akar, media.replace("guru/draf/", "hasil/").replace(".md", ".docx"))))).get("word/document.xml")!)
+    cek("media kartu: lembar siswa, garis putus-putus, 2 baris kartu", r.includes("lembar_siswa") && medDoc.includes('w:val="dashed"') && (medDoc.match(/w:hRule="exact"/g) ?? []).length === 2 && medDoc.includes(">setengah<"), r)
+
     // Pustaka buku dan riset web (pencarian ditiru; tidak butuh internet).
     r = await jalan("baca_buku")
     cek("baca_buku: daftar buku", r.includes("Buku Uji Pecahan"), r)

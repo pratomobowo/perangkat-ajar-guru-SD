@@ -28,6 +28,8 @@ supaya guru bisa fokus mengajar. Guru memutuskan; kamu menyiapkan draf, menghitu
 | KKTP, soal, ulangan harian, STS, SAS, kisi-kisi, kunci jawaban, rubrik | skill `asesmen` |
 | Jurnal harian, daftar hadir/absensi, buku nilai, deskripsi rapor | skill `administrasi-harian` |
 | Hari ini/minggu ini mengajar apa, pengingat | alat `agenda_hari_ini` |
+| Kalender pendidikan/akademik dalam Word | alat `buat_kalender_pendidikan` |
+| Jadwal pelajaran kelas dalam Word | skill `administrasi-harian` (Jadwal pelajaran kelas) |
 | Arahan tetap ("mulai sekarang", "selalu", "jangan lagi", "tolong ingat") | skill `umpan-balik-guru` |
 | Mengubah dokumen ke Word | alat `ekspor_word` |
 | Format Word: huruf, margin, kop, tanda tangan, susunan bagian, "pakai format Word saya/hasil editan saya" | skill `template-guru` |

@@ -41,10 +41,14 @@ const d = process.argv[2]
 let ok = uji("absen", `${d}/out/absen.xlsx`,
   { B8: "Siswa 1", C8: "S", D8: "S", E8: "A", B9: "Siswa 2", F9: "I" },
   { Y8: 2, Z8: 0, AA8: 1, AB8: 19, AC8: 19 / 22, Y9: 0, Z9: 1, AB9: 21, Y10: "", AC10: "", C36: 1, F36: 1, Y36: 2, Z36: 1, AA36: 1, AC36: (19 / 22 + 21 / 22) / 2 })
-// Buku nilai smt 1: 5 TP (C..G), rata H, STS I, SAS J, rapor K, max L, min M; bobot D5/F5/H5; data mulai baris 9
+// Buku nilai smt 1: 5 TP (C..G), rata H, STS I, SAS J, rapor K, max L, min M, belum tuntas N; bobot D5/F5/H5; data mulai baris 9
 ok = uji("nilai", `${d}/out/nilai.xlsx`,
   { B9: "Siswa 1", C9: 80, D9: 90, E9: 70, F9: 60, G9: 100, I9: 75, J9: 85, B10: "Siswa 2", C10: 50, E10: 71 },
-  { H9: 80, K9: 80, L9: "TP5", M9: "TP4", H10: 61, K10: "", L10: "TP3", M10: "TP1", H11: "", C37: 65, H37: 71, C38: 80, C39: 50 }) && ok
+  { H9: 80, K9: 80, L9: "TP5", M9: "TP4", H10: 61, K10: "", L10: "TP3", M10: "TP1", H11: "", C37: 65, H37: 71, C38: 80, C39: 50, N9: "TP4", N10: "TP1", N11: "" }) && ok
+// KKTP per TP: TP1 < 85 dan TP3 < 75 ikut tercatat belum tuntas
+ok = uji("nilai-kktp", `${d}/out/nilai-kktp.xlsx`,
+  { C9: 80, D9: 90, E9: 70, F9: 60, G9: 100, C10: 90, D10: 70, E10: 75 },
+  { N9: "TP1 TP3 TP4", N10: "", N11: "" }) && ok
 // Bobot sekolah diubah guru: 40/30/30
 ok = uji("nilai-bobot", `${d}/out/nilai.xlsx`,
   { E5: 40, G5: 30, I5: 30, C9: 80, D9: 90, E9: 70, F9: 60, G9: 100, I9: 75, J9: 85 }, { K9: 80 }) && ok

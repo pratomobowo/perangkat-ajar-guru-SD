@@ -6,6 +6,12 @@
 //   Satuan pendidikan: SDIT Contoh
 //   Kelas/Fase: 4 / B
 //   ```
+// Media siap cetak:
+//   ```kartu kolom=3 ukuran=32 tinggi=4
+//   1/2 || setengah
+//   2/4
+//   ```
+// Satu baris = satu kartu (teks besar, "||" memisahkan keterangan kecil), disusun berjajar dengan garis potong putus-putus.
 // Penanda [PERLU ...] diberi stabilo kuning. Baris yang diawali "DRAF" dicetak merah tebal.
 //
 // Tata letak: kop sekolah, judul utama di tengah, lebar kolom tabel proporsional terhadap isinya, kolom angka
@@ -185,6 +191,29 @@ function tabelMarkdown(blok: string[], tersedia: number, ukuran: number, warna?:
   return tabel(data, lebar, { kepala: true, ukuran, tengah, warna }) + para("", { spasiSetelah: 0 })
 }
 
+/** Kartu siap gunting: grid sel dengan garis putus-putus, teks besar di tengah. */
+function blokKartu(baris: string[], argumen: string, tersedia: number): string {
+  const opsi = Object.fromEntries([...argumen.matchAll(/(\w+)=([\d.]+)/g)].map((m) => [m[1], Number(m[2])]))
+  const kolomN = Math.min(6, Math.max(1, Math.round(opsi.kolom || 3)))
+  const ukuran = Math.round(Math.min(96, Math.max(10, opsi.ukuran || 28)) * 2)
+  const tinggi = Math.round(Math.min(20, Math.max(1.5, opsi.tinggi || 4)) * CM)
+  const kartu = baris.map((b) => b.trim()).filter(Boolean).map((b) => b.split("||").map((x) => x.trim()))
+  if (!kartu.length) return ""
+  const lebar = Math.floor(tersedia / kolomN)
+  const putus = ["top", "left", "bottom", "right", "insideH", "insideV"].map((g) => `<w:${g} w:val="dashed" w:sz="6" w:space="0" w:color="7F7F7F"/>`).join("")
+  const rows: string[] = []
+  for (let i = 0; i < kartu.length; i += kolomN) {
+    const sel = Array.from({ length: kolomN }, (_, k) => {
+      const [besar, kecil] = kartu[i + k] ?? [""]
+      const isi = para(inline(besar ?? "", { tebal: true, ukuran }), { jc: "center", spasiSetelah: 0, spasiSebelum: 0, baris: 240 }) +
+        (kecil ? para(inline(kecil, { ukuran: Math.max(18, Math.round(ukuran / 3)) }), { jc: "center", spasiSetelah: 0, spasiSebelum: 60, baris: 240 }) : "")
+      return `<w:tc><w:tcPr><w:tcW w:w="${lebar}" w:type="dxa"/><w:vAlign w:val="center"/></w:tcPr>${isi}</w:tc>`
+    }).join("")
+    rows.push(`<w:tr><w:trPr><w:cantSplit/><w:trHeight w:val="${tinggi}" w:hRule="exact"/></w:trPr>${sel}</w:tr>`)
+  }
+  return `<w:tbl><w:tblPr><w:tblW w:w="${lebar * kolomN}" w:type="dxa"/><w:tblBorders>${putus}</w:tblBorders><w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid>${Array.from({ length: kolomN }, () => `<w:gridCol w:w="${lebar}"/>`).join("")}</w:tblGrid>${rows.join("")}</w:tbl>` + para("", { spasiSetelah: 0 })
+}
+
 function blokIdentitas(baris: string[], tersedia: number, ukuran: number): string {
   const data = baris
     .map((b) => b.trim())
@@ -269,11 +298,12 @@ export function markdownKeBody(md: string, o: OpsiDokumen, tersedia: number): { 
     if (/^<!--.*-->$/.test(t)) continue
     if (t.startsWith("```")) {
       flush()
-      const jenis = t.slice(3).trim().toLowerCase()
+      const [jenis, ...argumenBlok] = t.slice(3).trim().toLowerCase().split(/\s+/)
       const isi: string[] = []
       i++
       while (i < lines.length && !lines[i].trim().startsWith("```")) isi.push(lines[i++])
       if (jenis === "identitas") out.push(blokIdentitas(isi, tersedia, siswa ? 22 : 20))
+      else if (jenis === "kartu") out.push(blokKartu(isi, argumenBlok.join(" "), tersedia))
       else for (const b of isi) out.push(para(runXml({ teks: b, ukuran: 18 }), { spasiSetelah: 0 }))
       continue
     }
