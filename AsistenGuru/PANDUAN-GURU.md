@@ -13,6 +13,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | `/modul pecahan senilai` | Membuat modul ajar/RPM dan LKPD |
 | `/kokurikuler` | Kegiatan kokurikuler (pengganti P5): perencanaan, jurnal, Excel penilaian, deskripsi rapor |
 | `/kalender`, `/jadwal` | Kalender pendidikan dan jadwal pelajaran kelas (Word) |
+| `/media` | Media ajar interaktif (satu berkas HTML) untuk smart TV, papan sentuh, proyektor, atau HP — kuis, kartu kilat, pasangkan, ular tangga, roda nomor absen, alat peraga pecahan/jam/Dienes, bangun ruang 3D. Tanpa internet, bisa dicetak |
 | `/buku` | Mengunduh buku teks resmi (Buku Siswa dan Panduan Guru) kelas Anda ke pustaka |
 | "carikan materi pecahan senilai" | Mencari isi materi di buku resmi dan situs tepercaya, lengkap dengan sumbernya |
 | `/soal sumatif bab pecahan` | Membuat KKTP, kisi-kisi, soal, dan kunci |

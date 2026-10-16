@@ -11,6 +11,7 @@ import bacaBuku from "../alat/baca_buku.ts"
 import bacaMasukan from "../alat/baca_masukan.ts"
 import buatJadwalKelas from "../alat/buat_jadwal_kelas.ts"
 import buatKalenderPendidikan from "../alat/buat_kalender_pendidikan.ts"
+import buatMedia from "../alat/buat_media.ts"
 import buatPenilaianKokurikulerExcel from "../alat/buat_penilaian_kokurikuler_excel.ts"
 import buatAbsensiExcel from "../alat/buat_absensi_excel.ts"
 import buatNilaiExcel from "../alat/buat_nilai_excel.ts"
@@ -23,7 +24,7 @@ import statusPerangkat from "../alat/status_perangkat.ts"
 import susunPerencanaan from "../alat/susun_perencanaan.ts"
 import unduhBuku from "../alat/unduh_buku.ts"
 
-const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat]
+const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat, buatMedia]
 
 export default {
   id: "asisten-guru",

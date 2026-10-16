@@ -1,6 +1,6 @@
 ---
 name: modul-ajar
-description: Menyiapkan bahan mengajar untuk satu topik atau TP — Modul Ajar, RPM (Rencana Pembelajaran Mendalam), RPP, LKPD siap fotokopi beserta kunci jawaban, bahan bacaan, dan ide media/alat peraga — dalam bentuk Word. Gunakan saat guru meminta modul ajar, RPM, RPP, LKPD, lembar kerja, bahan ajar, media pembelajaran, atau berkata "minggu depan saya mengajar ...", "bantu siapkan bahan", "apa yang perlu saya bawa ke kelas".
+description: Menyiapkan bahan mengajar untuk satu topik atau TP — Modul Ajar, RPM (Rencana Pembelajaran Mendalam), RPP, LKPD siap fotokopi beserta kunci jawaban, bahan bacaan (Word), dan media ajar interaktif (HTML untuk smart TV/proyektor: kuis, permainan, alat peraga, bangun ruang 3D). Gunakan saat guru meminta modul ajar, RPM, RPP, LKPD, lembar kerja, bahan ajar, media pembelajaran, media interaktif, kuis, game, alat peraga, atau berkata "minggu depan saya mengajar ...", "bantu siapkan bahan", "apa yang perlu saya bawa ke kelas".
 ---
 
 # Modul Ajar / RPM dan LKPD
@@ -28,16 +28,12 @@ Simpan draf di `guru/draf/2 Modul dan LKPD/<Mapel> <Kode TP> <Topik Singkat>/` (
 - `LKPD.md` — lembar siswa siap fotokopi: kolom nama, petunjuk singkat, soal bertahap dari mudah ke menantang.
   Pisahkan tiap pertemuan dengan `<!-- halaman-baru -->`. **Jangan** memasukkan kunci jawaban di berkas ini.
 - `Kunci LKPD.md` — kunci dan pembahasan singkat untuk guru.
-- `Media.md` (jika kegiatan memakai kartu, gambar, atau papan permainan yang bisa dicetak) — media siap cetak dan gunting.
-  Tulis kartu dengan blok `kartu` (satu baris satu kartu; `||` untuk keterangan kecil; opsi `kolom`, `ukuran` pt,
-  `tinggi` cm), lalu petunjuk singkat cara memakai, jumlah set yang dicetak, dan bahan (karton, gunting). Contoh:
-  ````
-  ```kartu kolom=3 ukuran=40 tinggi=5
-  1/2 || setengah
-  2/4 || dua perempat
-  ```
-  ````
-  Gambar tidak bisa dibuat; untuk gambar, tulis deskripsi singkat yang bisa digambar tangan atau rujuk gambar di buku.
+- **Media interaktif** (jika kegiatan memakai kuis, kartu, permainan, atau alat peraga) — panggil `buat_media` dengan
+  `topik` = nama folder di atas. Kamu hanya menulis spesifikasi pendek (jenis bagian dan isinya); alat yang membuat
+  HTML-nya (berjalan di smart TV/papan sentuh/laptop/HP tanpa internet, bisa dicetak). Pilih 2–5 bagian yang paling
+  cocok dengan kegiatan; format dan contoh di `references/media.md`. Jangan menulis HTML/JavaScript sendiri. Jika alat
+  menjawab `GAGAL`, perbaiki spesifikasi sesuai pesannya lalu panggil lagi.
+  (Kartu untuk Word tetap bisa: blok ```` ```kartu kolom=3 ```` di `Media.md`, satu baris satu kartu.)
 
 Pedoman isi:
 - Bahasa untuk murid sesuai usia: kalimat pendek dan contoh dekat dengan kehidupan anak.
@@ -51,5 +47,6 @@ Pedoman isi:
 - Definisi, angka, dan fakta sama dengan sumber. Isi tanpa sumber sudah ditandai `[PERLU GURU: cek kebenaran ...]`.
 
 ## 5. Serahkan
-Panggil `ekspor_word` untuk ketiga draf (jenis ditebak otomatis dari nama berkas). Sampaikan dalam paling banyak 5 baris: isi tiap berkas Word, barang yang perlu
-dibawa, sumber utama (buku dan halaman), dan bagian `[PERLU GURU]`. Tanyakan apa yang ingin diubah.
+Panggil `ekspor_word` untuk ketiga draf (jenis ditebak otomatis dari nama berkas), dan `buat_media` bila ada media.
+Sampaikan dalam paling banyak 6 baris: isi tiap berkas Word, berkas media HTML dan cara membukanya di kelas, barang yang
+perlu dibawa, sumber utama (buku dan halaman), dan bagian `[PERLU GURU]`. Tanyakan apa yang ingin diubah.

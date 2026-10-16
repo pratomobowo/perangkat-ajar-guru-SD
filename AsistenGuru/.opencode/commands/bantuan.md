@@ -10,6 +10,7 @@ Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 - `/mulai` — siapkan profil, jadwal, dan kalender (sekali di awal tahun)
 - `/hari-ini` — agenda hari ini dan pengingat
 - `/kalender` — kalender pendidikan (Word); `/jadwal` — jadwal pelajaran kelas (Word)
+- `/media` — media ajar interaktif untuk smart TV/proyektor/HP: kuis, kartu kilat, permainan, alat peraga, bangun ruang 3D
 - `/rencana matematika` — minggu efektif, ATP, Prota, Promes
 - `/modul pecahan senilai` — modul ajar/RPM dan LKPD
 - `/soal sumatif bab pecahan` — KKTP, kisi-kisi, soal, kunci
