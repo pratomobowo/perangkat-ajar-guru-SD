@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs"
 import { mingguEfektif, susunPerencanaan } from "../../AsistenGuru/.opencode/lib/perencanaan.ts"
 import { agenda, absensiXlsx, nilaiXlsx } from "../../AsistenGuru/.opencode/lib/administrasi.ts"
+import { penilaianKokurikulerXlsx } from "../../AsistenGuru/.opencode/lib/kokurikuler.ts"
 import { buatDocx } from "../../AsistenGuru/.opencode/lib/docx.ts"
 import { opsiDokumen, tebakJenis } from "../../AsistenGuru/.opencode/lib/dokumen.ts"
 const j = (p: string) => JSON.parse(readFileSync(p, "utf8"))
@@ -24,4 +25,8 @@ writeFileSync("out/absen.xlsx", absensiXlsx(profil, kalender, kebijakan, 2026, 1
 writeFileSync("out/nilai.xlsx", nilaiXlsx(profil, kebijakan, atp, "Matematika", 1).data)
 // Dengan KKTP: batas TP1 85, TP3 75; TP lain memakai batas ketuntasan sekolah (70)
 writeFileSync("out/nilai-kktp.xlsx", nilaiXlsx(profil, kebijakan, atp, "Matematika", 1, { tp: { TP1: { batas: 85, kriteria: "Menjelaskan nilai tempat" }, TP3: { batas: 75 } } }).data)
+writeFileSync("out/kokurikuler.xlsx", penilaianKokurikulerXlsx(profil, kebijakan, { tema: "Lingkunganku Sehat, Aku Kuat", bentuk: "Pembelajaran kolaboratif lintas disiplin ilmu",
+  dimensi: [{ dimensi: "Penalaran Kritis", subdimensi: "Penyelesaian Masalah", frasa: "penalaran kritis saat mencari solusi masalah sampah" }, { dimensi: "Kolaborasi", subdimensi: "Kerja sama" }, { dimensi: "Komunikasi", subdimensi: "Berbicara", frasa: "mengomunikasikan gagasan" }] }).data)
+writeFileSync("out/kokurikuler-7kaih.xlsx", penilaianKokurikulerXlsx(profil, kebijakan, { tema: "Hidup Sehat", skala: "Terbiasa/Belum Terbiasa",
+  dimensi: [{ dimensi: "Kemandirian", subdimensi: "Bangun pagi", frasa: "membiasakan bangun pagi" }, { dimensi: "Kesehatan", subdimensi: "Makan sehat dan bergizi", frasa: "makan sehat dan bergizi" }] }).data)
 console.log(agenda({ tanggal: "2026-10-16", profil, kalender, promes: [h.promesJson], jurnal: () => null }))

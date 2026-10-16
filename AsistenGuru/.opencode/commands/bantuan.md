@@ -11,6 +11,7 @@ Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 - `/rencana matematika` — minggu efektif, ATP, Prota, Promes
 - `/modul pecahan senilai` — modul ajar/RPM dan LKPD
 - `/soal sumatif bab pecahan` — KKTP, kisi-kisi, soal, kunci
+- `/kokurikuler` — kegiatan kokurikuler (pengganti P5): perencanaan, jurnal, penilaian, deskripsi rapor
 - `/jurnal tadi mengajar ...` — catat jurnal harian
 - `/absen oktober` — Excel daftar hadir
 - `/nilai matematika 1` — Excel buku nilai semester 1

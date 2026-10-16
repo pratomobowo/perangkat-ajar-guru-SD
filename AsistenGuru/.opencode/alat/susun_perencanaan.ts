@@ -24,8 +24,14 @@ export default alat<{ mapel: string }>({
     )
 
     const fase = (profil.fase ?? "").toLowerCase()
-    const cpPath = `sekolah/referensi/cp/${kode}-fase-${fase}.md`
-    const cpTeks = await bacaTeks(akar, cpPath)
+    // CP sekolah diutamakan; CP yang diambil otomatis oleh guru (alat ambil_cp) dipakai bila CP sekolah belum diisi.
+    let cpPath = `sekolah/referensi/cp/${kode}-fase-${fase}.md`
+    let cpTeks = await bacaTeks(akar, cpPath)
+    if (!cpTeks || frontmatter(cpTeks).status === "BELUM-TERISI") {
+      const guruPath = `guru/referensi/cp/${kode}-fase-${fase}.md`
+      const guruTeks = await bacaTeks(akar, guruPath)
+      if (guruTeks) { cpPath = guruPath; cpTeks = guruTeks }
+    }
     let cp: CpInfo | null = null
     if (cpTeks) {
       const fm = frontmatter(cpTeks)
@@ -37,7 +43,7 @@ export default alat<{ mapel: string }>({
       }
     }
     if (!cp || cp.status === "BELUM-TERISI")
-      throw new Gagal(`CP belum tersedia (${cpPath}). Perencanaan tidak boleh dibuat tanpa CP. Minta sekolah mengisinya.`)
+      throw new Gagal(`CP belum tersedia (${cpPath}). Perencanaan tidak boleh dibuat tanpa CP. Tawarkan ke guru mengambil CP resmi otomatis dengan alat ambil_cp (mapel "${mapel.nama}", fase ${profil.fase}), atau minta sekolah mengisinya.`)
 
     const h = susunPerencanaan({ profil, kalender, kebijakan, mapel, atp, cp })
     const folder = `${FOLDER.perencanaan}/${mapel.nama} Kelas ${profil.kelas} ${profil.tahun_ajaran.replace("/", "-")}`

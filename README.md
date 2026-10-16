@@ -4,7 +4,7 @@ Asisten pribadi guru SD/SDIT berbasis [OpenCode 2](https://opencode.ai) yang men
 kalender → minggu efektif → ATP → Prota/Promes → modul ajar/RPM dan LKPD → asesmen → jurnal, daftar hadir, dan buku nilai.
 Guru cukup bercerita dan memeriksa. Dokumen Word dan Excel yang rapi dan siap cetak disiapkan oleh asisten.
 
-> Status: **v0.6.0**, untuk OpenCode 2 (Desktop atau CLI), utamanya guru pengguna Windows. Uji coba Matematika Kelas 4 (Fase B).
+> Status: **v0.7.0**, untuk OpenCode 2 (Desktop atau CLI), utamanya guru pengguna Windows. Uji coba Matematika Kelas 4 (Fase B).
 > Lihat [`uji-e2e/LAPORAN-v03.md`](uji-e2e/LAPORAN-v03.md).
 
 ## Cara pasang paling mudah (untuk guru)
@@ -57,6 +57,9 @@ Bagian ini untuk asisten AI (misalnya OpenCode) yang diminta memasang atau mempe
 | `/buku` | Mencari dan mengunduh Buku Siswa dan Panduan Guru resmi (SIBI) untuk kelas guru ke pustaka |
 | "carikan materi siklus air" | Riset dari pustaka buku resmi (PDF) lalu situs tepercaya, lengkap dengan halaman/URL sumber |
 | `/soal ulangan harian TP3` | KKTP, kisi-kisi, lembar soal, serta kunci dan penskoran (Word) |
+| `/kokurikuler` | Kokurikuler (pengganti P5): perencanaan kegiatan, jurnal, Excel penilaian per dimensi profil lulusan, draf deskripsi rapor |
+| `/kalender`, `/jadwal` | Kalender pendidikan dan jadwal pelajaran kelas (Word), dengan cek bentrok dan JP |
+| "susun draf KSP sekolah kami" | Draf Kurikulum Satuan Pendidikan (5 komponen panduan 2025) untuk kepala sekolah/waka |
 | `/jurnal tadi mengajar …` | Jurnal mengajar bulanan (Word) |
 | `/absen oktober` | Daftar hadir bulanan dengan rekap otomatis (Excel) |
 | `/nilai matematika 1` | Buku nilai per TP dengan rumus nilai rapor (Excel) |
@@ -87,17 +90,19 @@ AsistenGuru/                 ← paket yang disalin ke komputer guru (satu folde
 │  ├─ agents/asisten-guru.md persona, peta tugas, format draf, izin (tulis hanya guru/ dan hasil/)
 │  ├─ commands/              menu slash
 │  ├─ skills/                guru-setup, perencanaan-tahunan, modul-ajar, asesmen, administrasi-harian, umpan-balik-guru,
-│  │                         kelola-asisten, riset-materi, template-guru
+│  │                         kelola-asisten, riset-materi, template-guru, kokurikuler, kurikulum-satuan-pendidikan
 │  ├─ paket.json             nama dan versi paket (dipakai pemasang dan alat perbarui_paket)
 │  ├─ plugins/asisten-guru.ts plugin OpenCode 2 yang mendaftarkan alat (tanpa paket npm)
 │  ├─ alat/                  hitung_minggu_efektif, susun_perencanaan, agenda_hari_ini, ekspor_word,
 │  │                         buat_absensi_excel, buat_nilai_excel, perbarui_paket, baca_buku, riset_materi,
-│  │                         unduh_buku, atur_gaya, simpan_template_word
+│  │                         unduh_buku, atur_gaya, simpan_template_word, buat_kalender_pendidikan,
+│  │                         buat_jadwal_kelas, ambil_cp, buat_penilaian_kokurikuler_excel
 │  ├─ lib/                   kalender, perencanaan, penulis .docx/.xlsx/.zip, pustaka, riset (tanpa dependensi)
 │  └─ vendor/pdfjs/          pdf.js (Apache-2.0) untuk membaca teks PDF buku
 ├─ sekolah/                  milik sekolah: kebijakan.json, preferensi-sekolah.md, referensi CP dan buku, template
 ├─ guru/                     milik guru: profil, kalender, preferensi, gaya dan template Word, buku, data ATP/Promes, draf
-├─ hasil/                    Word dan Excel siap cetak (1 Perencanaan, 2 Modul dan LKPD, 3 Asesmen, 4 Administrasi)
+├─ hasil/                    Word dan Excel siap cetak (1 Perencanaan, 2 Modul dan LKPD, 3 Asesmen, 4 Administrasi,
+│                            5 Kokurikuler, 6 Dokumen Sekolah)
 ├─ VERSI.md                  versi paket dan catatan perubahan
 ├─ README-PASANG.md          panduan operator sekolah
 └─ PANDUAN-GURU.md           panduan satu halaman untuk guru
@@ -129,6 +134,7 @@ Rincian ada di [`AsistenGuru/README-PASANG.md`](AsistenGuru/README-PASANG.md).
 | Uji | Perintah | Isi |
 |---|---|---|
 | Pustaka | `cd uji-e2e/fixture && bun uji-lib.ts` | Minggu efektif, validasi ATP, Prota/Promes, agenda, Word dan Excel |
+| CP resmi | `cd uji-e2e/fixture && bun uji-cp.ts` | Parser CP dari PDF Keputusan BSKAP 046/H/KR/2025 (judul, elemen terpotong, butir, salah ketik kelas) |
 | Template guru | `cd uji-e2e/fixture && bun uji-template.ts` | Gaya, kerangka, Word contoh (termasuk Word berbahasa Indonesia, kop di header, hasil editan guru), kunci dan template wajib sekolah; `SOFFICE=...` membuka hasil di LibreOffice |
 | Alat dan plugin | `cd uji-e2e/fixture && bun uji-alat.ts` | Keenam alat lewat plugin OpenCode 2, termasuk berkas ala Notepad Windows (BOM, CRLF) dan jalur Windows |
 | Rumus Excel | `cd uji-e2e/rumus && bun install && bun uji-rumus-fixture.ts ../fixture` | Menghitung rumus dengan HyperFormula dan membandingkannya dengan nilai harapan |

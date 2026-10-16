@@ -11,10 +11,13 @@ menghitung JP sendiri.
 
 ## 1. Prasyarat
 - `guru/profil.json` dan `guru/kalender.json` ada. Jika belum → skill `guru-setup`.
-- CP ada di `sekolah/referensi/cp/<kode-mapel>-fase-<fase>.md`. Baca frontmatter-nya:
-  - berkas tidak ada atau `status: BELUM-TERISI` → **berhenti**. Jelaskan bahwa waka kurikulum/operator perlu mengisi CP,
-    sebutkan nama berkasnya. Sambil menunggu, tawarkan menghitung minggu efektif (`hitung_minggu_efektif`), karena itu tidak butuh CP.
-  - status selain `TERVERIFIKASI` → jelaskan dalam satu kalimat, lalu lanjut hanya jika guru setuju dibuatkan DRAF.
+- CP ada di `sekolah/referensi/cp/<kode-mapel>-fase-<fase>.md` (diutamakan) atau `guru/referensi/cp/` (diambil otomatis).
+  Baca frontmatter-nya:
+  - keduanya tidak ada atau CP sekolah `status: BELUM-TERISI` → tawarkan mengambil CP resmi otomatis dengan alat `ambil_cp`
+    (dari Keputusan Kepala BSKAP 046/H/KR/2025). Jika guru menolak atau gagal, **berhenti**: jelaskan bahwa waka
+    kurikulum/operator perlu mengisi CP, dan tawarkan menghitung minggu efektif (`hitung_minggu_efektif`).
+  - status selain `TERVERIFIKASI` (misalnya `OTOMATIS-RESMI` atau `SEKUNDER`) → jelaskan dalam satu kalimat bahwa dokumen akan
+    berlabel DRAF sampai CP dicocokkan dengan dokumen resmi, lalu lanjut jika guru setuju.
 - Cek apakah sekolah sudah punya pembagian TP/ATP untuk fase ini (`sekolah/template/`, atau data lama di `guru/data/`).
   Jika ada, jadikan dasar. Jika tidak, tanyakan sekali: "Sekolah sudah punya pembagian materi kelas <x> dan <y>?"
 

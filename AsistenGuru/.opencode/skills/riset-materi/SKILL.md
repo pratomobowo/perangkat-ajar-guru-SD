@@ -6,7 +6,7 @@ description: Meriset isi materi pelajaran dari sumber tepercaya sebelum menulis 
 # Riset Materi
 
 Tujuan: isi materi mengikuti **buku resmi** dan **sumber tepercaya**, bukan ingatan model, dan guru bisa mengecek asalnya.
-CP tetap hanya dari `sekolah/referensi/cp/` (bukan dari riset).
+CP tetap hanya dari `sekolah/referensi/cp/` atau alat `ambil_cp` (PDF resmi), bukan dari riset web.
 
 ## Urutan sumber
 1. **Pustaka buku** (`baca_buku`). Selalu coba dulu.

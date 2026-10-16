@@ -1,9 +1,20 @@
 # Versi Paket
 
-**Versi:** 0.6.0
+**Versi:** 0.7.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.7.0 — Melengkapi dokumen guru SD:
+  - **Kokurikuler** (pengganti P5, Permendikdasmen 13/2025 dan Panduan Kokurikuler 2025): `/kokurikuler` untuk rencana
+    tahunan, perencanaan kegiatan, jurnal, lembar pembiasaan 7 KAIH, dan Excel penilaian per dimensi profil lulusan yang
+    menyusun draf deskripsi rapor otomatis.
+  - **Kurikulum Satuan Pendidikan (KSP, dulu KOSP)**: draf 5 komponen sesuai Panduan Pengembangan KSP 2025 dan struktur
+    kurikulum SD dari Permendikdasmen 13/2025.
+  - **CP otomatis** (`ambil_cp`): CP resmi diambil dari PDF Keputusan Kepala BSKAP 046/H/KR/2025 bila CP sekolah belum
+    diisi (status OTOMATIS-RESMI, dokumen tetap berlabel DRAF sampai diverifikasi). CP agama tidak didukung.
+  - `/kalender` dan `/jadwal`: kalender pendidikan dan jadwal pelajaran kelas dalam Word (cek bentrok dan JP).
+  - KKTP tersambung ke buku nilai: batas tuntas per TP dan kolom "TP Belum Tuntas" untuk remedial; cakupan STS/SAS dari Promes.
+  - Media siap cetak: kartu besar dengan garis potong (blok `kartu`).
 - 0.6.0 — Format Word milik guru, disimpan di `guru/` dan dipakai setiap ekspor berikutnya. (1) Gaya tampilan lewat chat
   atau `/format` (huruf, ukuran, spasi, margin, kertas, kop, tanda tangan, tabel, nomor halaman), untuk semua dokumen atau
   per jenis dokumen, bisa dibatalkan. (2) Kerangka bagian per jenis dokumen di `guru/template/<Dokumen>.md`. (3) Word contoh:

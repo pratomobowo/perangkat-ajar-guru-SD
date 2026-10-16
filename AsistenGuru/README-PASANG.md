@@ -5,6 +5,8 @@ pembuat Word/Excel memakai sistem plugin OpenCode 2.
 
 ## Sekali per sekolah
 1. Isi CP resmi di `sekolah/referensi/cp/` (lihat `sekolah/referensi/README.md`) dan ubah statusnya setelah diverifikasi.
+   Jika belum diisi, asisten bisa mengambil CP otomatis dari PDF Keputusan BSKAP 046/H/KR/2025 ke `guru/referensi/cp/`
+   (status OTOMATIS-RESMI); CP sekolah tetap diutamakan. CP Pendidikan Agama harus diisi manual.
 2. Isi `sekolah/kebijakan.json`: nama, alamat, dan kota sekolah, nama dan NIP kepala sekolah (untuk kop dan tanda tangan),
    ukuran kertas (A4/F4), aturan minggu efektif, cadangan JP, bobot nilai rapor, dan batas ketuntasan. Lalu lengkapi bagian
    `[ISI]` di `sekolah/preferensi-sekolah.md`.

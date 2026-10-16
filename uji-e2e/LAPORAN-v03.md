@@ -158,7 +158,26 @@ polanya") dan jumlah pertemuan sempat terkunci di kerangka.
 Catatan: Word contoh diuji dengan Word buatan uji yang meniru Microsoft Word dan dengan LibreOffice; belum dengan berkas
 yang benar-benar disimpan Microsoft Word di Windows.
 
+## Melengkapi dokumen guru SD (v0.7.0)
+
+Riset regulasi dilakukan dari dokumen resmi (kurikulum.kemendikdasmen.go.id): Permendikdasmen 13/2025, Panduan
+Kokurikuler 2025, Panduan Pengembangan KSP 2025, Kepka BSKAP 046/H/KR/2025 (CP), 058/H/KR/2025 (alur perkembangan
+kompetensi). Temuan penting: istilah resmi kini **KSP** (bukan KOSP); **P5 tidak lagi bentuk wajib** dan diganti kokurikuler
+(lintas disiplin, 7 KAIH, cara lain) dengan 8 dimensi profil lulusan; rapor kokurikuler berupa deskripsi tanpa angka;
+CP di JSON guru.kemendikdasmen.go.id masih **versi lama**, jadi CP diambil dari PDF 046/H/KR/2025.
+
+| Uji | Hasil |
+|---|---|
+| Parser CP pada teks PDF resmi 1.691 halaman: semua mapel SD × fase A–C | Terbaca (Pend. Pancasila, B. Indonesia, Matematika, B. Inggris, IPAS, Seni 4 cabang, PJOK, Koding & KA); Matematika Fase B identik dengan teks resmi; fase yang memang tidak ada dilaporkan; salah ketik kelas di dokumen resmi (B. Inggris Fase C) dicatat |
+| `ambil_cp` dengan unduhan asli | 15 MB, 6,5 detik pertama, 0,4 detik dari cache; CP agama ditolak dengan alasan (diubah 2026, berupa pindaian) |
+| HyperFormula: kolom "TP Belum Tuntas" dari KKTP dan draf deskripsi rapor kokurikuler (SB/B/C/K dan Terbiasa/Belum Terbiasa) | Semua rumus benar |
+| LibreOffice 7.6: kalender, jadwal kelas, kartu media, perencanaan kokurikuler, penilaian kokurikuler, STS, ATP/Prota/Promes | 12/12 terbuka; tampilan dicek visual |
+| E2E: `/kokurikuler` tema "Lingkunganku Sehat Aku Kuat", lintas disiplin, 36 JP | Struktur A–H panduan, 6 × 6 JP (memahami → mengaplikasi → merefleksi), dimensi dan subdimensi SD resmi, data penilaian dengan frasa deskripsi |
+| E2E: "buatkan juga Excel penilaiannya" | Excel per dimensi dengan draf deskripsi rapor otomatis |
+| E2E: `/soal STS semester 1 matematika, 15 PG + 3 uraian` | Cakupan TP1–TP3 sesuai Promes (sebelum minggu STS), sebaran 4/4/7 sebanding JP, 18/18 kunci benar, skor 100 |
+| E2E: `/rencana matematika` dengan CP sekolah kosong → "ya, ambilkan CP resminya" | Menawarkan `ambil_cp`, CP 2025 tersimpan, ATP dicocokkan, semua 5 elemen tercakup, dokumen berlabel DRAF |
+
 ## Cara mengulang
-1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
+1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
    jalankan `jalankan.sh` per langkah. Pesan guru ada di `log-v02-final/*.pesan.txt`.

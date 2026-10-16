@@ -112,10 +112,10 @@ export function tahunUntukBulan(kal: Kalender, bulan: number): number {
 
 // ---------- Excel bersama ----------
 
-const ISI = (n: number, s: number): Sel[] => Array.from({ length: n }, () => ({ v: "", s }))
+export const ISI = (n: number, s: number): Sel[] => Array.from({ length: n }, () => ({ v: "", s }))
 
 /** Baris kop: nama sekolah, judul, dan keterangan, masing-masing digabung selebar tabel. */
-function kopExcel(baris: Sel[][], gabung: string[], lebarKolom: number, sekolah: string | null | undefined, judul: string, ket: string) {
+export function kopExcel(baris: Sel[][], gabung: string[], lebarKolom: number, sekolah: string | null | undefined, judul: string, ket: string) {
   const akhir = kolom(lebarKolom - 1)
   const tambah = (v: string, s: number) => {
     baris.push([{ v, s }])
@@ -128,7 +128,7 @@ function kopExcel(baris: Sel[][], gabung: string[], lebarKolom: number, sekolah:
 }
 
 /** Blok tanda tangan: kiri (Kepala Sekolah) dan kanan (Guru), masing-masing digabung di rentang kolom yang diberikan. */
-function ttdExcel(
+export function ttdExcel(
   baris: Sel[][],
   gabung: string[],
   kiri: [number, number],

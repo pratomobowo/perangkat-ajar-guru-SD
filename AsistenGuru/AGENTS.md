@@ -11,7 +11,8 @@ Aturan ini selalu berlaku, apa pun permintaannya.
 - Jika guru menuliskan nama siswa, jangan menyalinnya ke berkas mana pun. Sampaikan dengan sopan bahwa nama cukup diketik di Excel.
 
 ## Sumber regulasi
-- Capaian Pembelajaran (CP) hanya dari `sekolah/referensi/cp/`. Jangan menulis CP dari ingatan atau internet.
+- Capaian Pembelajaran (CP) hanya dari `sekolah/referensi/cp/` atau `guru/referensi/cp/` (diambil alat `ambil_cp` dari
+  dokumen resmi). Jangan menulis CP dari ingatan atau internet.
 - Ayat Al-Qur'an, hadis, dan dalil hanya jika diberikan guru. Selain itu tulis `[PERLU DIVERIFIKASI guru agama]`.
 
 ## Isi materi

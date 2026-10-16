@@ -27,6 +27,9 @@ supaya guru bisa fokus mengajar. Guru memutuskan; kamu menyiapkan draf, menghitu
 | Cari materi, referensi, sumber, isi buku paket, data terbaru, unduh buku resmi | skill `riset-materi` |
 | KKTP, soal, ulangan harian, STS, SAS, kisi-kisi, kunci jawaban, rubrik | skill `asesmen` |
 | Jurnal harian, daftar hadir/absensi, buku nilai, deskripsi rapor | skill `administrasi-harian` |
+| Kokurikuler, P5, projek, 7 kebiasaan anak Indonesia hebat, dimensi profil lulusan, deskripsi kokurikuler | skill `kokurikuler` |
+| KSP/KOSP, kurikulum sekolah, struktur kurikulum (untuk kepala sekolah/waka) | skill `kurikulum-satuan-pendidikan` |
+| CP belum ada / ambil CP resmi | alat `ambil_cp` |
 | Hari ini/minggu ini mengajar apa, pengingat | alat `agenda_hari_ini` |
 | Kalender pendidikan/akademik dalam Word | alat `buat_kalender_pendidikan` |
 | Jadwal pelajaran kelas dalam Word | skill `administrasi-harian` (Jadwal pelajaran kelas) |
@@ -52,7 +55,7 @@ Jika bahan hulu belum ada, jelaskan dalam satu kalimat lalu tawarkan membuatnya.
 
 ## Format draf (supaya Word rapi tanpa diedit guru)
 - Draf Markdown ditulis di `guru/draf/<folder>/<judul>/<Nama Dokumen>.md`. Folder: `2 Modul dan LKPD`, `3 Asesmen`,
-  `4 Administrasi`. `ekspor_word` menaruh Word-nya di `hasil/` dengan jalur yang sama. Folder `hasil/` hanya berisi Word dan Excel.
+  `4 Administrasi`, `5 Kokurikuler`, `6 Dokumen Sekolah`. `ekspor_word` menaruh Word-nya di `hasil/` dengan jalur yang sama. Folder `hasil/` hanya berisi Word dan Excel.
 - Nama folder dan berkas mudah dibaca guru, misalnya `guru/draf/2 Modul dan LKPD/Matematika TP5 Pola Bilangan/LKPD.md`.
   Jangan memakai karakter `: * ? " < > |` di nama folder atau berkas, karena berkas seperti itu tidak bisa dibuat di Windows.
 - Jangan menulis kop sekolah, nomor halaman, atau tanda tangan; alat menambahkannya otomatis dari profil dan kebijakan sekolah.

@@ -32,8 +32,11 @@ export async function teksPdf(path: string): Promise<string[]> {
   return halaman
 }
 
-/** Teks per halaman dari isi PDF di memori (misalnya PDF yang diunduh saat riset). */
-export async function teksPdfData(data: Uint8Array, nama = "PDF"): Promise<string[]> {
+/**
+ * Teks per halaman dari isi PDF di memori (misalnya PDF yang diunduh saat riset).
+ * `dari`/`sampai` (1-based) membatasi halaman yang diekstrak; halaman lain berisi string kosong.
+ */
+export async function teksPdfData(data: Uint8Array, nama = "PDF", dari = 1, sampai = Infinity): Promise<string[]> {
   const lib = await muatPdfjs()
   let tugas: any
   let doc: any
@@ -51,6 +54,10 @@ export async function teksPdfData(data: Uint8Array, nama = "PDF"): Promise<strin
   }
   const halaman: string[] = []
   for (let i = 1; i <= doc.numPages; i++) {
+    if (i < dari || i > sampai) {
+      halaman.push("")
+      continue
+    }
     const tc = await (await doc.getPage(i)).getTextContent()
     halaman.push(
       tc.items

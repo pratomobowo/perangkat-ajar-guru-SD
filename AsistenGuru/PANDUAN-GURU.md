@@ -9,6 +9,8 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | `/hari-ini` | Melihat agenda hari ini, rencana minggu ini, dan pengingat |
 | `/rencana matematika` | Membuat minggu efektif, ATP, Prota, dan Promes |
 | `/modul pecahan senilai` | Membuat modul ajar/RPM dan LKPD |
+| `/kokurikuler` | Kegiatan kokurikuler (pengganti P5): perencanaan, jurnal, Excel penilaian, deskripsi rapor |
+| `/kalender`, `/jadwal` | Kalender pendidikan dan jadwal pelajaran kelas (Word) |
 | `/buku` | Mengunduh buku teks resmi (Buku Siswa dan Panduan Guru) kelas Anda ke pustaka |
 | "carikan materi pecahan senilai" | Mencari isi materi di buku resmi dan situs tepercaya, lengkap dengan sumbernya |
 | `/soal sumatif bab pecahan` | Membuat KKTP, kisi-kisi, soal, dan kunci |

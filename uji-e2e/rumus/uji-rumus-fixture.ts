@@ -52,4 +52,15 @@ ok = uji("nilai-kktp", `${d}/out/nilai-kktp.xlsx`,
 // Bobot sekolah diubah guru: 40/30/30
 ok = uji("nilai-bobot", `${d}/out/nilai.xlsx`,
   { E5: 40, G5: 30, I5: 30, C9: 80, D9: 90, E9: 70, F9: 60, G9: 100, I9: 75, J9: 85 }, { K9: 80 }) && ok
+// Kokurikuler: kop 1-3, kepala 5-6, data mulai baris 7; dimensi C..E, catatan F, menguat G, perlu H, deskripsi I
+const T = " pada kegiatan kokurikuler bertema Lingkunganku Sehat, Aku Kuat."
+ok = uji("kokurikuler", `${d}/out/kokurikuler.xlsx`,
+  { C7: "SB", D7: "C", E7: "K", C9: "B" },
+  { G7: "penalaran kritis saat mencari solusi masalah sampah", H7: "kolaborasi (kerja sama), mengomunikasikan gagasan",
+    I7: "Ananda sudah baik dalam penalaran kritis saat mencari solusi masalah sampah dan masih perlu pendampingan dalam kolaborasi (kerja sama), mengomunikasikan gagasan" + T,
+    I8: "", G9: "penalaran kritis saat mencari solusi masalah sampah", H9: "", I9: "Ananda sudah baik dalam penalaran kritis saat mencari solusi masalah sampah" + T }) && ok
+ok = uji("kokurikuler-7kaih", `${d}/out/kokurikuler-7kaih.xlsx`,
+  { C7: "Belum Terbiasa", D7: "Terbiasa" },
+  // 2 dimensi: C..D, catatan E, menguat F, perlu G, deskripsi H
+  { F7: "makan sehat dan bergizi", G7: "membiasakan bangun pagi", H7: "Ananda sudah baik dalam makan sehat dan bergizi dan masih perlu pendampingan dalam membiasakan bangun pagi pada kegiatan kokurikuler bertema Hidup Sehat." }) && ok
 console.log(ok ? "SEMUA RUMUS BENAR" : "ADA RUMUS SALAH")

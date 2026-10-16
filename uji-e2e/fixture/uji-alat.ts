@@ -61,7 +61,7 @@ for (const windows of [false, true]) {
   try {
     const alat = await daftarAlat(akar)
     const jalan = async (n: string, input: any = {}) => (await alat[n].execute(input, {})).content as string
-    cek("plugin mendaftarkan 14 alat", Object.keys(alat).length === 14, Object.keys(alat).join(", "))
+    cek("plugin mendaftarkan 16 alat", Object.keys(alat).length === 16, Object.keys(alat).join(", "))
     cek("semua alat bukan Code Mode", Object.values(alat).every((t: any) => t.options?.codemode === false))
 
     let r = await jalan("hitung_minggu_efektif")
@@ -128,6 +128,22 @@ for (const windows of [false, true]) {
     r = await jalan("ekspor_word", { berkas: media })
     const medDoc = new TextDecoder().decode((await import("../../AsistenGuru/.opencode/lib/unzip.ts")).bacaZip(new Uint8Array(readFileSync(join(akar, media.replace("guru/draf/", "hasil/").replace(".md", ".docx"))))).get("word/document.xml")!)
     cek("media kartu: lembar siswa, garis putus-putus, 2 baris kartu", r.includes("lembar_siswa") && medDoc.includes('w:val="dashed"') && (medDoc.match(/w:hRule="exact"/g) ?? []).length === 2 && medDoc.includes(">setengah<"), r)
+
+    // Kokurikuler: penilaian per dimensi
+    r = await jalan("buat_penilaian_kokurikuler_excel", { tema: "Lingkunganku Sehat" })
+    cek("penilaian kokurikuler: tanpa data → GAGAL dengan petunjuk", r.startsWith("GAGAL") && r.includes("skill kokurikuler"), r)
+    writeFileSync(join(akar, "guru/data/kokurikuler-lingkunganku-sehat-aku-kuat.json"), JSON.stringify({ tema: "Lingkunganku Sehat, Aku Kuat", kelas: 4, dimensi: [{ dimensi: "Penalaran Kritis", subdimensi: "Penyelesaian masalah" }, { dimensi: "Kolaborasi" }] }))
+    r = await jalan("buat_penilaian_kokurikuler_excel", { tema: "Lingkunganku Sehat" })
+    cek("penilaian kokurikuler: Excel di 5 Kokurikuler", r.includes("hasil/5 Kokurikuler/Penilaian Kokurikuler Lingkunganku Sehat, Aku Kuat Kelas 4.xlsx") && r.includes("2 kolom dimensi"), r)
+    writeFileSync(join(akar, "guru/data/kokurikuler-salah.json"), JSON.stringify({ tema: "Salah", dimensi: [{ dimensi: "Gotong Royong" }] }))
+    r = await jalan("buat_penilaian_kokurikuler_excel", { tema: "salah" })
+    cek("penilaian kokurikuler: dimensi bukan 8 dimensi → GAGAL", r.startsWith("GAGAL") && r.includes("8 dimensi"), r)
+
+    // CP otomatis: jalur yang tidak butuh internet
+    r = await jalan("ambil_cp", { mapel: "matematika" })
+    cek("ambil_cp: CP sekolah yang sudah terisi diutamakan", r.includes("CP dari sekolah sudah ada"), r)
+    r = await jalan("ambil_cp", { mapel: "Pendidikan Agama Islam" })
+    cek("ambil_cp: CP agama ditolak dengan alasan", r.startsWith("GAGAL") && r.includes("2026"), r)
 
     // Pustaka buku dan riset web (pencarian ditiru; tidak butuh internet).
     r = await jalan("baca_buku")

@@ -117,7 +117,8 @@ baru, sedangkan `guru/` dan `hasil/` tidak disentuh.
 | v0.1 | Skill perencanaan, profil, umpan balik. Uji e2e: pemicuan dan pagar CP lulus, tetapi hitungan tidak konsisten. |
 | **v0.2** ✔ | Agent khusus, menu slash, tool deterministik (minggu efektif, Prota, Promes, agenda), Word/Excel siap cetak, skill modul ajar, asesmen, dan administrasi harian. Uji e2e 12/12 lulus dengan model gratis. |
 | v0.3 | Port ke OpenCode 2, ketahanan Windows, pemasangan dengan menempel link GitHub di OpenCode, dan `/perbarui`. Mengisi template Word milik sekolah, deskripsi capaian rapor dari nomor absen dan level TP, KKTP yang tersambung ke buku nilai. |
-| v0.4 | Banyak mapel untuk guru kelas, kokurikuler mengikuti kebijakan terbaru, varian MI (Kemenag). |
+| v0.4–0.7 ✔ | Riset materi dari buku resmi dan situs tepercaya, unduh buku SIBI, format Word milik guru, kokurikuler (pengganti P5), KSP, CP otomatis dari dokumen resmi, kalender dan jadwal kelas, KKTP ke buku nilai, media kartu. |
+| berikutnya | Banyak mapel untuk guru kelas secara penuh, varian MI (Kemenag), integrasi e-Rapor. |
 | v1.0 | CP resmi terpusat (`skills.urls`) supaya sekolah tidak menyalin manual, panduan instalasi satu klik, dan antarmuka OpenCode desktop/web untuk guru. |
 
 ## 7. Ukuran keberhasilan pilot
