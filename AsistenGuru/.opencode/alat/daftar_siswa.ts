@@ -4,7 +4,7 @@ import { join } from "node:path"
 import { alat } from "../lib/alat.ts"
 import { type Profil, Gagal, bacaJson, jalurAman, relatif, tulis } from "../lib/berkas.ts"
 import { FOLDER } from "../lib/dokumen.ts"
-import { DAFTAR_SISWA, amankanSumber, bacaDaftarSiswa, bacaSumber, pastikanDaftarSiswa, ringkas, saringRombel, selisih, simpanDaftarSiswa } from "../lib/siswa.ts"
+import { AWALAN_SUMBER, DAFTAR_SISWA, amankanSumber, bacaDaftarSiswa, bacaSumber, pastikanDaftarSiswa, ringkas, saringRombel, selisih, simpanDaftarSiswa } from "../lib/siswa.ts"
 
 export default alat<{ berkas?: string; rombel?: string; ganti?: boolean }>({
   nama: "daftar_siswa",
@@ -30,6 +30,9 @@ export default alat<{ berkas?: string; rombel?: string; ganti?: boolean }>({
     if (!rel.includes("/")) rel = `guru/masukan/${rel}`
     if (rel.split("/").includes("..") || !(rel.startsWith("guru/masukan/") || rel.startsWith(`hasil/${FOLDER.administrasi}/`)))
       throw new Gagal(`Berkas sumber harus berada di guru/masukan/ atau hasil/${FOLDER.administrasi}/.`)
+    // Berkas di folder masukan yang sudah dipindah oleh baca_masukan ke folder terkunci dicari otomatis.
+    const pindahan = `hasil/${FOLDER.administrasi}/${AWALAN_SUMBER}${rel.split("/").pop()}`
+    if (!existsSync(join(akar, jalurAman(rel))) && rel.startsWith("guru/masukan/") && existsSync(join(akar, jalurAman(pindahan)))) rel = pindahan
     const p = join(akar, jalurAman(rel))
     if (!existsSync(p)) throw new Gagal(`Berkas ${rel} tidak ditemukan.`)
     const d = await bacaSumber(p)

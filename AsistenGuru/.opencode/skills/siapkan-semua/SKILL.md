@@ -47,6 +47,9 @@ di satu pesan sebelum mulai.
 ## Langkah 3 — Tahap demi tahap
 Ikuti urutan "Langkah berikutnya" dari `status_perangkat`. Untuk tiap tahap, jalankan skill/alat yang disebutkan
 (perencanaan-tahunan, asesmen, modul-ajar, administrasi-harian, kokurikuler, dan alat terkait). Aturan:
+- **Buku resmi dulu:** sebelum bahan ajar dan soal, pastikan tiap mapel punya Buku Siswa dan Panduan Guru di pustaka
+  (`cek_kesiapan` tugas `modul`). Jika belum ada: mode otomatis → langsung `unduh_buku` (kelas dan mapel guru); mode
+  bertahap → tawarkan dulu. Jika unduhan gagal atau buku tidak ada di katalog, lanjut dengan `riset_materi` dan laporkan.
 - **Bahan ajar bergulir:** buat modul/RPM, LKPD, kunci, dan media hanya untuk TP yang diajarkan dalam 2 minggu ke depan
   menurut Promes. Satu semester sekaligus hanya jika guru memintanya secara jelas.
 - KKTP boleh dibuat untuk semua TP satu semester sekaligus dalam satu dokumen.

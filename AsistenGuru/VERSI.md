@@ -1,9 +1,13 @@
 # Versi Paket
 
-**Versi:** 0.13.0
+**Versi:** 0.13.1
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.13.1 — Dari uji E2E mapel lain (Bahasa Indonesia kelas 2, IPAS kelas 5, Pendidikan Pancasila kelas 3): mode "jalankan
+  semua" kini selalu mengunduh buku resmi tiap mapel sebelum membuat bahan ajar; aturan kejujuran sumber (halaman buku
+  hanya dikutip bila benar-benar memuat isinya, jika buku tidak membahas topik ditulis terus terang); `daftar_siswa`
+  menemukan otomatis berkas Dapodik yang sudah dipindah ke folder terkunci.
 - 0.13.0 — **Pendamping guru awam**: alat `cek_kesiapan` memeriksa bahan sebelum membuat modul, soal, perencanaan, buku
   nilai, daftar hadir, kokurikuler, atau analisis — apa yang sudah ada, apa yang kurang, mana yang bisa diambilkan otomatis
   (CP resmi, buku resmi, susun ATP, buat buku nilai) dan mana yang perlu dari guru (dengan langkah Windows sederhana).

@@ -274,6 +274,21 @@ Daftar Siswa, dan buku nilai/absensi terisi (`uji-e2e/rute/jalankan-rute.sh`, da
 Hasil: 15/15 cocok.
 
 
+## E2E mapel lain: tiga guru baru dari nol (v0.13.1)
+
+Tiap guru menaruh **kalender pendidikan sekolah (Excel, tanggal teks dd/mm/yyyy)** dan **ekspor Dapodik satu sekolah (dua
+rombel)** di folder masukan, lalu satu pesan perkenalan + "jalankan semua" (model gratis, tanpa perintah garis miring).
+
+| Guru | Hasil satu perintah | Pemeriksaan |
+|---|---|---|
+| Bu Sari, kelas 2A, **Bahasa Indonesia** (Fase A, 6 JP) | profil, kalender, minggu efektif 19+19, CP Fase A (4 elemen, PDF 046/2025 hlm. 94–95), ATP/Prota/Promes 14–16 TP, KKTP, modul+LKPD+kunci+media, buku nilai (catatan Fase A tanpa angka), absensi Oktober (6 siswa 2A), kalender Word | Ronde 1: **buku resmi tidak diunduh**, modul dari Panduan Mapel + riset (ditandai). Ronde 2 setelah perbaikan: Buku Siswa + Panduan Guru "Keluargaku Unik" kelas II diunduh, modul TP5–TP6 dari Panduan Guru hlm. 58–62, kokurikuler ikut dibuat; 22/22 berkas terbuka di LibreOffice. Catatan: Buku Siswa disebut dengan nama bab tanpa halaman |
+| Pak Dedi, kelas 5A, **IPAS** (Fase C, 5 JP) | sama, CP Fase C (2 elemen, hlm. 151–153), Buku Siswa + Panduan Guru IPAS V Edisi Revisi diunduh, KKTP semester 1–2, modul+LKPD TP4 Hemat Energi | 14/14 terbuka. **Temuan:** modul mengutip Buku Siswa "Bab 7 cahaya hlm 141–150" padahal halaman itu membahas cahaya, bukan hemat energi (buku tidak punya bab energi). Setelah aturan kejujuran sumber: "Buku kelas 5 tidak ada bab listrik… energi alternatif dari Ruang Murid, ditandai [PERLU GURU]" |
+| Bu Ani, kelas 3A, **Pendidikan Pancasila** (Fase B, 4 JP) | sama, CP Fase B (4 elemen, hlm. 83–84), buku resmi kelas III diunduh, ATP 8 TP, KKTP, modul+LKPD TP4 Hak dan Kewajiban, **UH TP4** (kisi-kisi, soal, kunci) | 17/17 terbuka; kunci PG 5/5 benar, skor total 100; catatan isi: soal 6 menyiratkan hak "hilang" bila kewajiban tidak dijalankan — perlu dicek guru. Lanjutan: guru mengisi nilai → "Pandu kurangnya di mana? Siapa perlu remedial?" → Pandu TP2 62 dan TP4 68 < 70 (rata-rata kelas 82–83), Raffi TP3 58 — cocok hitungan manual |
+
+Temuan lain yang diperbaiki: `daftar_siswa` dipanggil dengan nama berkas Dapodik yang sudah dipindah `baca_masukan` (GAGAL
+"tidak ditemukan", pulih sendiri) → kini dicari otomatis. Tidak ada nama siswa di log tahap pembuatan ketiga guru.
+
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu

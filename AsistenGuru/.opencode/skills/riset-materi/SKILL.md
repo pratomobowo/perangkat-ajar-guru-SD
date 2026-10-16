@@ -37,6 +37,11 @@ Tambahkan di akhir dokumen guru (bukan di lembar murid):
 ```
 Gunakan nomor halaman cetak bila alat menyebutkannya; selain itu tulis "halaman PDF n".
 
+**Kejujuran sumber:** cantumkan halaman buku hanya bila halaman itu sudah dibaca dan **benar-benar memuat** isi yang
+dipakai di dokumen. Jika buku resmi tidak membahas topik itu (hasil pencarian hanya daftar tujuan, daftar isi, atau bab
+lain), tulis terus terang di Sumber: `- Buku Siswa … tidak memuat topik ini.`, lalu pakai `riset_materi` dan tandai isi
+yang tidak bersumber buku dengan `[PERLU GURU: cek kebenaran]`. Jangan mengutip halaman bab lain sebagai sumber.
+
 ## Mengisi pustaka
 - `unduh_buku` mencari buku teks resmi Kurikulum Merdeka (Buku Siswa dan Panduan Guru) di katalog SIBI untuk kelas guru.
   Panggil dulu **tanpa** `unduh` untuk menampilkan daftar, lalu tanyakan buku mana yang mau diunduh. Setelah guru setuju,
