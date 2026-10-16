@@ -10,7 +10,9 @@ description: Menyiapkan bahan mengajar untuk satu topik atau TP — Modul Ajar, 
   usulkan TP minggu ini atau minggu depan.
 - Jika ATP belum ada, jelaskan bahwa modul tetap bisa dibuat, tetapi TP-nya ditulis sementara dan ditandai
   `[PERLU GURU: TP belum dari ATP]`. Tawarkan menyusun perencanaan tahunan nanti.
-- Format: ikuti `sekolah/preferensi-sekolah.md` (Modul Ajar, RPM, atau keduanya) dan template di `sekolah/template/`.
+- Format: ikuti `sekolah/preferensi-sekolah.md` (Modul Ajar, RPM, RPP, atau keduanya) dan template di `sekolah/template/`
+  atau `guru/template/`. Nama berkas draf mengikuti nama template yang ada: jika ada `RPP.md`/`RPP.docx`, draf rencana
+  ditulis sebagai `RPP.md` dengan susunan kerangka itu; jika `Modul Ajar.*`, sebagai `Modul Ajar.md`; selain itu `RPM.md`.
   Jika tidak diatur, pakai RPM ringkas (`references/kerangka.md`) dan tulis di bawah judul: "Kerangka ringkas, belum template resmi sekolah".
 - Tanyakan paling banyak 3 hal yang tidak bisa diturunkan: jumlah pertemuan dan JP per pertemuan, kemampuan awal murid,
   serta sarana yang tersedia (fotokopi, proyektor, alat peraga).

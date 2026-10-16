@@ -177,7 +177,22 @@ CP di JSON guru.kemendikdasmen.go.id masih **versi lama**, jadi CP diambil dari 
 | E2E: `/soal STS semester 1 matematika, 15 PG + 3 uraian` | Cakupan TP1–TP3 sesuai Promes (sebelum minggu STS), sebaran 4/4/7 sebanding JP, 18/18 kunci benar, skor 100 |
 | E2E: `/rencana matematika` dengan CP sekolah kosong → "ya, ambilkan CP resminya" | Menawarkan `ambil_cp`, CP 2025 tersimpan, ATP dicocokkan, semua 5 elemen tercakup, dokumen berlabel DRAF |
 
+## Siapkan semua dari dokumen sekolah (v0.8.0)
+
+Guru baru (folder `guru/` kosong) menaruh 4 dokumen sekolah di `guru/masukan`: kalender (Excel, sel tanggal), jadwal kelas
+(Excel), CP Matematika Fase B dari KKG (Word, **sengaja teks CP versi lama**), dan format RPP sekolah (Word).
+
+| Langkah guru | Yang terjadi | Hasil |
+|---|---|---|
+| `/siapkan` + perkenalan singkat (kelas 4, Matematika 5 JP) | `status_perangkat` → `baca_masukan` keempat dokumen → profil, `kalender.json` (identik dengan kalender acuan), `jadwal-kelas.json` + Word jadwal, template RPP (`simpan_template_word`), minggu efektif 95 + 95 JP; **CP KKG dikenali sebagai versi lama** dan ditawarkan CP 2025 | ✔ |
+| "lanjut" | `ambil_cp` (mengganti CP lama dengan CP resmi 2025) → 9 TP → ATP/Prota/Promes, 5 elemen tercakup, laporan ✔/⚠/➜ | ✔ |
+| "Oke, jalankan semua sampai selesai ya, tidak usah tanya-tanya lagi" | Satu perintah, 53 panggilan alat: KKTP 9 TP (+ data buku nilai), **RPP format sekolah** + LKPD + kunci + media untuk TP4–TP5 (bergulir 2 minggu), UH TP4, SAS semester 1, buku nilai, daftar hadir Oktober, kalender Word, kokurikuler "Hidup Hemat dan Produktif" (perencanaan, LKPD, lembar pembiasaan, Excel penilaian), ringkasan akhir dengan 7 penanda [PERLU GURU] | ✔ |
+
+Pemeriksaan: 27/27 Word/Excel terbuka di LibreOffice; kunci UH TP4 6/6 benar; RPP mengikuti urutan bagian template sekolah
+dan dibuat dari Word contoh sekolah. Temuan diperbaiki: nama berkas rencana kini mengikuti template (RPP/Modul Ajar/RPM);
+STS yang tanggalnya sudah lewat tidak lagi ditandai kurang.
+
 ## Cara mengulang
-1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
+1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
    jalankan `jalankan.sh` per langkah. Pesan guru ada di `log-v02-final/*.pesan.txt`.

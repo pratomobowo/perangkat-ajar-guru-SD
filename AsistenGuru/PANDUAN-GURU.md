@@ -5,6 +5,8 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 
 | Ketik | Untuk |
 |---|---|
+| `/siapkan` | Taruh dokumen sekolah (CP, kalender, jadwal, contoh RPP, KKTP) di folder `guru\masukan`, lalu semua perangkat disiapkan bertahap; bilang "jalankan semua" agar otomatis |
+| `/status` | Melihat perangkat yang sudah dan belum ada, serta langkah berikutnya |
 | `/mulai` | Menyiapkan profil, jadwal, dan kalender (sekali di awal tahun) |
 | `/hari-ini` | Melihat agenda hari ini, rencana minggu ini, dan pengingat |
 | `/rencana matematika` | Membuat minggu efektif, ATP, Prota, dan Promes |

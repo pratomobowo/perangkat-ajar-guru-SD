@@ -5,6 +5,8 @@ agent: asisten-guru
 Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 
 **Menu Asisten Guru**
+- `/siapkan` — taruh dokumen sekolah di folder guru\masukan, lalu semua perangkat disiapkan bertahap
+- `/status` — peta perangkat: yang sudah ada, yang belum, dan langkah berikutnya
 - `/mulai` — siapkan profil, jadwal, dan kalender (sekali di awal tahun)
 - `/hari-ini` — agenda hari ini dan pengingat
 - `/kalender` — kalender pendidikan (Word); `/jadwal` — jadwal pelajaran kelas (Word)

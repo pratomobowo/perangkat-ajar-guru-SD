@@ -32,7 +32,8 @@ Untuk soal, ikuti skill `riset-materi`: cocokkan istilah, notasi, dan tingkat ke
 Soal cerita dengan data nyata (harga, cuaca, jumlah penduduk) memakai data dari sumber, bukan karangan.
 
 ## 4. Kisi-kisi dan soal
-Simpan draf di `guru/draf/3 Asesmen/<Jenis> <Mapel> <Topik>/` (misalnya `UH Matematika TP3 Perkalian`):
+Simpan draf di `guru/draf/3 Asesmen/<Jenis> <Mapel> <Topik>/` (misalnya `UH Matematika TP3 Perkalian`; untuk sumatif
+`STS Matematika Semester 1` atau `SAS Matematika Semester 1`). Pola nama ini dipakai untuk melacak perangkat.
 - `Kisi-kisi.md` — tabel: No, TP, indikator soal, level kognitif (L1 pemahaman, L2 aplikasi, L3 penalaran), bentuk soal, nomor soal.
 - `Soal.md` — lembar soal siswa: identitas (blok identitas), kolom nama, petunjuk, soal bernomor. Tanpa kunci.
   Opsi pilihan ganda ditulis `A. ...` per baris. Jangan menyisipkan `<!-- halaman-baru -->` di antara soal; pembagian

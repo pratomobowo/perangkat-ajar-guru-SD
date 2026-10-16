@@ -1,9 +1,16 @@
 # Versi Paket
 
-**Versi:** 0.7.0
+**Versi:** 0.8.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.8.0 — **Siapkan semua** (`/siapkan`, `/status`): guru menaruh dokumen sekolah (PDF teks, Word, Excel) di `guru/masukan`;
+  asisten membaca dan mengenalinya (kalender, jadwal, CP, ATP, KKTP, format RPP/modul, buku), menyimpannya ke tempat yang
+  benar, lalu menyusun perangkat tahap demi tahap dengan laporan "selesai / perlu dicek / berikutnya" — atau otomatis
+  dengan "jalankan semua". Alat `baca_masukan` (Word → Markdown, Excel → tabel dengan tanggal) dan `status_perangkat`
+  (peta perangkat dari berkas yang ada, penanda [PERLU GURU], dan langkah berikutnya sesuai ketergantungan dan tanggal).
+  Bahan ajar dibuat bergulir untuk TP 2 minggu ke depan. CP versi lama dari dokumen sekolah dikenali dan ditawarkan
+  pengganti CP 2025. Format RPP sekolah dipakai bila ada template bernama RPP.
 - 0.7.0 — Melengkapi dokumen guru SD:
   - **Kokurikuler** (pengganti P5, Permendikdasmen 13/2025 dan Panduan Kokurikuler 2025): `/kokurikuler` untuk rencana
     tahunan, perencanaan kegiatan, jurnal, lembar pembiasaan 7 KAIH, dan Excel penilaian per dimensi profil lulusan yang
