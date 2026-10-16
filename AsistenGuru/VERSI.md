@@ -1,9 +1,10 @@
 # Versi Paket
 
-**Versi:** 0.16.0
+**Versi:** 0.16.1
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.16.1 — Panduan pemasangan model pihak ketiga dihapus dari README-PASANG.
 - 0.16.0 — **Ingatan lintas sesi** (pola Hermes Agent): asisten mengingat guru di sesi berikutnya. Ingatan inti kecil
   (`guru/ingatan/tentang-guru.md` 1.500 karakter, `catatan-kerja.md` 2.200 karakter, `pengingat.md`, plus aturan aktif
   `guru/preferensi.md`) dimuat otomatis ke setiap sesi lewat hook `context` plugin, satu salinan per sesi. Alat `ingat`
@@ -11,8 +12,7 @@
   pola injeksi, karakter tersembunyi, dan nama siswa bila `privasi.nama_ke_ai` bukan `true`; batas ukuran memaksa
   merangkum; panggilan paralel diantrekan dan ditulis atomik. Pengingat bertanggal disampaikan saat asisten dibuka
   (mulai 7 hari sebelumnya). Arsip riwayat `riwayat.db` (SQLite FTS5; cadangan `riwayat.md`) mencatat otomatis setiap
-  dokumen yang dibuat alat, dicari dengan alat `cari_ingatan`. Folder ingatan dikunci dari edit langsung. Panduan
-  memakai model Sumopod di README-PASANG.
+  dokumen yang dibuat alat, dicari dengan alat `cari_ingatan`. Folder ingatan dikunci dari edit langsung.
 - 0.15.0 — **Pendamping PPG** untuk guru yang mengikuti PPG bagi Guru Tertentu, sesuai Petunjuk Teknis UKPPPG 2026: skill
   `pendamping-ppg` (perintah `/ppg`) menuntun perangkat Ujian Kinerja 2 JP dari ide dan kelas guru sendiri (aturan
   integritas juknis: perangkat hasil pengembangan sendiri, video direkam khusus, ujian tertulis dikerjakan mandiri),
