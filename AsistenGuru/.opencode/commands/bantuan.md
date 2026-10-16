@@ -16,6 +16,7 @@ Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 - `/ingat` — aturan yang saya ingat untuk Anda
 - `/word nama-berkas` — ubah dokumen ke Word
 - `/buku` — cari dan unduh buku teks resmi (Buku Siswa dan Panduan Guru) untuk kelas Anda
+- `/format` — lihat atau ubah format Word Anda (huruf, margin, kop, template sendiri)
 - `/perbarui` — cek versi dan perbarui Asisten Guru
 
 Bisa juga bercerita biasa, misalnya: "minggu depan saya mengajar pecahan, tolong siapkan bahannya".

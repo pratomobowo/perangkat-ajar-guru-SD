@@ -12,7 +12,10 @@ pembuat Word/Excel memakai sistem plugin OpenCode 2.
 3. Taruh contoh format sekolah di `sekolah/template/` jika ada.
 4. Taruh PDF buku teks resmi (Buku Siswa dan Buku Guru) di `sekolah/referensi/buku/` (lihat README di folder itu).
    Asisten memakainya sebagai sumber utama materi dan mencantumkan halamannya.
-5. Riset web: bawaan hanya memakai situs resmi dan tepercaya. Ubah daftarnya di `riset.domain_tepercaya` pada
+5. Format dokumen sekolah (opsional): taruh Word contoh resmi di `sekolah/template/<Dokumen>.docx` (misalnya `RPM.docx`,
+   dengan kop di Header Word) dan/atau isi `gaya_dokumen` di `kebijakan.json`. Bagian yang tidak boleh diubah guru ditulis di
+   `gaya_dikunci`; `template_wajib: true` membuat Word contoh sekolah wajib dipakai.
+6. Riset web: bawaan hanya memakai situs resmi dan tepercaya. Ubah daftarnya di `riset.domain_tepercaya` pada
    `sekolah/kebijakan.json`, atau matikan dengan `"web": false`.
 
 ## Di komputer guru (Windows)

@@ -11,12 +11,13 @@ export default alat<Record<string, never>>({
   async jalankan(_args, akar) {
     const { profil, kalender, kebijakan } = await muatDasar(akar)
     const hasil = mingguEfektif(profil, kalender, kebijakan)
-    const { docx } = await simpanDokumen(akar, `${FOLDER.perencanaan}/Minggu Efektif ${profil.tahun_ajaran.replace("/", "-")}`, hasil.md, opsiDokumen(profil, kebijakan))
+    const { docx, catatan } = await simpanDokumen(akar, `${FOLDER.perencanaan}/Minggu Efektif ${profil.tahun_ajaran.replace("/", "-")}`, hasil.md, opsiDokumen(profil, kebijakan))
     const jp = profil.mapel.map((m) => `${m.nama}: ${hasil.perSem.map((s) => `smt ${s.ke} ${s.efektif * m.jp_per_minggu} JP`).join(", ")}`).join("; ")
     return [
       `Selesai. ${hasil.ringkas}`,
       `JP tersedia — ${jp}.`,
       `Word: ${docx}`,
+      ...catatan,
       hasil.aturan.dariSekolah ? "" : "Sampaikan ke guru: batas minimal hari efektif per minggu belum ditetapkan sekolah, jadi memakai 3 hari [PERLU GURU].",
     ]
       .filter(Boolean)

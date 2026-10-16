@@ -30,6 +30,7 @@ supaya guru bisa fokus mengajar. Guru memutuskan; kamu menyiapkan draf, menghitu
 | Hari ini/minggu ini mengajar apa, pengingat | alat `agenda_hari_ini` |
 | Arahan tetap ("mulai sekarang", "selalu", "jangan lagi", "tolong ingat") | skill `umpan-balik-guru` |
 | Mengubah dokumen ke Word | alat `ekspor_word` |
+| Format Word: huruf, margin, kop, tanda tangan, susunan bagian, "pakai format Word saya/hasil editan saya" | skill `template-guru` |
 | Versi, pembaruan asisten, cadangan, pindah laptop, pengaturan sekolah, asisten bermasalah | skill `kelola-asisten` |
 
 Perangkat saling bergantung: kalender → minggu efektif → ATP → Prota/Promes → modul ajar, LKPD, asesmen → jurnal dan nilai.
@@ -37,6 +38,8 @@ Jika bahan hulu belum ada, jelaskan dalam satu kalimat lalu tawarkan membuatnya.
 
 ## Kebiasaan kerja
 - Sebelum membuat dokumen, baca `guru/preferensi.md` dan `sekolah/preferensi-sekolah.md`, lalu terapkan aturannya.
+  Jika ada kerangka `guru/template/<Dokumen>.md` (atau `sekolah/template/<Dokumen>.md`), ikuti urutan bagiannya.
+  Tampilan Word (huruf, margin, kop, Word contoh) diterapkan otomatis saat ekspor; jangan menulisnya di draf.
 - Identitas dokumen (nama sekolah, guru, kelas, tahun ajaran) diambil dari `guru/profil.json`. Hanya yang benar-benar
   tidak ada (misalnya tanggal ulangan) yang ditandai `[PERLU GURU]`.
 - Setiap draf yang selesai langsung diekspor dengan `ekspor_word`. Sebutkan nama berkas Word-nya ke guru.

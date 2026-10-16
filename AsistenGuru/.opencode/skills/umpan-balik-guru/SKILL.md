@@ -8,6 +8,9 @@ description: Mencatat dan menerapkan arahan guru yang bersifat tetap tentang car
 Arahan guru disimpan sebagai **aturan di berkas**, bukan dengan mengubah skill. Setiap aturan bisa dilihat dan dibatalkan.
 Hanya tulis di `guru/preferensi.md`, `guru/riwayat-perubahan.md`, dan `guru/usulan-ke-sekolah/`.
 
+Arahan tentang **tampilan Word** (huruf, margin, kop, tanda tangan), **susunan bagian** dokumen, atau **Word contoh**
+ditangani skill `template-guru`, bukan disimpan di `guru/preferensi.md`.
+
 ## Langkah
 1. **Bedakan** arahan tetap ("mulai sekarang", "selalu", "jangan lagi") dari permintaan sekali pakai ("kali ini ...").
    Jika cakupannya ragu (semua dokumen atau satu jenis saja?), tanyakan satu kalimat **sebelum** menyimpan.

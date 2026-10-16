@@ -1,9 +1,14 @@
 # Versi Paket
 
-**Versi:** 0.5.0
+**Versi:** 0.6.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.6.0 — Format Word milik guru, disimpan di `guru/` dan dipakai setiap ekspor berikutnya. (1) Gaya tampilan lewat chat
+  atau `/format` (huruf, ukuran, spasi, margin, kertas, kop, tanda tangan, tabel, nomor halaman), untuk semua dokumen atau
+  per jenis dokumen, bisa dibatalkan. (2) Kerangka bagian per jenis dokumen di `guru/template/<Dokumen>.md`. (3) Word contoh:
+  Word milik guru atau Word hasil asisten yang sudah diedit guru menjadi dasar ekspor (gaya, kop di header, footer, ukuran
+  halaman). Sekolah bisa memberi gaya bawaan, mengunci bagian tertentu, dan mewajibkan Word contoh sekolah.
 - 0.5.0 — Perintah `/buku` dan alat `unduh_buku`: mencari Buku Siswa dan Panduan Guru Kurikulum Merdeka di katalog SIBI
   untuk kelas guru (mapel dari profil, sebutan seperti PAI/PPKn dikenali, edisi revisi diutamakan), lalu mengunduhnya ke
   `guru/buku/` setelah guru setuju. Asisten menawarkan unduhan saat pustaka kosong dan setelah `/mulai`.

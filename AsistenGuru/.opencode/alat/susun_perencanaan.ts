@@ -48,7 +48,8 @@ export default alat<{ mapel: string }>({
       ["3 Prota", h.dokumen.prota],
       ["4 Promes", h.dokumen.promes],
     ]
-    for (const [nama, md] of dok) await simpanDokumen(akar, `${folder}/${nama}`, md, opsi)
+    const catatan = new Set<string>()
+    for (const [nama, md] of dok) for (const c of (await simpanDokumen(akar, `${folder}/${nama}`, md, opsi)).catatan) catatan.add(c)
     await tulis(akar, `guru/data/promes-${kode}.json`, JSON.stringify(h.promesJson, null, 2))
 
     return [
@@ -56,6 +57,7 @@ export default alat<{ mapel: string }>({
       "",
       "Hasil validasi (sampaikan apa adanya ke guru):",
       ...h.cek,
+      ...(catatan.size ? ["", ...catatan] : []),
     ].join("\n")
   },
 })

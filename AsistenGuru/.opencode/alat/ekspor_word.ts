@@ -28,7 +28,7 @@ export default alat<{ berkas: string; jenis?: "dokumen_guru" | "lembar_siswa" | 
     const opsi = opsiDokumen({ kelas: 0, tahun_ajaran: "", mapel: [], ...profil }, kebijakan, args.jenis ?? tebakJenis(sub))
     if (args.orientasi === "lanskap") opsi.lanskap = true
     if (args.orientasi === "potret") opsi.lanskap = false
-    const { docx, lanskap } = await simpanDokumen(akar, sub, md, opsi, false)
-    return `Selesai: ${docx} (${opsi.jenis}, ${lanskap ? "lanskap" : "potret"}, ${opsi.kertas}). Penanda [PERLU ...] diberi stabilo kuning.`
+    const { docx, lanskap, catatan } = await simpanDokumen(akar, sub, md, opsi, false)
+    return [`Selesai: ${docx} (${opsi.jenis}, ${lanskap ? "lanskap" : "potret"}). Penanda [PERLU ...] diberi stabilo kuning.`, ...catatan].join("\n")
   },
 })

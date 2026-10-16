@@ -16,6 +16,12 @@
   "_contoh_bobot_nilai_rapor": { "formatif": 50, "sts": 25, "sas": 25 },
   "batas_ketuntasan": null,
   "_batas_ketuntasan_petunjuk": "Angka 0-100. Nilai di bawahnya diberi warna merah di buku nilai Excel.",
+  "gaya_dokumen": {},
+  "_gaya_dokumen_petunjuk": "Bawaan tampilan Word untuk semua guru, format sama dengan guru/gaya-dokumen.json bagian 'semua', misalnya {\"huruf\": \"Times New Roman\", \"ukuran\": 12, \"kop\": {\"baris_tambahan\": [\"YAYASAN ...\"]}}.",
+  "gaya_dikunci": [],
+  "_gaya_dikunci_petunjuk": "Bagian gaya yang tidak boleh diubah guru, misalnya [\"kertas\", \"kop\", \"ttd\"].",
+  "template_wajib": false,
+  "_template_wajib_petunjuk": "true = Word contoh di sekolah/template/<Dokumen>.docx wajib dipakai dan tidak bisa diganti guru.",
   "riset": {
     "_petunjuk": "web: false untuk mematikan riset web. domain_tepercaya: situs yang boleh dipakai sebagai sumber materi (subdomain ikut). null = bawaan: kemendikdasmen.go.id, kemdikbud.go.id, kemenag.go.id, belajar.id, bps.go.id, bmkg.go.id, id.wikipedia.org.",
     "web": true,

@@ -35,6 +35,9 @@ export type Kebijakan = {
   cadangan_jp_per_semester?: number | null
   bobot_nilai_rapor?: { formatif: number; sts: number; sas: number } | null
   riset?: { web?: boolean; domain_tepercaya?: string[] | null } | null
+  gaya_dokumen?: Record<string, unknown> | null
+  gaya_dikunci?: string[] | null
+  template_wajib?: boolean | null
 }
 export type TP = {
   kode: string

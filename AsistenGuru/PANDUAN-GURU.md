@@ -16,6 +16,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | `/absen oktober` | Membuat Excel daftar hadir |
 | `/nilai matematika 1` | Membuat Excel buku nilai semester 1 |
 | `/ingat` | Melihat aturan yang diingat asisten |
+| `/format` | Mengatur format Word Anda (huruf, margin, kop, atau pakai Word Anda sendiri sebagai contoh) |
 | `/perbarui` | Mengecek versi dan memperbarui Asisten Guru (data Anda tetap aman) |
 | `/bantuan` | Menampilkan menu ini |
 
@@ -28,6 +29,8 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
   Sumber selalu dicantumkan di dokumen.
 - Di Excel, isi sel kuning saja. Rumus dikunci agar tidak terhapus.
 - **Jangan mengetik nama siswa ke asisten.** Ketik nama langsung di berkas Excel.
+- Ingin format Word sesuai selera? Katakan saja, misalnya "hurufnya Times New Roman 12", "LKPD tanpa kop", atau edit Word
+  hasil asisten di Word lalu katakan "pakai yang ini sebagai contoh LKPD". Format itu dipakai untuk dokumen berikutnya.
 - Ingin asisten selalu melakukan sesuatu? Katakan "mulai sekarang selalu ...", maka asisten akan mengingatnya.
 - Jika asisten diam terlalu lama, tekan Esc lalu kirim ulang pesan Anda.
 - Cadangkan folder **AsistenGuru** sesekali (salin ke flashdisk atau Google Drive), terutama folder `guru` dan `hasil`.

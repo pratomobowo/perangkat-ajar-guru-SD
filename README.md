@@ -4,7 +4,7 @@ Asisten pribadi guru SD/SDIT berbasis [OpenCode 2](https://opencode.ai) yang men
 kalender → minggu efektif → ATP → Prota/Promes → modul ajar/RPM dan LKPD → asesmen → jurnal, daftar hadir, dan buku nilai.
 Guru cukup bercerita dan memeriksa. Dokumen Word dan Excel yang rapi dan siap cetak disiapkan oleh asisten.
 
-> Status: **v0.5.0**, untuk OpenCode 2 (Desktop atau CLI), utamanya guru pengguna Windows. Uji coba Matematika Kelas 4 (Fase B).
+> Status: **v0.6.0**, untuk OpenCode 2 (Desktop atau CLI), utamanya guru pengguna Windows. Uji coba Matematika Kelas 4 (Fase B).
 > Lihat [`uji-e2e/LAPORAN-v03.md`](uji-e2e/LAPORAN-v03.md).
 
 ## Cara pasang paling mudah (untuk guru)
@@ -60,6 +60,7 @@ Bagian ini untuk asisten AI (misalnya OpenCode) yang diminta memasang atau mempe
 | `/jurnal tadi mengajar …` | Jurnal mengajar bulanan (Word) |
 | `/absen oktober` | Daftar hadir bulanan dengan rekap otomatis (Excel) |
 | `/nilai matematika 1` | Buku nilai per TP dengan rumus nilai rapor (Excel) |
+| `/format`, "hurufnya Times 12", "pakai Word yang sudah saya edit sebagai contoh" | Format Word milik guru (gaya, kerangka bagian, Word contoh) dipakai di setiap ekspor berikutnya |
 | "mulai sekarang selalu …" | Mengingat preferensi guru untuk sesi berikutnya |
 
 Guru juga bisa bercerita biasa tanpa perintah, misalnya "minggu depan saya mengajar pecahan, tolong siapkan bahannya".
@@ -86,16 +87,16 @@ AsistenGuru/                 ← paket yang disalin ke komputer guru (satu folde
 │  ├─ agents/asisten-guru.md persona, peta tugas, format draf, izin (tulis hanya guru/ dan hasil/)
 │  ├─ commands/              menu slash
 │  ├─ skills/                guru-setup, perencanaan-tahunan, modul-ajar, asesmen, administrasi-harian, umpan-balik-guru,
-│  │                         kelola-asisten, riset-materi
+│  │                         kelola-asisten, riset-materi, template-guru
 │  ├─ paket.json             nama dan versi paket (dipakai pemasang dan alat perbarui_paket)
 │  ├─ plugins/asisten-guru.ts plugin OpenCode 2 yang mendaftarkan alat (tanpa paket npm)
 │  ├─ alat/                  hitung_minggu_efektif, susun_perencanaan, agenda_hari_ini, ekspor_word,
 │  │                         buat_absensi_excel, buat_nilai_excel, perbarui_paket, baca_buku, riset_materi,
-│  │                         unduh_buku
+│  │                         unduh_buku, atur_gaya, simpan_template_word
 │  ├─ lib/                   kalender, perencanaan, penulis .docx/.xlsx/.zip, pustaka, riset (tanpa dependensi)
 │  └─ vendor/pdfjs/          pdf.js (Apache-2.0) untuk membaca teks PDF buku
 ├─ sekolah/                  milik sekolah: kebijakan.json, preferensi-sekolah.md, referensi CP dan buku, template
-├─ guru/                     milik guru: profil, kalender, preferensi, data ATP/Promes, draf
+├─ guru/                     milik guru: profil, kalender, preferensi, gaya dan template Word, buku, data ATP/Promes, draf
 ├─ hasil/                    Word dan Excel siap cetak (1 Perencanaan, 2 Modul dan LKPD, 3 Asesmen, 4 Administrasi)
 ├─ VERSI.md                  versi paket dan catatan perubahan
 ├─ README-PASANG.md          panduan operator sekolah
@@ -128,6 +129,7 @@ Rincian ada di [`AsistenGuru/README-PASANG.md`](AsistenGuru/README-PASANG.md).
 | Uji | Perintah | Isi |
 |---|---|---|
 | Pustaka | `cd uji-e2e/fixture && bun uji-lib.ts` | Minggu efektif, validasi ATP, Prota/Promes, agenda, Word dan Excel |
+| Template guru | `cd uji-e2e/fixture && bun uji-template.ts` | Gaya, kerangka, Word contoh (termasuk Word berbahasa Indonesia, kop di header, hasil editan guru), kunci dan template wajib sekolah; `SOFFICE=...` membuka hasil di LibreOffice |
 | Alat dan plugin | `cd uji-e2e/fixture && bun uji-alat.ts` | Keenam alat lewat plugin OpenCode 2, termasuk berkas ala Notepad Windows (BOM, CRLF) dan jalur Windows |
 | Rumus Excel | `cd uji-e2e/rumus && bun install && bun uji-rumus-fixture.ts ../fixture` | Menghitung rumus dengan HyperFormula dan membandingkannya dengan nilai harapan |
 | Pemasang | `uji-e2e/pasang/uji-pasang.sh` | `perbarui_paket`, `pasang.sh`, dan `pasang.ps1` (jika `pwsh` ada): pasang baru, perbarui dari v0.2 berisi data, pasang ulang |

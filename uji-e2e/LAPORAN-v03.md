@@ -136,6 +136,28 @@ Catatan:
 | E2E OpenCode 2: `/buku` → "unduh buku siswa dan panduan guru IPAS" → "gaya magnet halaman berapa?" | Daftar hanya mapel di profil (Matematika, IPAS) → 2 buku terunduh → "halaman cetak 41–45 (PDF 49–53)" dengan ringkasan; diverifikasi ke teks buku |
 | `uji-alat.ts` dengan katalog tiruan berisi keanehan di atas | Semua lulus |
 
+## Format Word milik guru (v0.6.0)
+
+Keinginan format disimpan di `guru/` (tidak ditimpa pembaruan) dan dipakai otomatis di setiap ekspor:
+(1) gaya tampilan `guru/gaya-dokumen.json` lewat `atur_gaya`/`/format`, (2) kerangka `guru/template/<Dokumen>.md`,
+(3) Word contoh `guru/template/<Dokumen>.docx` lewat `simpan_template_word`. Urutan: sekolah < guru "semua dokumen" <
+Word contoh jenis itu < guru khusus jenis itu; bagian yang dikunci sekolah dan template sekolah wajib selalu menang.
+
+| Uji | Hasil |
+|---|---|
+| `uji-template.ts` (47 pemeriksaan dengan LibreOffice): gaya semua/per dokumen, validasi, kembalikan, kunci sekolah, Word berbahasa Indonesia (ID gaya "Judul1"), kop di header, namespace Word, kertas F4, hasil editan guru, template sekolah wajib, hapus, Word rusak | Semua lulus; Word hasil dibuka LibreOffice 7.6 dan dikonversi ke PDF |
+| LibreOffice 7.6 membuka semua Word/Excel contoh hasil (v0.3 dan uji ini) | 28/28 berhasil dikonversi ke PDF (sebelumnya hanya divalidasi skema XML) |
+| E2E: "Mulai sekarang semua dokumen pakai Times New Roman 12 dan margin kiri 3 cm" | `template-guru` → `atur_gaya` → LKPD diekspor ulang sebagai contoh |
+| E2E: "LKPD di folder hasil sudah saya edit di Word (kop di header, ganti huruf), pakai itu sebagai contoh" | `simpan_template_word` → template + kerangka LKPD tersimpan |
+| E2E: `/modul TP4 kelipatan dan faktor` (topik baru) | LKPD: Comic Sans + kop header guru, tanpa kop dobel, susunan Petunjuk → Pertemuan 1 dari kerangka; RPM dan Kunci: Times New Roman 12, margin kiri 3 cm. Ketiganya terbuka di LibreOffice |
+
+Temuan yang diperbaiki saat uji: gaya "semua dokumen" sempat menimpa Word contoh LKPD (asisten melapor Comic Sans padahal
+hasilnya Times); kop di badan dokumen sempat terbaca sebagai judul kerangka; judul khusus topik ("Pertemuan 1 - Tebak
+polanya") dan jumlah pertemuan sempat terkunci di kerangka.
+
+Catatan: Word contoh diuji dengan Word buatan uji yang meniru Microsoft Word dan dengan LibreOffice; belum dengan berkas
+yang benar-benar disimpan Microsoft Word di Windows.
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu

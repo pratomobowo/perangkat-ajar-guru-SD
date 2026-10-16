@@ -1,8 +1,11 @@
 // Menyimpan dokumen: Markdown (draf yang bisa direvisi asisten) di guru/draf/, Word rapi di hasil/.
 // Kop sekolah, ukuran kertas, huruf, dan tanda tangan diambil dari sekolah/kebijakan.json dan guru/profil.json.
 
-import { type Kebijakan, type Profil, tulis } from "./berkas.ts"
-import { type JenisDokumen, type OpsiDokumen, buatDocx } from "./docx.ts"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
+import { type Kebijakan, type Profil, bacaJson, bacaTeks, tulis } from "./berkas.ts"
+import { type JenisDokumen, type OpsiDokumen, bagianHilang, buatDocx } from "./docx.ts"
+import { cariTemplate, gayaEfektif, kunciDokumen, uraiGaya } from "./gaya.ts"
 import { NAMA_BULAN } from "./kalender.ts"
 
 /** Subfolder hasil yang dilihat guru. */
@@ -42,11 +45,38 @@ export function tebakJenis(nama: string): JenisDokumen {
 
 /**
  * Simpan satu dokumen. `sub` relatif terhadap folder hasil, misalnya "1 Perencanaan/Matematika 2026-2027/2 ATP".
- * Menghasilkan guru/draf/<sub>.md dan hasil/<sub>.docx.
+ * Menghasilkan guru/draf/<sub>.md dan hasil/<sub>.docx. Gaya guru/sekolah, Word contoh, dan kerangka untuk jenis
+ * dokumen ini (lib/gaya.ts) diterapkan otomatis; `catatan` menjelaskannya untuk disampaikan ke guru.
  */
 export async function simpanDokumen(akar: string, sub: string, md: string, opsi: OpsiDokumen, simpanMd = true) {
   if (simpanMd) await tulis(akar, `guru/draf/${sub}.md`, md)
-  const { data, lanskap } = buatDocx(md, opsi)
-  const docx = await tulis(akar, `hasil/${sub}.docx`, data)
-  return { docx, lanskap }
+  const kebijakan = await bacaJson<Kebijakan>(akar, "sekolah/kebijakan.json")
+  const kunci = kunciDokumen(sub)
+  const contoh = await cariTemplate(akar, kunci, "docx", kebijakan)
+  const { gaya, asal } = await gayaEfektif(akar, kunci, kebijakan, !!contoh)
+  const catatan: string[] = []
+  const o: OpsiDokumen = { ...opsi, gaya }
+  if (asal.length) catatan.push(`Gaya: ${asal.join(" + ")}${uraiGaya(gaya).length ? ` (${uraiGaya(gaya).join(", ")})` : ""}.`)
+
+  if (contoh) {
+    o.dasar = new Uint8Array(await readFile(join(akar, contoh.rel)))
+    catatan.push(`Memakai Word contoh ${contoh.asal}: ${contoh.rel}.`)
+  }
+  const kerangka = await cariTemplate(akar, kunci, "md", kebijakan)
+  if (kerangka) {
+    const hilang = bagianHilang(md, (await bacaTeks(akar, kerangka.rel)) ?? "")
+    if (hilang.length) catatan.push(`Bagian di kerangka ${kerangka.rel} yang belum ada di draf: ${hilang.join("; ")}. Lengkapi draf lalu ekspor ulang.`)
+  }
+
+  let hasil: ReturnType<typeof buatDocx>
+  try {
+    hasil = buatDocx(md, o)
+  } catch (e) {
+    if (!o.dasar) throw e
+    hasil = buatDocx(md, { ...o, dasar: undefined })
+    catatan.push(`Word contoh tidak bisa dipakai (${(e as Error).message}); memakai format bawaan.`)
+  }
+  if (hasil.dasar?.kopDariHeader) catatan.push("Kop diambil dari header Word contoh.")
+  const docx = await tulis(akar, `hasil/${sub}.docx`, hasil.data)
+  return { docx, lanskap: hasil.lanskap, catatan }
 }
