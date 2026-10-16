@@ -1,6 +1,6 @@
 ---
 name: administrasi-harian
-description: Mengurus administrasi kelas harian dan bulanan — jadwal pelajaran kelas dalam Word, jurnal mengajar harian, daftar hadir/absensi siswa dalam Excel dengan rekap otomatis, buku nilai Excel per TP dengan rumus nilai rapor, serta kalimat deskripsi capaian rapor. Gunakan saat guru berkata "isi jurnal", "tadi saya mengajar ...", "absen", "daftar hadir", "rekap kehadiran", "buku nilai", "olah nilai", "nilai rapor", atau "deskripsi rapor".
+description: Mengurus administrasi kelas harian dan bulanan — jadwal pelajaran kelas dalam Word, jurnal mengajar harian, daftar hadir/absensi siswa dalam Excel dengan rekap otomatis, buku nilai Excel per TP dengan rumus nilai rapor, serta kalimat deskripsi capaian rapor, administrasi wali kelas (struktur organisasi, piket, denah tempat duduk, kesepakatan kelas), dan pembagian kelompok. Gunakan saat guru berkata "isi jurnal", "tadi saya mengajar ...", "absen", "daftar hadir", "rekap kehadiran", "buku nilai", "olah nilai", "nilai rapor", "deskripsi rapor", "jadwal piket", "denah tempat duduk", "struktur organisasi kelas", "tata tertib/kesepakatan kelas", "bagi kelompok", atau "administrasi wali kelas".
 ---
 
 # Administrasi Harian
@@ -34,6 +34,19 @@ atau kelas ("siapa yang perlu remedial TP3?", "TP mana yang paling sulit", "siap
 4. Untuk kelas: sebut siswa seperti yang dikirim alat (nama bila sekolah mengizinkan, selain itu nomor absen), lalu beri
    tahu berkas laporan lengkap dengan nama yang dibuat alat.
 5. Jika data belum diisi (nilai/absensi kosong), katakan apa yang perlu diisi guru di Excel; jangan mengarang.
+
+## Administrasi wali kelas
+Alat `buat_administrasi_wali_kelas` membuat satu Excel berisi Struktur Organisasi (nama dipilih guru lewat daftar
+pilihan di sel), Jadwal Piket (dibagi rata per hari sekolah, laki-laki dan perempuan bercampur), Denah Tempat Duduk, dan
+Kesepakatan Kelas. Tanyakan paling banyak satu hal bila perlu: susunan duduk (urut absen / acak / selang laki-laki
+dan perempuan) atau kesepakatan kelas yang sudah dibuat bersama murid (teruskan kalimatnya di `kesepakatan`). Kesepakatan
+ditulis sebagai kalimat positif ("Mengangkat tangan sebelum berbicara"), bukan larangan dan hukuman.
+
+## Pembagian kelompok
+Alat `buat_kelompok`: tanyakan jumlah kelompok atau anggota per kelompok bila belum disebut, dan siswa yang tidak hadir
+(nomor absen → `kecuali`). Cara: `campur_jk` (bawaan), `acak`, atau `campur_nilai` bila guru ingin kemampuan bercampur
+(butuh buku nilai mapel yang sudah diisi). Sampaikan jumlah kelompok dan komposisinya saja; guru membuka Excel untuk
+melihat nama. Saat menyusun modul ajar dengan kerja kelompok, tawarkan alat ini.
 
 ## Jurnal harian
 1. Panggil `agenda_hari_ini` (atau dengan tanggal yang disebut guru) untuk mengetahui mapel dan TP yang dijadwalkan.

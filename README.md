@@ -4,7 +4,7 @@
 Guru cukup mengobrol seperti biasa, asisten menyiapkan perangkat ajar dan administrasi kelas dalam bentuk
 **Word dan Excel yang siap cetak**.
 
-> Versi **0.16.1** · tahap uji coba · untuk OpenCode 2 (Desktop atau terminal), utamanya laptop Windows.
+> Versi **0.17.0** · tahap uji coba · untuk OpenCode 2 (Desktop atau terminal), utamanya laptop Windows.
 
 ---
 
@@ -14,8 +14,9 @@ Guru cukup mengobrol seperti biasa, asisten menyiapkan perangkat ajar dan admini
 |---|---|
 | Perencanaan setahun | Minggu efektif, ATP, Prota, Promes |
 | Persiapan mengajar | Modul Ajar / RPM / RPP, LKPD, kunci jawaban, kartu media |
-| Penilaian | KKTP, kisi-kisi, soal ulangan harian, STS, SAS, beserta kuncinya |
+| Penilaian | KKTP, kisi-kisi, soal ulangan harian, STS, SAS, beserta kuncinya; analisis butir soal (tingkat kesukaran, daya beda, pengecoh) |
 | Administrasi kelas | Daftar hadir, buku nilai (nilai rapor dan deskripsi rapor otomatis), jurnal mengajar, jadwal pelajaran, kalender pendidikan |
+| Wali kelas | Struktur organisasi kelas, jadwal piket, denah tempat duduk, kesepakatan kelas, pembagian kelompok — nama siswa terisi otomatis |
 | Kokurikuler | Rencana kegiatan, jurnal, penilaian per dimensi profil lulusan, deskripsi rapor |
 | Memahami murid | "Budi kurangnya di mana?", "Siapa yang perlu remedial?" |
 | Bahan pelajaran | Mengunduh Buku Siswa dan Panduan Guru resmi, mencari materi dari sumber tepercaya |
@@ -144,7 +145,7 @@ AsistenGuru/            paket yang dipasang di laptop guru
 │  ├─ agents/           persona asisten dan peta tugas
 │  ├─ skills/           panduan kerja per tugas (modul-ajar, asesmen, pendamping-guru, siapkan-semua, …)
 │  ├─ commands/         menu perintah (/bingung, /siapkan, /modul, /absen, …)
-│  ├─ plugins/          plugin OpenCode 2 yang mendaftarkan 27 alat (tanpa paket npm)
+│  ├─ plugins/          plugin OpenCode 2 yang mendaftarkan 30 alat (tanpa paket npm)
 │  ├─ alat/  lib/       alat dan pustaka: kalender, perencanaan, Word/Excel, pembaca PDF/Word/Excel, daftar siswa, analisis, …
 │  └─ vendor/pdfjs/     pdf.js (Apache-2.0) untuk membaca PDF buku
 ├─ sekolah/             milik sekolah: kebijakan.json, referensi CP dan buku, template
@@ -173,9 +174,10 @@ Semua uji di `uji-e2e/fixture` dijalankan dengan `bun <nama>.ts`:
 | `uji-kesiapan.ts` | cek bahan sebelum membuat perangkat |
 | `uji-acuan.ts` | JP resmi per kelas/mapel dan libur nasional 2026/2027 |
 | `uji-ppg.ts` | pemeriksa tujuh aspek Ujian Kinerja dan checklist UKPPPG |
+| `uji-walikelas.ts` | administrasi wali kelas, pembagian kelompok, Excel analisis butir, privasi nama |
 | `uji-ingatan.ts` | ingatan lintas sesi: batas, privasi, injeksi, pengingat, arsip SQLite/Markdown, hook plugin, panggilan paralel |
 
-Ditambah: `uji-e2e/rumus` (rumus Excel dihitung HyperFormula), `uji-e2e/pasang/uji-pasang.sh` (pemasang sh dan ps1),
+Ditambah: `uji-e2e/rumus` (rumus Excel dihitung HyperFormula, termasuk `uji-rumus-butir.ts`), `uji-e2e/pasang/uji-pasang.sh` (pemasang sh dan ps1),
 `uji-e2e/jalankan.sh` (OpenCode terisolasi dengan skenario guru), dan `uji-e2e/rute/jalankan-rute.sh` (16 permintaan
 bahasa sehari-hari → alat yang tepat). Hasil uji end-to-end per versi ada di
 [`uji-e2e/LAPORAN-v03.md`](uji-e2e/LAPORAN-v03.md).

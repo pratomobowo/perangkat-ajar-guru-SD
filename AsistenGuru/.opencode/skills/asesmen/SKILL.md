@@ -63,3 +63,12 @@ Pedoman soal:
 ## 6. Serahkan
 Panggil `ekspor_word` untuk semua berkas. Sampaikan ringkas: jumlah soal per TP, sebaran level, berkas Word, dan bagian
 `[PERLU GURU]`. Ingatkan bahwa nilai bisa dimasukkan ke buku nilai Excel (perintah `/nilai`).
+Untuk ulangan pilihan ganda/isian, tawarkan **analisis butir soal**: `buat_analisis_butir_excel` dengan `judul`,
+`jumlah_soal`, dan `kunci` dari kunci jawaban yang baru dibuat (huruf berurutan; soal isian/uraian benar-salah = 1).
+Guru mengisi jawaban siswa di Excel; tingkat kesukaran, daya beda, pengecoh, dan keputusan tiap soal terhitung otomatis.
+
+## 7. Analisis butir soal (setelah ulangan)
+Bila guru bertanya soal mana yang terlalu sulit/mudah atau ingin menganalisis hasil ulangan: `buat_analisis_butir_excel`.
+Jelaskan singkat istilahnya bila guru belum paham: tingkat kesukaran = berapa banyak siswa yang benar; daya beda = apakah
+soal membedakan siswa yang paham dan yang belum; pengecoh = pilihan salah yang dipilih siswa. Soal berlabel
+"Revisi/ganti" diperbaiki sebelum dipakai lagi. Daya beda negatif biasanya berarti kunci jawaban perlu dicek.

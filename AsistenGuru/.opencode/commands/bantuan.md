@@ -17,6 +17,9 @@ Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 - `/kokurikuler` — kegiatan kokurikuler (pengganti P5): perencanaan, jurnal, penilaian, deskripsi rapor
 - `/ppg` — sedang PPG? Checklist UKPPPG, perangkat dan video Ujian Kinerja, latihan PCK/SJT/uraian reflektif
 - `/jurnal tadi mengajar ...` — catat jurnal harian
+- "buatkan administrasi wali kelas" — struktur organisasi, jadwal piket, denah tempat duduk, kesepakatan kelas (Excel)
+- "bagi kelas jadi 6 kelompok" — kelompok belajar, nama terisi otomatis
+- "analisis butir soal STS matematika 25 soal" — tingkat kesukaran, daya beda, pengecoh otomatis
 - `/absen oktober` — Excel daftar hadir
 - `/nilai matematika 1` — Excel buku nilai semester 1
 - `/ingat` — apa yang saya ingat tentang Anda, pekerjaan berjalan, pengingat, dan aturan (bisa diubah/dihapus)

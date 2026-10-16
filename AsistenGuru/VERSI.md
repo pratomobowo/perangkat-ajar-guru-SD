@@ -1,9 +1,17 @@
 # Versi Paket
 
-**Versi:** 0.16.1
+**Versi:** 0.17.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.17.0 — **Administrasi wali kelas** (`buat_administrasi_wali_kelas`): satu Excel berisi struktur organisasi kelas
+  (nama dipilih dari daftar pilihan), jadwal piket (rata per hari sekolah, laki-laki/perempuan bercampur), denah tempat
+  duduk (urut absen/acak/selang laki-laki-perempuan), dan kesepakatan kelas berkalimat positif. **Pembagian kelompok**
+  (`buat_kelompok`): acak, laki-laki/perempuan seimbang, atau campuran kemampuan dari buku nilai (nilai tidak dicetak),
+  siswa yang tidak hadir dikecualikan. **Analisis butir soal** (`buat_analisis_butir_excel`): guru mengisi kunci dan
+  jawaban siswa, Excel menghitung skor, nilai, ketuntasan, tingkat kesukaran, daya beda (kelompok atas/bawah 27%),
+  sebaran pilihan/pengecoh, dan keputusan tiap soal (kriteria Arikunto); jawaban salah otomatis merah. Nama siswa diisi
+  alat dari Daftar Siswa ke folder `4 Administrasi` yang terkunci; asisten hanya menerima jumlah.
 - 0.16.1 — Panduan pemasangan model pihak ketiga dihapus dari README-PASANG.
 - 0.16.0 — **Ingatan lintas sesi** (pola Hermes Agent): asisten mengingat guru di sesi berikutnya. Ingatan inti kecil
   (`guru/ingatan/tentang-guru.md` 1.500 karakter, `catatan-kerja.md` 2.200 karakter, `pengingat.md`, plus aturan aktif

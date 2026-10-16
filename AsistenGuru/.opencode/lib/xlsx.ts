@@ -30,7 +30,8 @@ export const DXF = { kuning: 0, biru: 1, merah: 2, kurang: 3 } as const
 
 export type Sel = null | string | number | { v?: string | number; f?: string; s?: number }
 export type Validasi = { sqref: string; jenis: "list" | "decimal"; rumus1: string; rumus2?: string; judul: string; pesan: string }
-export type Warna = { sqref: string; aturan: { op: "equal" | "lessThan"; nilai: string; dxf: number }[] }
+/** op "expression": `nilai` adalah rumus benar/salah relatif terhadap sel kiri atas `sqref`. */
+export type Warna = { sqref: string; aturan: { op: "equal" | "lessThan" | "expression"; nilai: string; dxf: number }[] }
 export type Lembar = {
   nama: string
   baris: Sel[][]
@@ -86,7 +87,11 @@ function lembarXml(l: Lembar): string {
     .map(
       (w) =>
         `<conditionalFormatting sqref="${w.sqref}">${w.aturan
-          .map((a) => `<cfRule type="cellIs" dxfId="${a.dxf}" priority="${prio++}" operator="${a.op}"><formula>${xml(a.nilai)}</formula></cfRule>`)
+          .map((a) =>
+            a.op === "expression"
+              ? `<cfRule type="expression" dxfId="${a.dxf}" priority="${prio++}"><formula>${xml(a.nilai)}</formula></cfRule>`
+              : `<cfRule type="cellIs" dxfId="${a.dxf}" priority="${prio++}" operator="${a.op}"><formula>${xml(a.nilai)}</formula></cfRule>`,
+          )
           .join("")}</conditionalFormatting>`,
     )
     .join("")

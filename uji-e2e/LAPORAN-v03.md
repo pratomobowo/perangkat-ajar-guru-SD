@@ -374,7 +374,30 @@ Purwarupa sebelumnya juga membuktikan blok ingatan dipakai tanpa model membaca b
 dibaca). Melanjutkan sesi lama (`--session`) setelah service dimulai ulang sempat macet tanpa keluaran (dua kali); sesi
 baru berjalan normal.
 
+## Administrasi wali kelas, kelompok, analisis butir soal (v0.17.0)
+
+Uji unit `uji-walikelas.ts` (22 cek): lima lembar paket wali kelas, piket rata dan bercampur laki-laki/perempuan, tiap
+siswa tepat satu kursi di denah, opsi 6 hari/1 siswa per meja/kesepakatan dari guru; kelompok (acak, campur_jk,
+campur_nilai) berukuran seimbang dan tiap siswa tepat sekali, campur_nilai merapatkan rata-rata antarkelompok; lewat
+plugin: Excel di `4 Administrasi`, **hasil alat tanpa satu pun nama siswa**, siswa absen tidak tercantum.
+`uji-rumus-butir.ts` (7 cek, HyperFormula): skor, nilai, tuntas, kelompok atas/bawah 27%, P, D, kategori,
+keputusan, sebaran pilihan, siswa tidak ikut, soal isian 1/0 — semua sama dengan hitungan manual. **Temuan:**
+`SUMPRODUCT(--ISNUMBER(...))` tidak dihitung HyperFormula → diganti `SUM`/`COUNTIFS` (aman di semua aplikasi).
+Tampilan cetak dicek di LibreOffice: label ringkasan terpotong dan nama denah rata kiri → diperbaiki.
+
+E2E OpenCode (model Sumopod `deepseek-v4.1-flash:netra`), berkas Dapodik contoh (nama samaran, rombel 4A dan 4B):
+
+| Pesan guru | Hasil |
+|---|---|
+| "daftar siswa Dapodik sudah di folder masukan, kelas 4A… buatkan administrasi wali kelas, duduk selang-seling" | `baca_masukan` → `daftar_siswa` (4A, 12 siswa) → `buat_administrasi_wali_kelas`: 11 jabatan, piket 2–3 siswa/hari, 6 meja selang-seling |
+| "bagi kelas jadi 3 kelompok buat IPAS ekosistem, absen 5 sama 9 sakit" | `buat_kelompok` {jumlah_kelompok 3, kecuali [5, 9]}: 10 siswa, L/P seimbang |
+| "STS Matematika 20 soal PG A–D, buatin analisis butir, kunci saya isi sendiri" | `cek_kesiapan`, `buat_analisis_butir_excel` |
+
+Nama siswa di log percakapan: 0 (dicek untuk 6 nama). 3/3 Excel terbuka di LibreOffice. Cakupan dokumen wali kelas
+(struktur organisasi, piket, denah, kesepakatan kelas) yang sebelumnya ❌ kini tersedia; buku tamu, catatan anekdot,
+dan inventaris kelas belum.
+
 ## Cara mengulang
-1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts && bun uji-ingatan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
+1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts && bun uji-ingatan.ts && bun uji-walikelas.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture && bun uji-rumus-butir.ts`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
    jalankan `jalankan.sh` per langkah. Pesan guru ada di `log-v02-final/*.pesan.txt`.

@@ -20,6 +20,9 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | `/jurnal tadi mengajar TP3, 2 anak sakit` | Mencatat jurnal mengajar |
 | `/absen oktober` | Membuat Excel daftar hadir (nama siswa terisi otomatis) |
 | "Budi kurangnya di mana?" | Analisis satu anak dari buku nilai dan daftar hadir yang sudah Ibu/Bapak isi: TP yang kuat, TP yang perlu dibantu, kehadiran, dan saran. "Siapa yang perlu remedial TP3?" untuk satu kelas (laporan lengkap ada di Excel) |
+| "Buatkan administrasi wali kelas" | Struktur organisasi kelas, jadwal piket, denah tempat duduk, dan kesepakatan kelas dalam satu Excel; nama siswa terisi otomatis dan bisa diubah |
+| "Bagi kelas jadi 6 kelompok" | Kelompok belajar (acak, laki-laki/perempuan seimbang, atau campuran kemampuan dari buku nilai); siswa yang tidak hadir bisa dikecualikan |
+| "Analisis butir soal STS Matematika 25 soal" | Excel analisis butir: isi kunci dan jawaban siswa, tingkat kesukaran, daya beda, pengecoh, dan keputusan tiap soal terhitung otomatis |
 | `/nilai matematika 1` | Membuat Excel buku nilai semester 1 |
 | `/ppg` | Sedang ikut PPG Guru Tertentu? Checklist UKPPPG sesuai juknis 2026 (nama berkas resmi sudah terisi), pendampingan perangkat dan skenario video Ujian Kinerja 2 JP dari ide dan kelas Ibu/Bapak sendiri, latihan soal PCK, SJT, dan uraian reflektif. Hasil di folder `hasil\7 PPG` |
 | `/ingat` | Melihat apa yang diingat asisten tentang Anda, pekerjaan yang sedang berjalan, pengingat, dan aturan Anda — bisa diubah atau dihapus |

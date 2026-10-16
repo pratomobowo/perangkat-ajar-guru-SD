@@ -21,13 +21,15 @@ Tampilkan dengan bahasa sederhana. Tanda: ✅ dibuatkan asisten · 🟡 dibuatka
 - ✅ Kisi-kisi, soal ulangan harian, STS, SAS, kunci dan penskoran
 - 🟡 Buku nilai dengan nilai rapor dan draf deskripsi rapor (✍️ nilai diisi guru)
 - ✅ Analisis hasil belajar dan daftar siswa yang perlu remedial (setelah nilai diisi)
+- 🟡 Analisis butir soal: tingkat kesukaran, daya beda, pengecoh (✍️ jawaban siswa diisi guru di Excel)
 
 **5. Kokurikuler**
 - ✅ Rencana kegiatan, jurnal, penilaian per dimensi profil lulusan, deskripsi rapor
 
 **6. Administrasi kelas (wali kelas)** — biasanya diminta sekolah, formatnya beragam
-- ✍️ Struktur organisasi kelas, jadwal piket, denah tempat duduk, tata tertib/kesepakatan kelas, buku tamu,
-  catatan perkembangan siswa, inventaris kelas. Asisten bisa membuatkan format kosongnya di Word bila diminta;
-  nama siswa diisi guru (atau dari Daftar Siswa bila tersedia alatnya).
+- 🟡 Struktur organisasi kelas, jadwal piket, denah tempat duduk, kesepakatan kelas (satu Excel, nama siswa terisi
+  otomatis dari Daftar Siswa)
+- 🟡 Pembagian kelompok belajar (acak, laki-laki/perempuan seimbang, atau campuran kemampuan)
+- ✍️ Buku tamu, catatan perkembangan siswa, inventaris kelas (asisten bisa membuatkan format kosongnya di Word)
 
 Sampaikan juga: tidak perlu semuanya hari ini — mulai dari perencanaan, lalu bahan mengajar minggu ini.
