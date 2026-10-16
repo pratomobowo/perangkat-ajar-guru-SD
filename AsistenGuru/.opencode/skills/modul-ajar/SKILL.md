@@ -5,6 +5,11 @@ description: Menyiapkan bahan mengajar untuk satu topik atau TP — Modul Ajar, 
 
 # Modul Ajar / RPM dan LKPD
 
+## 0. Cek bahan
+Panggil `cek_kesiapan` (tugas `modul`, mapel). Jika BELUM SIAP, ikuti skill `pendamping-guru` untuk melengkapi bahan
+(CP/ATP, buku) satu langkah demi satu langkah, lalu kembali ke sini. Jika buku belum ada dan guru memilih melewatinya,
+pakai `riset_materi` dan tandai isi yang perlu dicek.
+
 ## 1. Tentukan TP dan konteks
 - Cari TP yang dimaksud di `guru/data/atp-<mapel>.json`. Jika guru tidak menyebut topik, panggil `agenda_hari_ini` dan
   usulkan TP minggu ini atau minggu depan.

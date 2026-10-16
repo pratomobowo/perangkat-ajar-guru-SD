@@ -14,6 +14,9 @@ description: Menyusun instrumen penilaian dalam bentuk Word — KKTP (Kriteria K
 - Tanyakan paling banyak 3 hal: jenis asesmen, jumlah dan bentuk soal, serta waktu pengerjaan. Jika sekolah punya
   ketentuan di `sekolah/preferensi-sekolah.md`, ikuti tanpa bertanya.
 
+Sebelum membuat soal, panggil `cek_kesiapan` (tugas `soal`, mapel). Jika BELUM SIAP, lengkapi bahannya dulu bersama guru
+(skill `pendamping-guru`).
+
 ## 2. KKTP (jika diminta atau belum ada untuk TP itu)
 Ikuti bentuk KKTP sekolah. Jika tidak diatur, pakai bentuk **contoh resmi BSKAP** (Panduan Pembelajaran dan Asesmen 2025,
 Lampiran 5 dan 7): satu tabel per mapel/semester dengan kolom **Tujuan Pembelajaran | Kriteria Ketercapaian | Memenuhi |

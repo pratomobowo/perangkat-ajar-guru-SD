@@ -235,6 +235,19 @@ Daffa No. 7; Fikri alpa ≥ 3). Temuan: pada percobaan pertama asisten tetap mem
 padahal No. 3 belum tuntas TP5 (data alat benar; kesalahan merangkum).
 
 
+## Pendamping guru awam (v0.13.0)
+
+Guru dengan profil dan kalender saja (tanpa CP, ATP, buku), model gratis:
+
+| Pesan guru | Yang terjadi |
+|---|---|
+| "Bu, saya mau buat modul pecahan buat minggu depan tapi saya gak punya bukunya, terus saya juga bingung harus ngapain dulu" | skill `pendamping-guru` + `cek_kesiapan` → "Tidak apa-apa, Bu Rina, kita pelan-pelan ya… CP itu target kemampuan dari pemerintah untuk kelas 3–4… 1. Saya ambilkan CP Matematika resmi 2. Ibu punya dokumen CP dari sekolah" |
+| "1" | `ambil_cp` → cek ulang → menjelaskan ATP dengan bahasa awam, pilihan bernomor |
+| "1 aja bu" | `susun_perencanaan` → ATP 11 TP, Prota, Promes (Word) → menawarkan buku (unduh / PDF sendiri / lewati). Temuan: daftar pemeriksaan teknis disalin ke guru → aturan "ringkas hasil alat" |
+| "1" | `unduh_buku` (Buku Siswa + Panduan Guru) → cek ulang → **melanjutkan permintaan awal** (modul) tanpa diminta: membaca buku, menghitung 5 JP dari jadwal, dua pertanyaan bernomor |
+| "1,3" | RPM format BSKAP lengkap (tanpa bagian hilang), LKPD, kunci, media; sumber Buku Siswa Bab 2 dan Panduan Guru dengan halaman |
+
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu

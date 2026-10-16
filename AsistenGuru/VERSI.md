@@ -1,9 +1,15 @@
 # Versi Paket
 
-**Versi:** 0.12.1
+**Versi:** 0.13.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.13.0 — **Pendamping guru awam**: alat `cek_kesiapan` memeriksa bahan sebelum membuat modul, soal, perencanaan, buku
+  nilai, daftar hadir, kokurikuler, atau analisis — apa yang sudah ada, apa yang kurang, mana yang bisa diambilkan otomatis
+  (CP resmi, buku resmi, susun ATP, buat buku nilai) dan mana yang perlu dari guru (dengan langkah Windows sederhana).
+  Skill `pendamping-guru` (dan perintah `/bingung`): satu langkah per pesan, istilah dijelaskan dengan bahasa awam, pilihan
+  bernomor, minta izin sebelum mengambilkan bahan, pesan GAGAL diterjemahkan menjadi langkah, lalu permintaan awal
+  dilanjutkan otomatis setelah bahan lengkap. Asisten tidak lagi membuat dokumen dari bahan wajib yang belum ada.
 - 0.12.1 — Bawaan kebijakan sekolah `privasi.nama_ke_ai` menjadi `true`: analisis siswa menyebut nama (untuk model AI
   berbayar yang tidak menyimpan data). Sekolah yang gurunya memakai model gratis mengubahnya ke `false`. Pembaruan paket
   tidak menimpa `sekolah/kebijakan.json` yang sudah ada.

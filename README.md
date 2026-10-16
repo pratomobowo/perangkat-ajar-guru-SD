@@ -58,6 +58,7 @@ Bagian ini untuk asisten AI (misalnya OpenCode) yang diminta memasang atau mempe
 
 | Guru mengetik | Asisten menyiapkan |
 |---|---|
+| `/bingung` | Guru awam dituntun langkah demi langkah: bahan yang kurang (CP, ATP, buku, kalender, daftar siswa) dijelaskan dengan bahasa awam dan diambilkan otomatis dengan izin, lalu permintaan awal dilanjutkan |
 | `/siapkan` | Semua perangkat dari dokumen sekolah di `guru/masukan`, bertahap dengan insight atau otomatis |
 | `/status` | Peta perangkat: sudah ada, belum ada, penanda [PERLU GURU], langkah berikutnya |
 | "Budi kurangnya di mana?" | Analisis satu anak dari buku nilai, daftar hadir, dan kokurikuler yang sudah diisi guru (data dikirim ke AI dengan nomor absen); "siapa perlu remedial TP3?" untuk kelas |
@@ -109,7 +110,7 @@ AsistenGuru/                 ← paket yang disalin ke komputer guru (satu folde
 │  │                         buat_absensi_excel, buat_nilai_excel, perbarui_paket, baca_buku, riset_materi,
 │  │                         unduh_buku, atur_gaya, simpan_template_word, buat_kalender_pendidikan,
 │  │                         buat_jadwal_kelas, ambil_cp, buat_penilaian_kokurikuler_excel, baca_masukan,
-│  │                         status_perangkat, daftar_siswa, analisis_siswa
+│  │                         status_perangkat, daftar_siswa, analisis_siswa, cek_kesiapan
 │  ├─ lib/                   kalender, perencanaan, penulis .docx/.xlsx/.zip, pustaka, riset (tanpa dependensi)
 │  └─ vendor/pdfjs/          pdf.js (Apache-2.0) untuk membaca teks PDF buku
 ├─ sekolah/                  milik sekolah: kebijakan.json, preferensi-sekolah.md, referensi CP dan buku, template
@@ -148,6 +149,7 @@ Rincian ada di [`AsistenGuru/README-PASANG.md`](AsistenGuru/README-PASANG.md).
 |---|---|---|
 | Pustaka | `cd uji-e2e/fixture && bun uji-lib.ts` | Minggu efektif, validasi ATP, Prota/Promes, agenda, Word dan Excel |
 | Daftar siswa dan privasi | `cd uji-e2e/fixture && bun uji-siswa.ts` | Daftar siswa dikenali otomatis dari ekspor Dapodik (disaring per rombel), format e-Rapor, daftar hadir lama, dan CSV; nama terisi di absensi dan buku nilai; berkas sumber dipindah ke folder terkunci; Word berisi NISN tidak ditampilkan; **tidak ada nama siswa di jawaban alat** |
+| Kesiapan bahan | `cd uji-e2e/fixture && bun uji-kesiapan.ts` | Bahan wajib/dianjurkan per tugas, tawaran otomatis (ambil_cp, unduh_buku, susun ATP, buat buku nilai) vs langkah guru, CP tidak wajib bila ATP ada, istilah dalam bahasa awam |
 | Analisis siswa | `cd uji-e2e/fixture && bun uji-analisis.ts` | Guru mengisi nilai/absensi di Excel → analisis satu anak (TP belum tuntas, rata-rata kelas, nilai rapor dibulatkan seperti Excel, kehadiran), nama ganda, nomor absen, ringkasan kelas + laporan bernama di folder terkunci, saklar `privasi.nama_ke_ai`, **tanpa nama di jawaban alat (bawaan)** |
 | Masukan dan status | `cd uji-e2e/fixture && bun uji-masukan.ts` | Pembaca Word/Excel/PDF guru (tanggal Excel, format lama, foto) dan peta perangkat (langkah berikutnya, STS dekat, [PERLU GURU]) |
 | CP resmi | `cd uji-e2e/fixture && bun uji-cp.ts` | Parser CP dari PDF Keputusan BSKAP 046/H/KR/2025 (judul, elemen terpotong, butir, salah ketik kelas) |

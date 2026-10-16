@@ -9,6 +9,9 @@ Pembagian kerja: **kamu** merumuskan TP dan urutannya (keputusan pedagogis). **A
 minggu efektif, memeriksa JP, lalu menyusun dokumen ATP, Prota, dan Promes. Jangan menulis tabel Prota/Promes atau
 menghitung JP sendiri.
 
+Sebelum menyusun, panggil `cek_kesiapan` (tugas `rencana`, mapel). Jika kalender atau CP belum ada, lengkapi dulu bersama
+guru (skill `pendamping-guru`): CP bisa diambilkan otomatis dengan izin guru.
+
 ## 1. Prasyarat
 - `guru/profil.json` dan `guru/kalender.json` ada. Jika belum → skill `guru-setup`.
 - CP ada di `sekolah/referensi/cp/<kode-mapel>-fase-<fase>.md` (diutamakan) atau `guru/referensi/cp/` (diambil otomatis).

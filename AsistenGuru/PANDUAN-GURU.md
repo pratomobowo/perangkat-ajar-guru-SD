@@ -5,6 +5,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 
 | Ketik | Untuk |
 |---|---|
+| `/bingung` | Belum tahu harus mulai dari mana atau bahannya belum ada? Asisten menuntun pelan-pelan, satu langkah demi satu langkah, dan mengambilkan bahan resmi (CP, buku) bila Ibu/Bapak setuju |
 | `/siapkan` | Taruh dokumen sekolah (CP, kalender, jadwal, contoh RPP, KKTP, daftar siswa dari Dapodik/e-Rapor) di folder `guru\masukan`, lalu semua perangkat disiapkan bertahap; bilang "jalankan semua" agar otomatis |
 | `/status` | Melihat perangkat yang sudah dan belum ada, serta langkah berikutnya |
 | `/mulai` | Menyiapkan profil, jadwal, dan kalender (sekali di awal tahun) |
