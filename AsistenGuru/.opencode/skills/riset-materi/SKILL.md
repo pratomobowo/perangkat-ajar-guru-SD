@@ -1,6 +1,6 @@
 ---
 name: riset-materi
-description: Meriset isi materi pelajaran dari sumber tepercaya sebelum menulis modul, LKPD, bahan bacaan, atau soal — buku resmi di pustaka (baca_buku) lalu situs tepercaya (riset_materi) — dan mencantumkan sumbernya. Gunakan saat guru meminta "cari materi", "riset", "referensi", "sumber", "buku paket", "buku siswa/buku guru halaman berapa", "apa kata buku tentang ...", "materi terbaru", "data terbaru", atau ketika skill modul-ajar/asesmen membutuhkan isi materi. Juga untuk menyimpan PDF buku resmi ke pustaka guru.
+description: Meriset isi materi pelajaran dari sumber tepercaya sebelum menulis modul, LKPD, bahan bacaan, atau soal — buku resmi di pustaka (baca_buku) lalu situs tepercaya (riset_materi) — dan mencantumkan sumbernya. Gunakan saat guru meminta "cari materi", "riset", "referensi", "sumber", "buku paket", "buku siswa/buku guru halaman berapa", "apa kata buku tentang ...", "materi terbaru", "data terbaru", atau ketika skill modul-ajar/asesmen membutuhkan isi materi. Juga untuk mencari dan mengunduh buku teks resmi (SIBI) ke pustaka guru, misalnya "unduh buku paket", "isi pustaka".
 ---
 
 # Riset Materi
@@ -37,8 +37,15 @@ Tambahkan di akhir dokumen guru (bukan di lembar murid):
 ```
 Gunakan nomor halaman cetak bila alat menyebutkannya; selain itu tulis "halaman PDF n".
 
+## Mengisi pustaka
+- `unduh_buku` mencari buku teks resmi Kurikulum Merdeka (Buku Siswa dan Panduan Guru) di katalog SIBI untuk kelas guru.
+  Panggil dulu **tanpa** `unduh` untuk menampilkan daftar, lalu tanyakan buku mana yang mau diunduh. Setelah guru setuju,
+  panggil dengan `unduh: true` dan `mapel` (serta `jenis` bila perlu). Buku tersimpan di `guru/buku/`.
+- Sarankan Buku Siswa untuk isi materi murid, dan Panduan Guru untuk langkah pembelajaran, kunci, dan asesmen.
+- Jika pustaka kosong saat dibutuhkan, tawarkan sekali: "Mau saya unduhkan buku resmi <mapel> kelas <x> dulu?"
+
 ## Jika guru bertanya langsung
 - "Materi X ada di buku halaman berapa?" → `baca_buku` dengan `cari`, jawab buku dan halamannya.
 - "Tolong carikan materi X" → ringkas temuan dalam ≤ 6 baris beserta sumbernya, lalu tawarkan dibuatkan bahan ajar/LKPD.
-- Pustaka kosong → jelaskan satu kalimat: buku resmi bisa diunduh gratis dari buku.kemendikdasmen.go.id dan ditaruh di
-  folder `guru/buku` (atau oleh operator di `sekolah/referensi/buku`), lalu lanjutkan dengan riset web.
+- Pustaka kosong → tawarkan mengunduh buku resmi dengan `unduh_buku` (lihat Mengisi pustaka). Jika guru menolak atau
+  unduhan gagal, lanjutkan dengan riset web.

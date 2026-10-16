@@ -19,12 +19,17 @@ export default alat<{ cari?: string; buku?: string; halaman?: string }>({
   async jalankan(args, akar) {
     const semua = await daftarBuku(akar)
     if (!semua.length)
-      return `Belum ada buku di pustaka. Buku resmi (PDF) bisa diunduh dari buku.kemendikdasmen.go.id lalu ditaruh operator di ${FOLDER_BUKU[0]}/, atau oleh guru di ${FOLDER_BUKU[1]}/. Sementara itu, materi ditulis dari pengetahuan umum dan ditandai [PERLU GURU: cek kebenaran].`
+      return `Belum ada buku di pustaka. Tawarkan ke guru mengunduh buku resmi dengan alat unduh_buku (tampilkan daftar dulu). Operator juga bisa menaruh PDF di ${FOLDER_BUKU[0]}/. Tanpa buku, pakai riset_materi; isi tanpa sumber ditandai [PERLU GURU: cek kebenaran].`
 
     let dipilih = semua
     if (args.buku) {
       const k = args.buku.toLowerCase()
       dipilih = semua.filter((b) => b.nama.toLowerCase().includes(k) || b.rel.toLowerCase().includes(k))
+      // Judul Buku Siswa sering menjadi bagian judul Panduan Gurunya: utamakan yang persis, lalu yang berawalan sama.
+      const persis = dipilih.filter((b) => b.nama.toLowerCase() === k)
+      const awalan = dipilih.filter((b) => b.nama.toLowerCase().startsWith(k))
+      if (persis.length === 1) dipilih = persis
+      else if (dipilih.length > 1 && awalan.length === 1) dipilih = awalan
       if (!dipilih.length) throw new Gagal(`Buku "${args.buku}" tidak ada. Buku yang ada: ${semua.map((b) => b.nama).join("; ")}.`)
     }
 

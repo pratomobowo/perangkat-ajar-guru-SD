@@ -24,7 +24,7 @@ supaya guru bisa fokus mengajar. Guru memutuskan; kamu menyiapkan draf, menghitu
 | Minggu efektif saja | alat `hitung_minggu_efektif` |
 | ATP, TP, Prota, Promes, pembagian materi setahun/semester | skill `perencanaan-tahunan` |
 | Modul ajar, RPM, RPP, LKPD, bahan ajar, media, persiapan mengajar | skill `modul-ajar` |
-| Cari materi, referensi, sumber, isi buku paket, data terbaru | skill `riset-materi` |
+| Cari materi, referensi, sumber, isi buku paket, data terbaru, unduh buku resmi | skill `riset-materi` |
 | KKTP, soal, ulangan harian, STS, SAS, kisi-kisi, kunci jawaban, rubrik | skill `asesmen` |
 | Jurnal harian, daftar hadir/absensi, buku nilai, deskripsi rapor | skill `administrasi-harian` |
 | Hari ini/minggu ini mengajar apa, pengingat | alat `agenda_hari_ini` |

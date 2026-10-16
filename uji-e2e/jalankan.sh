@@ -21,6 +21,8 @@ if ! env "${ISOENV[@]}" opencode service get 2>/dev/null | grep -q "\"port\": ${
 fi
 
 cd "$WS"
+# Pemanasan: run pertama yang dikirim saat service baru menyala bisa tidak pernah diproses, jadi tunggu service siap dulu.
+for _ in 1 2 3 4 5 6; do env "${ISOENV[@]}" timeout 20 opencode api GET /api/info > /dev/null 2>&1 && break; sleep 5; done
 printf '%s\n' "$PESAN" > "$LOG/$LABEL.pesan.txt"
 env "${ISOENV[@]}" timeout "${BATAS:-480}" opencode run "${ARGS[@]}" "$PESAN" > "$LOG/$LABEL.jsonl" 2> "$LOG/$LABEL.err"
 echo "exit=$?" >> "$LOG/$LABEL.err"

@@ -61,7 +61,7 @@ for (const windows of [false, true]) {
   try {
     const alat = await daftarAlat(akar)
     const jalan = async (n: string, input: any = {}) => (await alat[n].execute(input, {})).content as string
-    cek("plugin mendaftarkan 9 alat", Object.keys(alat).length === 9, Object.keys(alat).join(", "))
+    cek("plugin mendaftarkan 10 alat", Object.keys(alat).length === 10, Object.keys(alat).join(", "))
     cek("semua alat bukan Code Mode", Object.values(alat).every((t: any) => t.options?.codemode === false))
 
     let r = await jalan("hitung_minggu_efektif")
@@ -140,6 +140,47 @@ for (const windows of [false, true]) {
       cek("riset_materi: tanpa layanan pencarian → GAGAL yang jelas", r.startsWith("GAGAL"), r)
     } finally {
       globalThis.fetch = fetchSimpan
+    }
+
+    // unduh_buku: katalog SIBI dan server berkas ditiru, dengan keanehan katalog asli.
+    const pdfUji = readFileSync(join(SINI, "buku/uji-buku.pdf"))
+    const lama = "https://static.buku.kemdikbud.go.id/content/pdf/bukuteks/kurikulum21"
+    const katalogTiruan = { results: [
+      { title: "Matematika untuk SD/MI Kelas IV", subject: "matematika", class: "4", level: "SD/MI", type: "pdf", attachment: `${lama}/Matematika-BS-KLS-IV.pdf` },
+      { title: "Buku Panduan Guru Matematika untuk SD/MI Kelas IV", subject: "matematika", class: "4", level: "SD/MI", type: "pdf", book_type: "buku_siswa", attachment: `${lama}/Matematika-BG-KLS-IV.pdf` },
+      { title: "Buku Audio Bahasa Indonesia: Lihat Sekitar! untuk SD/MI Kelas IV (Edisi Revisi)", subject: "bahasa_Indonesia", class: "4", level: "SD/MI", type: "audio", attachment: `${lama}/Bahasa_Indonesia_BS_KLS_IV_Rev.pdf` },
+      { title: "Bahasa Indonesia untuk SD/MI Kelas IV", subject: "bahasa_Indonesia", class: "4", level: "SD/MI", type: "pdf", attachment: `${lama}/Bahasa-Indonesia-BS-KLS-IV.pdf` },
+      { title: "Pendidikan Agama Islam dan Budi Pekerti untuk SD Kelas IV", subject: "agama_islam", class: "4", level: "SD", type: "pdf", attachment: `${lama}/Islam-BS-KLS-IV.pdf` },
+      { title: "Matematika untuk SMP Kelas VII", subject: "matematika", class: "7", level: "SMP/MTs", type: "pdf", attachment: `${lama}/Matematika-BS-KLS-VII.pdf` },
+      { title: "Buku Interaktif", subject: "matematika", class: "4", level: "SD/MI", type: "interactive", attachment: "https://x/book.html" },
+    ] }
+    const diminta: string[] = []
+    const fetchAsli2 = globalThis.fetch
+    globalThis.fetch = (async (u: any) => {
+      const url = String(u); diminta.push(url)
+      if (url.includes("getPenggerakTextBooks")) return new Response(JSON.stringify(katalogTiruan))
+      if (url.startsWith("https://static.sc.cloudapp.web.id/")) return new Response(pdfUji, { headers: { "content-type": "application/pdf" } })
+      return new Response("tidak ada", { status: 404 })
+    }) as any
+    try {
+      r = await jalan("unduh_buku")
+      cek("unduh_buku: bawaan hanya mapel di profil (tanpa agama)", r.includes("Matematika untuk SD/MI Kelas IV — Buku Siswa") && !r.includes("Agama"), r)
+      cek("unduh_buku: Panduan Guru dikenali walau label katalog salah", r.includes("Buku Panduan Guru Matematika untuk SD/MI Kelas IV — Panduan Guru"), r)
+      cek("unduh_buku: buku SMP tidak ikut", !r.includes("SMP"), r)
+      r = await jalan("unduh_buku", { mapel: "bahasa indonesia" })
+      cek("unduh_buku: entri audio berlampiran PDF ikut, edisi revisi diutamakan", r.includes("Lihat Sekitar") && !r.includes("- Bahasa Indonesia untuk SD/MI Kelas IV"), r)
+      r = await jalan("unduh_buku", { mapel: "PAI" })
+      cek("unduh_buku: alias PAI", r.includes("Pendidikan Agama Islam"), r)
+      r = await jalan("unduh_buku", { mapel: "matematika", jenis: "siswa", unduh: true })
+      cek("unduh_buku: unduh ke guru/buku lewat host baru", r.includes("tersimpan (1 halaman)") && existsSync(join(akar, "guru/buku/Matematika untuk SD-MI Kelas IV.pdf")) && diminta.some((u) => u.startsWith("https://static.sc.cloudapp.web.id/content/pdf/bukuteks/kurikulum21/Matematika-BS-KLS-IV.pdf")), r)
+      r = await jalan("unduh_buku", { mapel: "matematika", jenis: "siswa", unduh: true })
+      cek("unduh_buku: buku yang sudah ada dilewati", r.includes("sudah ada, dilewati"), r)
+      r = await jalan("baca_buku", { cari: "pecahan senilai", buku: "Matematika untuk SD" })
+      cek("unduh_buku: buku hasil unduhan bisa dicari baca_buku", r.includes("halaman PDF 1"), r)
+      r = await jalan("unduh_buku", { mapel: "fisika kuantum" })
+      cek("unduh_buku: mapel tidak ada → pesan jelas", r.startsWith("Tidak ada buku"), r)
+    } finally {
+      globalThis.fetch = fetchAsli2
     }
 
     // perbarui_paket: GitHub ditiru supaya uji tidak butuh internet (pemasangan penuh diuji di uji-e2e/pasang/).

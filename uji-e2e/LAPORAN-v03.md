@@ -117,6 +117,25 @@ Catatan:
 - Tautan lama `static.buku.kemdikbud.go.id` sudah tidak ada di DNS. Buku resmi kini diunduh dari buku.kemendikdasmen.go.id.
 - PDF hasil pindaian (gambar) tidak punya teks dan tidak bisa dibaca `baca_buku`.
 
+## Unduh buku resmi dari SIBI (v0.5.0)
+
+`/buku` dan alat `unduh_buku` mengisi pustaka guru dari katalog SIBI (`api.buku.kemendikdasmen.go.id`).
+
+| Temuan katalog | Penanganan |
+|---|---|
+| Tautan berkas masih `static.buku.kemdikbud.go.id` (sudah tidak ada di DNS) | Dialihkan ke `static.sc.cloudapp.web.id` (host berkas SIBI saat ini) |
+| Bahasa Indonesia dan IPAS kelas IV tercatat sebagai "audio" padahal lampirannya PDF | Semua entri berlampiran PDF dipakai; awalan "Buku Audio" dibuang dari judul |
+| Label jenis tidak konsisten (Panduan Guru Matematika IV berlabel `buku_siswa`) | Jenis ditentukan dari judul dan nama berkas (`BG`/`BS`) |
+| Edisi lama dan edisi revisi sama-sama ada | Edisi revisi diutamakan |
+| Katalog tidak lengkap (misalnya Panduan Guru Bahasa Indonesia IV, Buku Siswa Seni Rupa IV) | Dilaporkan apa adanya |
+
+| Uji | Hasil |
+|---|---|
+| Katalog asli, kelas 4 | 30 buku (Buku Siswa dan Panduan Guru); "PPKn", "PAI", "bahasa indonesia" dikenali |
+| Unduh IPAS kelas IV | 2 PDF (6,1 MB dan 3,4 MB), 208 dan 280 halaman, teks terbaca |
+| E2E OpenCode 2: `/buku` → "unduh buku siswa dan panduan guru IPAS" → "gaya magnet halaman berapa?" | Daftar hanya mapel di profil (Matematika, IPAS) → 2 buku terunduh → "halaman cetak 41–45 (PDF 49–53)" dengan ringkasan; diverifikasi ke teks buku |
+| `uji-alat.ts` dengan katalog tiruan berisi keanehan di atas | Semua lulus |
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu

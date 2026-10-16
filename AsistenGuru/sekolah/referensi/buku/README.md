@@ -4,6 +4,9 @@ Taruh PDF buku teks resmi di folder ini (Buku Siswa dan Buku Guru sesuai kelas d
 `baca_buku` saat menyiapkan materi, modul, LKPD, dan soal, lalu mencantumkan buku dan halamannya sebagai sumber.
 
 ## Cara mengisi (operator atau guru)
+Paling mudah: guru mengetik `/buku` di Asisten Guru. Asisten mencari buku resmi kelas guru di katalog SIBI dan
+mengunduhnya ke `guru/buku/`. Cara manual:
+
 1. Buka buku.kemendikdasmen.go.id (SIBI), cari judul buku, lalu unduh PDF-nya.
    Tautan lama `static.buku.kemdikbud.go.id` sudah tidak aktif.
 2. Simpan PDF di folder ini. Beri nama yang mudah dikenali, misalnya `Matematika Buku Siswa Kelas IV.pdf`.

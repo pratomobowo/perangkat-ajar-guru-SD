@@ -9,6 +9,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | `/hari-ini` | Melihat agenda hari ini, rencana minggu ini, dan pengingat |
 | `/rencana matematika` | Membuat minggu efektif, ATP, Prota, dan Promes |
 | `/modul pecahan senilai` | Membuat modul ajar/RPM dan LKPD |
+| `/buku` | Mengunduh buku teks resmi (Buku Siswa dan Panduan Guru) kelas Anda ke pustaka |
 | "carikan materi pecahan senilai" | Mencari isi materi di buku resmi dan situs tepercaya, lengkap dengan sumbernya |
 | `/soal sumatif bab pecahan` | Membuat KKTP, kisi-kisi, soal, dan kunci |
 | `/jurnal tadi mengajar TP3, 2 anak sakit` | Mencatat jurnal mengajar |
@@ -23,8 +24,8 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 - Dokumen Word dan Excel ada di folder `hasil/`:
   `1 Perencanaan`, `2 Modul dan LKPD`, `3 Asesmen`, `4 Administrasi`. Kop sekolah, nomor halaman, dan kolom tanda tangan
   sudah otomatis, jadi tinggal dicetak.
-- Materi diambil dari buku resmi di folder `sekolah/referensi/buku` atau `guru/buku`. Taruh PDF buku paket Anda
-  (unduh gratis dari buku.kemendikdasmen.go.id) di folder `guru/buku`. Sumber selalu dicantumkan di dokumen.
+- Materi diambil dari buku resmi di pustaka. Ketik `/buku` sekali di awal tahun supaya asisten mengunduh buku paket Anda.
+  Sumber selalu dicantumkan di dokumen.
 - Di Excel, isi sel kuning saja. Rumus dikunci agar tidak terhapus.
 - **Jangan mengetik nama siswa ke asisten.** Ketik nama langsung di berkas Excel.
 - Ingin asisten selalu melakukan sesuatu? Katakan "mulai sekarang selalu ...", maka asisten akan mengingatnya.

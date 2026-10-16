@@ -13,8 +13,9 @@ import hitungMingguEfektif from "../alat/hitung_minggu_efektif.ts"
 import perbaruiPaket from "../alat/perbarui_paket.ts"
 import risetMateri from "../alat/riset_materi.ts"
 import susunPerencanaan from "../alat/susun_perencanaan.ts"
+import unduhBuku from "../alat/unduh_buku.ts"
 
-const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri]
+const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku]
 
 export default {
   id: "asisten-guru",

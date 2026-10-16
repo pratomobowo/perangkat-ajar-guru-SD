@@ -24,3 +24,5 @@ Tujuan: mengumpulkan informasi sekali saja supaya guru tidak ditanya hal yang sa
 6. Panggil alat `hitung_minggu_efektif` untuk memeriksa kalender. Jika hasilnya `GAGAL`, perbaiki berkas lalu ulangi.
 7. Tampilkan ringkasan profil dan jumlah minggu efektif per semester, lalu minta guru memeriksa. Tawarkan langkah berikutnya:
    "Mau saya susunkan perencanaan tahunan (ATP, Prota, Promes)?"
+8. Jika `baca_buku` belum menemukan buku untuk mapel guru, tawarkan sekali mengunduh buku resmi (alat `unduh_buku`, tampilkan
+   daftar dulu). Buku ini dipakai sebagai sumber materi.

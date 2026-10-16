@@ -8,6 +8,7 @@ export const DOMAIN_BAWAAN = [
   "kemdikbud.go.id",
   "kemenag.go.id",
   "belajar.id",
+  "static.sc.cloudapp.web.id",
   "bps.go.id",
   "bmkg.go.id",
   "id.wikipedia.org",

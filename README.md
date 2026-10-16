@@ -4,7 +4,7 @@ Asisten pribadi guru SD/SDIT berbasis [OpenCode 2](https://opencode.ai) yang men
 kalender → minggu efektif → ATP → Prota/Promes → modul ajar/RPM dan LKPD → asesmen → jurnal, daftar hadir, dan buku nilai.
 Guru cukup bercerita dan memeriksa. Dokumen Word dan Excel yang rapi dan siap cetak disiapkan oleh asisten.
 
-> Status: **v0.4.0**, untuk OpenCode 2 (Desktop atau CLI), utamanya guru pengguna Windows. Uji coba Matematika Kelas 4 (Fase B).
+> Status: **v0.5.0**, untuk OpenCode 2 (Desktop atau CLI), utamanya guru pengguna Windows. Uji coba Matematika Kelas 4 (Fase B).
 > Lihat [`uji-e2e/LAPORAN-v03.md`](uji-e2e/LAPORAN-v03.md).
 
 ## Cara pasang paling mudah (untuk guru)
@@ -54,6 +54,7 @@ Bagian ini untuk asisten AI (misalnya OpenCode) yang diminta memasang atau mempe
 | `/hari-ini` | Agenda: status hari, jadwal, TP minggu ini dan depan, bahan yang belum dibuat, pengingat jurnal |
 | `/rencana matematika` | Rincian minggu efektif, ATP, Prota, dan Promes (Word) |
 | `/modul pecahan senilai` | Modul Ajar/RPM, LKPD siap fotokopi, dan kunci terpisah (Word), dengan materi dari buku resmi dan sumbernya |
+| `/buku` | Mencari dan mengunduh Buku Siswa dan Panduan Guru resmi (SIBI) untuk kelas guru ke pustaka |
 | "carikan materi siklus air" | Riset dari pustaka buku resmi (PDF) lalu situs tepercaya, lengkap dengan halaman/URL sumber |
 | `/soal ulangan harian TP3` | KKTP, kisi-kisi, lembar soal, serta kunci dan penskoran (Word) |
 | `/jurnal tadi mengajar …` | Jurnal mengajar bulanan (Word) |
@@ -89,7 +90,8 @@ AsistenGuru/                 ← paket yang disalin ke komputer guru (satu folde
 │  ├─ paket.json             nama dan versi paket (dipakai pemasang dan alat perbarui_paket)
 │  ├─ plugins/asisten-guru.ts plugin OpenCode 2 yang mendaftarkan alat (tanpa paket npm)
 │  ├─ alat/                  hitung_minggu_efektif, susun_perencanaan, agenda_hari_ini, ekspor_word,
-│  │                         buat_absensi_excel, buat_nilai_excel, perbarui_paket, baca_buku, riset_materi
+│  │                         buat_absensi_excel, buat_nilai_excel, perbarui_paket, baca_buku, riset_materi,
+│  │                         unduh_buku
 │  ├─ lib/                   kalender, perencanaan, penulis .docx/.xlsx/.zip, pustaka, riset (tanpa dependensi)
 │  └─ vendor/pdfjs/          pdf.js (Apache-2.0) untuk membaca teks PDF buku
 ├─ sekolah/                  milik sekolah: kebijakan.json, preferensi-sekolah.md, referensi CP dan buku, template
