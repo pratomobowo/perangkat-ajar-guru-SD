@@ -1,9 +1,15 @@
 # Versi Paket
 
-**Versi:** 0.13.1
+**Versi:** 0.14.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.14.0 — Untuk guru yang baru pertama kali mengajar: alat `acuan_jp` (JP per minggu tiap mapel dari struktur kurikulum
+  resmi Permendikdasmen 13/2025) dipakai bila guru belum tahu JP — sebelumnya model menebak; alat `libur_nasional` (libur
+  nasional dan cuti bersama resmi SKB 3 Menteri 2026 dan 2027) dipakai untuk kalender perkiraan bila sekolah belum memberi
+  kalender — sebelumnya libur Idulfitri dan lainnya terlewat sehingga minggu efektif terhitung terlalu banyak. Skill
+  pendamping menampilkan daftar dokumen yang perlu disiapkan guru (dengan tanda mana yang dibuatkan asisten). Data
+  kokurikuler dengan nama berkas berspasi tetap dikenali.
 - 0.13.1 — Dari uji E2E mapel lain (Bahasa Indonesia kelas 2, IPAS kelas 5, Pendidikan Pancasila kelas 3): mode "jalankan
   semua" kini selalu mengunduh buku resmi tiap mapel sebelum membuat bahan ajar; aturan kejujuran sumber (halaman buku
   hanya dikutip bila benar-benar memuat isinya, jika buku tidak membahas topik ditulis terus terang); `daftar_siswa`

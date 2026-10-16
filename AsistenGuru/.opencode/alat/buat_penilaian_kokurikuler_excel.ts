@@ -26,7 +26,9 @@ export default alat<{ tema: string }>({
     const { profil, kebijakan } = await muatDasar(akar)
     const ada = (await daftar(akar, "guru/data")).filter((f) => /^kokurikuler-.*\.json$/.test(f))
     const cari = slug(args.tema)
-    const f = ada.find((x) => x === `kokurikuler-${cari}.json`) ?? ada.find((x) => x.includes(cari))
+    // Nama berkas dibandingkan dalam bentuk slug supaya "kokurikuler-Sekolahku Bersih.json" tetap dikenali.
+    const inti = (x: string) => slug(x.replace(/^kokurikuler-/, "").replace(/\.json$/, ""))
+    const f = ada.find((x) => inti(x) === cari) ?? ada.find((x) => inti(x).includes(cari))
     if (!f)
       throw new Gagal(`Data kokurikuler "${args.tema}" belum ada di guru/data/. ${ada.length ? `Yang ada: ${ada.join(", ")}.` : ""} Tulis dulu sesuai skill kokurikuler (references/format-data.md).`)
     const k = await bacaJson<Kokurikuler>(akar, `guru/data/${f}`)

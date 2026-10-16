@@ -28,6 +28,10 @@ dari bahan yang belum ada** — asisten membantu melengkapi bahannya dulu, satu 
    aman" dan sebut satu hal yang perlu diperhatikan guru (misalnya label DRAF yang perlu dicocokkan).
 8. Jangan menyebut JSON, path teknis, tool, atau skill. Folder disebut seperti di Windows: "Documents › AsistenGuru › guru › masukan".
 
+## Guru bertanya "dokumen apa saja yang harus saya siapkan?"
+Tampilkan daftar dari `references/daftar-dokumen.md` (ringkas, berkelompok, tandai mana yang dibuatkan asisten
+otomatis), lalu tawarkan langkah pertama. Jangan hanya menyebut nama kelompoknya.
+
 ## Alur saat bahan belum lengkap
 1. Panggil `cek_kesiapan` dengan tugas yang diminta guru (modul, soal, rencana, nilai, absen, kokurikuler, analisis).
 2. Jika **SIAP**, langsung kerjakan tugasnya.

@@ -4,7 +4,7 @@
 Guru cukup mengobrol seperti biasa, asisten menyiapkan perangkat ajar dan administrasi kelas dalam bentuk
 **Word dan Excel yang siap cetak**.
 
-> Versi **0.13.1** · tahap uji coba · untuk OpenCode 2 (Desktop atau terminal), utamanya laptop Windows.
+> Versi **0.14.0** · tahap uji coba · untuk OpenCode 2 (Desktop atau terminal), utamanya laptop Windows.
 
 ---
 
@@ -138,7 +138,7 @@ AsistenGuru/            paket yang dipasang di laptop guru
 │  ├─ agents/           persona asisten dan peta tugas
 │  ├─ skills/           panduan kerja per tugas (modul-ajar, asesmen, pendamping-guru, siapkan-semua, …)
 │  ├─ commands/         menu perintah (/bingung, /siapkan, /modul, /absen, …)
-│  ├─ plugins/          plugin OpenCode 2 yang mendaftarkan 21 alat (tanpa paket npm)
+│  ├─ plugins/          plugin OpenCode 2 yang mendaftarkan 23 alat (tanpa paket npm)
 │  ├─ alat/  lib/       alat dan pustaka: kalender, perencanaan, Word/Excel, pembaca PDF/Word/Excel, daftar siswa, analisis, …
 │  └─ vendor/pdfjs/     pdf.js (Apache-2.0) untuk membaca PDF buku
 ├─ sekolah/             milik sekolah: kebijakan.json, referensi CP dan buku, template
@@ -165,6 +165,7 @@ Semua uji di `uji-e2e/fixture` dijalankan dengan `bun <nama>.ts`:
 | `uji-siswa.ts` | daftar siswa otomatis (Dapodik, e-Rapor, absen lama, CSV) dan privasi |
 | `uji-analisis.ts` | analisis siswa dan kelas |
 | `uji-kesiapan.ts` | cek bahan sebelum membuat perangkat |
+| `uji-acuan.ts` | JP resmi per kelas/mapel dan libur nasional 2026/2027 |
 
 Ditambah: `uji-e2e/rumus` (rumus Excel dihitung HyperFormula), `uji-e2e/pasang/uji-pasang.sh` (pemasang sh dan ps1),
 `uji-e2e/jalankan.sh` (OpenCode terisolasi dengan skenario guru), dan `uji-e2e/rute/jalankan-rute.sh` (15 permintaan

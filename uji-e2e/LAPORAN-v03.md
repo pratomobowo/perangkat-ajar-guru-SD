@@ -289,6 +289,37 @@ Temuan lain yang diperbaiki: `daftar_siswa` dipanggil dengan nama berkas Dapodik
 "tidak ditemukan", pulih sendiri) → kini dicari otomatis. Tidak ada nama siswa di log tahap pembuatan ketiga guru.
 
 
+## Guru yang baru pertama kali mengajar (v0.14.0)
+
+Bu Nadia, guru kelas 1 (semua mapel kecuali agama dan PJOK), tanpa dokumen apa pun, tidak tahu JP maupun kalender.
+Percakapan 7 giliran dengan model gratis, bahasa sehari-hari:
+
+| Giliran | Yang terjadi |
+|---|---|
+| "baru pertama kali jadi guru… bingung harus menyiapkan dokumen administrasi apa saja" | pendamping + guru-setup, menyambut tenang, menanyakan data diri. Temuan: tidak memberi daftar dokumen |
+| nama + "dokumen apa saja sih?" | hanya "4 kelompok" → ditambah `references/daftar-dokumen.md` (uji ulang: daftar konkret) |
+| "24 anak… belum tahu jam pelajarannya" | menjelaskan JP, pilihan bernomor |
+| "1, pakai acuan umum" | **Temuan: JP ditebak** (Pancasila 5, B. Indonesia 8, Matematika 6, Seni 4) → alat `acuan_jp` |
+| (setelah alat ditambah) "JP tadi sudah sesuai aturan?" | `acuan_jp` → dibetulkan: Pancasila 4, B. Indonesia 7, Matematika 4, Seni 3, Mulok 2 |
+| "kalender belum dikasih… pakai perkiraan, termasuk libur nasional… jalankan semua" | profil, kalender, minggu efektif, CP Fase A 4 mapel (Seni Rupa setelah "Seni dan Budaya" ditolak), 7 buku resmi kelas I, ATP/Prota/Promes 4 mapel, kalender Word, absensi, 4 buku nilai. **Temuan: kalender perkiraan hanya 8 kegiatan** (tanpa Maulid, Isra Mikraj, Nyepi, Idulfitri, dst.) → alat `libur_nasional`; uji ulang (Pak Arif, kelas 3): 32 kegiatan, 24 libur/cuti resmi, JP resmi, minggu efektif 19 + 19. Berhenti sebelum KKTP/modul dan menawarkan lanjut |
+| "lanjutkan semuanya sampai selesai" | KKTP 4 mapel, 6 paket RPM+LKPD+kunci (format BSKAP), perencanaan + Excel penilaian kokurikuler |
+
+Hasil: 47/47 Word/Excel terbuka di LibreOffice.
+
+**Cakupan dokumen guru kelas SD:**
+
+| Kelompok | Dokumen | Status |
+|---|---|---|
+| Perencanaan | kalender, minggu efektif, CP, ATP, Prota, Promes, KKTP | ✅ |
+| | jadwal pelajaran kelas | 🟡 alat ada, menunggu jam sekolah dari guru |
+| Persiapan & pelaksanaan | modul/RPM/RPP, LKPD, kunci, media kartu, buku resmi, jurnal, daftar hadir | ✅ (nama siswa menunggu daftar Dapodik) |
+| Penilaian | kisi-kisi, UH, STS, SAS, kunci, buku nilai + deskripsi rapor, analisis hasil & remedial | ✅ (STS/SAS dibuat mendekati tanggal) |
+| | program remedial & pengayaan tersendiri | 🟡 ada di KKTP (rencana tindak lanjut) dan LKPD remedial, belum dokumen khusus |
+| | analisis butir soal (tingkat kesukaran, daya beda) | ❌ |
+| Kokurikuler | perencanaan, jurnal, penilaian, deskripsi rapor | ✅ |
+| Administrasi wali kelas | struktur organisasi kelas, jadwal piket, denah tempat duduk, tata tertib/kesepakatan kelas, buku tamu, catatan perkembangan/anekdot siswa, inventaris kelas | ❌ belum ada alat; perlu nama siswa → idealnya dibuat alat yang mengisi nama dari Daftar Siswa |
+
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
