@@ -25,6 +25,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | "Analisis butir soal STS Matematika 25 soal" | Excel analisis butir: isi kunci dan jawaban siswa, tingkat kesukaran, daya beda, pengecoh, dan keputusan tiap soal terhitung otomatis |
 | `/nilai matematika 1` | Membuat Excel buku nilai semester 1 |
 | `/ppg` | Sedang ikut PPG Guru Tertentu? Checklist UKPPPG sesuai juknis 2026 (nama berkas resmi sudah terisi), pendampingan perangkat dan skenario video Ujian Kinerja 2 JP dari ide dan kelas Ibu/Bapak sendiri, latihan soal PCK, SJT, dan uraian reflektif. Hasil di folder `hasil\7 PPG` |
+| `/refleksi` | **Wajib tiap semester** (Permendikdasmen 1/2026): refleksi diri guru disusun dari data nilai, analisis soal, kehadiran, dan jurnal Anda, lalu jawaban Anda atas beberapa pertanyaan. Asisten mengingatkan menjelang akhir semester |
 | `/ingat` | Melihat apa yang diingat asisten tentang Anda, pekerjaan yang sedang berjalan, pengingat, dan aturan Anda — bisa diubah atau dihapus |
 | `/format` | Mengatur format Word Anda (huruf, margin, kop, atau pakai Word Anda sendiri sebagai contoh) |
 | `/perbarui` | Mengecek versi dan memperbarui Asisten Guru (data Anda tetap aman) |

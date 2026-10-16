@@ -56,6 +56,17 @@ export const KERANGKA_BSKAP = [
 ].join("\n")
 export const KERANGKA_BSKAP_UNTUK = ["rpm", "modul-ajar", "rpp"]
 
+/** Refleksi diri guru (penilaian proses pembelajaran, Permendikdasmen No. 1 Tahun 2026 Pasal 15). */
+export const KERANGKA_REFLEKSI = [
+  "## A. Data Hasil Belajar Murid",
+  "## B. Refleksi Perencanaan Pembelajaran",
+  "## C. Refleksi Pelaksanaan Pembelajaran",
+  "## D. Hal yang Berhasil",
+  "## E. Tantangan dan Penyebabnya",
+  "## F. Rencana Perbaikan Semester Berikutnya",
+  "## G. Dukungan yang Dibutuhkan",
+].join("\n")
+
 /** Menebak jenis dokumen dari nama berkas: LKPD/Soal = lembar siswa, Kunci = kunci guru, lainnya dokumen guru. */
 export function tebakJenis(nama: string): JenisDokumen {
   const n = nama.toLowerCase()
@@ -87,6 +98,9 @@ export async function simpanDokumen(akar: string, sub: string, md: string, opsi:
   if (kerangka) {
     const hilang = bagianHilang(md, (await bacaTeks(akar, kerangka.rel)) ?? "")
     if (hilang.length) catatan.push(`Bagian di kerangka ${kerangka.rel} yang belum ada di draf: ${hilang.join("; ")}. Lengkapi draf lalu ekspor ulang.`)
+  } else if (kunci.startsWith("refleksi-diri")) {
+    const hilang = bagianHilang(md, KERANGKA_REFLEKSI)
+    if (hilang.length) catatan.push(`Bagian refleksi diri yang belum ada di draf: ${hilang.join("; ")}. Lengkapi draf lalu ekspor ulang.`)
   } else if (KERANGKA_BSKAP_UNTUK.includes(kunci)) {
     // Tanpa template sekolah/guru: perencanaan pembelajaran mengikuti contoh resmi BSKAP (PPA 2025, Lampiran 7).
     const hilang = bagianHilang(md, KERANGKA_BSKAP)

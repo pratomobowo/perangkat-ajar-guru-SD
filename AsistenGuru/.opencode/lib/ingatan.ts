@@ -11,6 +11,7 @@ import { mkdir, rename, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { type Kebijakan, Gagal, bacaJson, bacaTeks, jalurAman } from "./berkas.ts"
 import { NAMA_BULAN, NAMA_HARI } from "./kalender.ts"
+import { pengingatRefleksi } from "./refleksi.ts"
 import { bacaDaftarSiswa } from "./siswa.ts"
 
 export const FOLDER_INGATAN = "guru/ingatan"
@@ -317,8 +318,10 @@ export async function blokIngatan(akar: string, hariIni = tanggalIso(), jam = ne
   const dekat = pengingat
     .map((p) => ({ ...p, h: selisihHari(hariIni, p.tanggal) }))
     .filter((p) => p.h <= 7)
-  if (dekat.length) {
+  const wajib = await pengingatRefleksi(akar, hariIni).catch(() => null)
+  if (dekat.length || wajib) {
     out.push("", "## Pengingat (sampaikan ke guru di awal percakapan)")
+    if (wajib) out.push(`- KEWAJIBAN: ${wajib}`)
     for (const p of dekat)
       out.push(`- ${p.h < 0 ? `TERLEWAT ${-p.h} hari` : p.h === 0 ? "HARI INI" : p.h === 1 ? "BESOK" : `${p.h} hari lagi`} (${tanggalBaca(p.tanggal)}): ${p.isi}`)
   }

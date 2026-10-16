@@ -397,7 +397,32 @@ Nama siswa di log percakapan: 0 (dicek untuk 6 nama). 3/3 Excel terbuka di Libre
 (struktur organisasi, piket, denah, kesepakatan kelas) yang sebelumnya ❌ kini tersedia; buku tamu, catatan anekdot,
 dan inventaris kelas belum.
 
+## Refleksi diri guru per semester — kewajiban Permendikdasmen 1/2026 (v0.18.0)
+
+Riset kewajiban administrasi guru: teks resmi **Permendikdasmen No. 1 Tahun 2026 tentang Standar Proses** (PDF
+peraturan.go.id; ditetapkan 2 Januari 2026, mencabut Permendikbudristek 16/2022) mewajibkan dokumen perencanaan
+(tujuan, langkah, asesmen — sudah dipenuhi modul/RPM) dan **penilaian proses pembelajaran oleh guru melalui refleksi
+diri, paling sedikit sekali per semester** (Pasal 15; dapat mengacu pada analisis hasil belajar murid). Penilaian oleh
+sesama guru, kepala sekolah, dan murid (Pasal 16–19) bersifat "dapat". Standar penilaian (Permendikbudristek 21/2022)
+tidak ditemukan penggantinya; kewajibannya sudah dipenuhi KKTP, soal, buku nilai, deskripsi rapor.
+
+Uji unit `uji-refleksi.ts` (14 cek): tanpa data tetap bisa; nilai per TP (rata-rata, % tuntas); analisis butir dihitung
+ulang dari jawaban yang diisi guru (tidak bergantung nilai rumus tersimpan), termasuk daya beda negatif; kehadiran;
+catatan jurnal hanya dalam rentang semester; tanpa nama siswa; pengingat muncul 21 hari sebelum akhir semester dan hilang
+setelah Word ada; status perangkat; kerangka A–G dicek saat ekspor.
+
+E2E OpenCode (model Sumopod), data guru disimulasikan (kunci + jawaban 12 siswa di Excel analisis butir, 2 hari jurnal):
+
+| Pesan guru | Hasil |
+|---|---|
+| "mau bikin refleksi diri semester 1 yang wajib itu" | skill `refleksi-pembelajaran` + `bahan_refleksi_semester`; menyapa "Malam, Bu Rin" (jam dan panggilan dari ingatan), menyampaikan pengingat STS, menjelaskan data (rata-rata 63, soal 7 daya beda negatif, catatan jurnal), dua pertanyaan reflektif |
+| jawaban guru (soal cerita, kertas lipat, kunci no. 7 salah ketik, rencana kuis & kelompok, pelatihan diferensiasi) | draf A–G seluruhnya dari data dan jawaban guru, rencana perbaikan terukur, `ingat` (rencana semester 2), `ekspor_word`. **Temuan:** model menulis sendiri "Mengetahui, Kepala Sekolah" + tanggal di akhir (dobel dengan tanda tangan otomatis) dan mengekspor sebelum guru membaca → skill dipertegas (berhenti setelah G; ekspor lalu minta guru membaca) |
+| (sesi baru setelah skill dipertegas) "refleksi semester 1 tolong disusun ulang" + jawaban yang sama | draf berhenti di bagian G, tanda tangan/tanggal hanya dari ekspor otomatis, guru diminta membaca Word; pengingat STS "3 hari lagi". Word 3 halaman terbuka di LibreOffice |
+
+Catatan lingkungan uji: setiap kali berkas paket di workspace uji diubah, service OpenCode memuat ulang dan run pertama
+bisa macet tanpa keluaran; pemanasan dengan pesan "halo" (diulang bila perlu) mengatasinya.
+
 ## Cara mengulang
-1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts && bun uji-ingatan.ts && bun uji-walikelas.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture && bun uji-rumus-butir.ts`.
+1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts && bun uji-ingatan.ts && bun uji-walikelas.ts && bun uji-refleksi.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture && bun uji-rumus-butir.ts`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
    jalankan `jalankan.sh` per langkah. Pesan guru ada di `log-v02-final/*.pesan.txt`.

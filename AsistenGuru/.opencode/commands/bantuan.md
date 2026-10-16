@@ -22,6 +22,7 @@ Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 - "analisis butir soal STS matematika 25 soal" — tingkat kesukaran, daya beda, pengecoh otomatis
 - `/absen oktober` — Excel daftar hadir
 - `/nilai matematika 1` — Excel buku nilai semester 1
+- `/refleksi` — refleksi diri guru per semester (wajib), dari data nilai, analisis soal, kehadiran, dan jurnal
 - `/ingat` — apa yang saya ingat tentang Anda, pekerjaan berjalan, pengingat, dan aturan (bisa diubah/dihapus)
 - `/word nama-berkas` — ubah dokumen ke Word
 - `/buku` — cari dan unduh buku teks resmi (Buku Siswa dan Panduan Guru) untuk kelas Anda

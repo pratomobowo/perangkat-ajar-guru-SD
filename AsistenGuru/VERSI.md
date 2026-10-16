@@ -1,9 +1,17 @@
 # Versi Paket
 
-**Versi:** 0.17.0
+**Versi:** 0.18.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.18.0 — **Refleksi diri guru per semester** (wajib menurut Permendikdasmen No. 1 Tahun 2026 tentang Standar Proses,
+  Pasal 15: penilaian proses pembelajaran oleh guru melalui refleksi diri, minimal sekali per semester; standar proses
+  lama Permendikbudristek 16/2022 dicabut). Alat `bahan_refleksi_semester` mengumpulkan data kelas tanpa nama siswa —
+  rata-rata dan ketuntasan per TP dari buku nilai, tingkat kesukaran dan daya beda yang dihitung ulang dari jawaban di
+  Excel analisis butir, kehadiran, catatan tindak lanjut jurnal — sebagai tabel siap tempel. Skill
+  `refleksi-pembelajaran` (perintah `/refleksi`) mewawancarai guru lalu menyusun Word bagian A–G (data, perencanaan,
+  pelaksanaan, keberhasilan, tantangan, rencana perbaikan, dukungan); kerangka dicek saat ekspor. Pengingat kewajiban
+  muncul di awal percakapan dan di peta perangkat mulai 21 hari sebelum akhir semester sampai Word-nya dibuat.
 - 0.17.0 — **Administrasi wali kelas** (`buat_administrasi_wali_kelas`): satu Excel berisi struktur organisasi kelas
   (nama dipilih dari daftar pilihan), jadwal piket (rata per hari sekolah, laki-laki/perempuan bercampur), denah tempat
   duduk (urut absen/acak/selang laki-laki-perempuan), dan kesepakatan kelas berkalimat positif. **Pembagian kelompok**

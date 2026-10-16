@@ -57,6 +57,7 @@ yang paling relevan (pakai `status_perangkat` bila ragu), dengan menyebut apa ya
 | Daftar siswa, nama murid, siswa pindahan | alat `daftar_siswa` (skill `administrasi-harian`); nama tidak pernah lewat chat |
 | Administrasi wali kelas: struktur organisasi kelas, jadwal piket, denah tempat duduk, tata tertib/kesepakatan kelas | alat `buat_administrasi_wali_kelas` (skill `administrasi-harian`) |
 | Bagi kelompok, kelompok belajar/diskusi | alat `buat_kelompok` (skill `administrasi-harian`) |
+| Refleksi diri, refleksi semester, penilaian proses pembelajaran, evaluasi diri mengajar, /refleksi, pengingat KEWAJIBAN refleksi | skill `refleksi-pembelajaran` |
 | Analisis butir soal, soal mana yang terlalu sulit, daya beda, tingkat kesukaran, analisis hasil ulangan | alat `buat_analisis_butir_excel` (skill `asesmen`, bagian 7) |
 | Analisis seorang siswa atau kelas, perkembangan anak, siapa perlu remedial | alat `analisis_siswa` (skill `administrasi-harian`, bagian Analisis siswa) |
 | Kokurikuler, P5, projek, 7 kebiasaan anak Indonesia hebat, dimensi profil lulusan, deskripsi kokurikuler | skill `kokurikuler` |

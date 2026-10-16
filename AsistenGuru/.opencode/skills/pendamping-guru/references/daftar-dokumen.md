@@ -23,6 +23,9 @@ Tampilkan dengan bahasa sederhana. Tanda: ✅ dibuatkan asisten · 🟡 dibuatka
 - ✅ Analisis hasil belajar dan daftar siswa yang perlu remedial (setelah nilai diisi)
 - 🟡 Analisis butir soal: tingkat kesukaran, daya beda, pengecoh (✍️ jawaban siswa diisi guru di Excel)
 
+**4b. Refleksi pembelajaran (wajib tiap semester, Permendikdasmen 1/2026)**
+- 🟡 Refleksi diri guru (penilaian proses pembelajaran) — data dari nilai dan jurnal, isi refleksi dari jawaban guru
+
 **5. Kokurikuler**
 - ✅ Rencana kegiatan, jurnal, penilaian per dimensi profil lulusan, deskripsi rapor
 

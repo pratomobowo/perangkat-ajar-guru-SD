@@ -7,6 +7,7 @@ import { join } from "node:path"
 import { type ATP, type Kalender, type Kebijakan, type Profil, bacaJson, bacaTeks, frontmatter, slug } from "./berkas.ts"
 import { FOLDER } from "./dokumen.ts"
 import { hariIni, tambah, tgl } from "./kalender.ts"
+import { DASAR_REFLEKSI, jalurRefleksi, pengingatRefleksi } from "./refleksi.ts"
 
 type Langkah = { judul: string; membuat: string; cara: string }
 type Promes = { tp?: unknown; minggu?: { semester: number; mulai: string; akhir: string; alokasi: { kode: string }[] }[] }
@@ -135,6 +136,12 @@ export async function petaPerangkat(akar: string, tanggal = hariIni()) {
   const jadWord = ada(new RegExp(`^hasil/${FOLDER.administrasi}/Jadwal Pelajaran Kelas `))
   baris.push(`${tanda(jadWord ? true : adaJadwalData ? false : null)} Jadwal pelajaran kelas (Word)${adaJadwalData ? "" : " — data jadwal kelas belum ada"}`)
   if (!jadWord) berikut.push({ judul: "Jadwal pelajaran kelas", membuat: "Word jadwal semua mapel per hari dengan cek bentrok dan JP", cara: adaJadwalData ? "alat buat_jadwal_kelas (/jadwal)" : "skill administrasi-harian, Jadwal pelajaran kelas (kumpulkan jadwal dulu)" })
+
+  // Refleksi diri guru per semester (wajib).
+  const adaRefleksi = existsSync(join(akar, "hasil", `${jalurRefleksi(profil, semKe)}.docx`))
+  baris.push(`${tanda(adaRefleksi ? true : null)} Refleksi diri semester ${semKe} (wajib, ${DASAR_REFLEKSI}; disusun menjelang akhir semester)`)
+  const wajibRefleksi = await pengingatRefleksi(akar, tanggal).catch(() => null)
+  if (wajibRefleksi) berikut.push({ judul: "Refleksi diri semester", membuat: "Word refleksi diri guru (penilaian proses pembelajaran) dari data nilai, analisis butir, kehadiran, dan jurnal", cara: "skill refleksi-pembelajaran (alat bahan_refleksi_semester)" })
 
   // ---------- Kokurikuler ----------
   baris.push("", "## Kokurikuler")
