@@ -90,6 +90,15 @@ for (const windows of [false, true]) {
     cek("ekspor_word: jalur Windows (backslash)", r.startsWith("Selesai"), r)
     r = await jalan("ekspor_word", { berkas: join(akar, lkpd) })
     cek("ekspor_word: jalur absolut di dalam folder", r.startsWith("Selesai"), r)
+    // Tanpa template sekolah, RPM diperiksa terhadap kerangka contoh resmi BSKAP (PPA 2025 Lampiran 7).
+    const rpm = "guru/draf/2 Modul dan LKPD/Matematika TP5 Uji BSKAP/RPM.md"
+    await Bun.write(join(akar, rpm), "# RPM\n\n## Identifikasi Murid\nx\n\n## Tujuan Pembelajaran\n1. x\n\n## Langkah Pembelajaran\nx\n")
+    r = await jalan("ekspor_word", { berkas: rpm })
+    cek("ekspor_word: RPM tanpa template dicek terhadap kerangka BSKAP (bagian yang belum ada disebut)", r.startsWith("Selesai") && r.includes("standar BSKAP") && r.includes("Dimensi Profil Lulusan") && r.includes("Asesmen dan Tindak Lanjut") && !r.includes("Identifikasi Murid;"), r)
+    const lengkap = ["Identifikasi Murid", "Dimensi Profil Lulusan", "Tujuan Pembelajaran", "Praktik Pedagogik", "Mitra Pembelajaran", "Lingkungan Pembelajaran", "Pemanfaatan Digital", "Langkah Pembelajaran", "Asesmen dan Tindak Lanjut", "Sumber"].map((j) => `## ${j}\nx\n`).join("\n")
+    await Bun.write(join(akar, rpm), `# RPM\n\n${lengkap}`)
+    r = await jalan("ekspor_word", { berkas: rpm })
+    cek("ekspor_word: RPM lengkap sesuai kerangka BSKAP → tanpa catatan bagian hilang", r.startsWith("Selesai") && !r.includes("standar BSKAP"), r)
     r = await jalan("ekspor_word", { berkas: "sekolah/kebijakan.json" })
     cek("ekspor_word: menolak berkas di luar guru/draf", r.startsWith("GAGAL"), r)
     const crlf = "guru/draf/3 Asesmen/Uji CRLF/Soal.md"
@@ -227,9 +236,10 @@ for (const windows of [false, true]) {
       tiruTag(["v0.2.0", `v${versi}`, "uji"])
       r = await jalan("perbarui_paket", { cek_saja: true })
       cek("perbarui_paket: sudah versi terbaru", r.includes(`Versi terpasang: ${versi}`) && r.includes("Sudah versi terbaru"), r)
-      tiruTag([`v${versi}`, "v0.10.0", "v0.9.1"])
+      // Urutan versi angka: 9.10.0 lebih baru dari 9.9.1 (bukan urutan huruf), dan selalu lebih baru dari versi paket.
+      tiruTag([`v${versi}`, "v9.10.0", "v9.9.1"])
       r = await jalan("perbarui_paket", { cek_saja: true })
-      cek("perbarui_paket: ada pembaruan 0.10.0 (urutan versi angka)", r.includes("Versi terbaru: 0.10.0") && r.includes("Ada pembaruan"), r)
+      cek("perbarui_paket: ada pembaruan 9.10.0 (urutan versi angka)", r.includes("Versi terbaru: 9.10.0") && r.includes("Ada pembaruan"), r)
       globalThis.fetch = (async () => { throw new Error("offline") }) as any
       r = await jalan("perbarui_paket", { cek_saja: true })
       cek("perbarui_paket: tanpa internet → GAGAL yang jelas", r.startsWith("GAGAL") && r.includes("koneksi internet"), r)

@@ -203,6 +203,21 @@ STS yang tanggalnya sudah lewat tidak lagi ditandai kurang.
 | Pemeriksaan log | 0 dari 12 nama siswa muncul di seluruh log percakapan (semua yang dikirim ke/dari model) |
 
 
+## Format standar BSKAP (v0.11.0)
+
+Rujukan: Panduan Pembelajaran dan Asesmen Edisi Revisi 2025 (BSKAP) — contoh perencanaan SD Lampiran 7, KKTP Lampiran 5,
+format dan contoh rapor hlm. 62–66 dan Lampiran 10. Contoh bersifat inspirasi (bukan wajib); dipakai sebagai bawaan bila
+sekolah tidak punya template.
+
+| Uji | Hasil |
+|---|---|
+| `uji-alat.ts` | RPM tanpa template: ekspor Word menyebut bagian standar BSKAP yang belum ada; RPM lengkap tanpa catatan |
+| `uji-rumus-fixture.ts` (HyperFormula, lintas lembar) | Draf deskripsi rapor: TP tertinggi "sudah mampu", TP terendah "masih perlu bimbingan" bila di bawah KKTP, "perlu penguatan" bila sudah tuntas, satu kalimat bila semua nilai sama, kosong bila belum ada nilai |
+| LibreOffice 7.6 (hitung ulang buku nilai hasil OpenCode dengan nilai uji) | Dua kalimat deskripsi terhitung sama dengan HyperFormula |
+| E2E model gratis: `/modul pecahan senilai kelas 4, 2 pertemuan …` | Modul Ajar memakai urutan bagian Lampiran 7 persis, tabel centang 8 dimensi profil lulusan, tabel Kriteria/Memenuhi/Belum Memenuhi + rencana tindak lanjut; ekspor Word tanpa catatan bagian hilang |
+| "Tolong buatkan KKTP matematika semester 1 dan buku nilainya sekalian" | KKTP tabel TP / Kriteria Ketercapaian / Memenuhi / Belum Memenuhi, batas tuntas dari kebijakan sekolah; buku nilai berkolom Draf Deskripsi Rapor. Temuan: baris rencana tindak lanjut ditulis sebagai tabel terpisah → skill asesmen diperjelas |
+
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu

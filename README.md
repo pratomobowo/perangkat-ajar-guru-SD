@@ -63,7 +63,7 @@ Bagian ini untuk asisten AI (misalnya OpenCode) yang diminta memasang atau mempe
 | `/mulai` | Profil guru, jadwal pelajaran, dan kalender pendidikan (sekali di awal tahun) |
 | `/hari-ini` | Agenda: status hari, jadwal, TP minggu ini dan depan, bahan yang belum dibuat, pengingat jurnal |
 | `/rencana matematika` | Rincian minggu efektif, ATP, Prota, dan Promes (Word) |
-| `/modul pecahan senilai` | Modul Ajar/RPM, LKPD siap fotokopi, dan kunci terpisah (Word), dengan materi dari buku resmi dan sumbernya |
+| `/modul pecahan senilai` | Modul Ajar/RPM/RPP (format contoh resmi BSKAP bila sekolah tidak punya template), LKPD siap fotokopi, dan kunci terpisah (Word), dengan materi dari buku resmi dan sumbernya |
 | `/buku` | Mencari dan mengunduh Buku Siswa dan Panduan Guru resmi (SIBI) untuk kelas guru ke pustaka |
 | "carikan materi siklus air" | Riset dari pustaka buku resmi (PDF) lalu situs tepercaya, lengkap dengan halaman/URL sumber |
 | `/soal ulangan harian TP3` | KKTP, kisi-kisi, lembar soal, serta kunci dan penskoran (Word) |

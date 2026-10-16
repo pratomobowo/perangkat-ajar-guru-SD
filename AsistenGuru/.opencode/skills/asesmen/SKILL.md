@@ -15,16 +15,20 @@ description: Menyusun instrumen penilaian dalam bentuk Word — KKTP (Kriteria K
   ketentuan di `sekolah/preferensi-sekolah.md`, ikuti tanpa bertanya.
 
 ## 2. KKTP (jika diminta atau belum ada untuk TP itu)
-Ikuti bentuk KKTP sekolah. Jika tidak diatur, pakai **rubrik 4 tingkat** per TP: *Perlu bimbingan*, *Cukup*, *Baik*,
-*Sangat baik*. Setiap tingkat berisi deskripsi perilaku yang bisa diamati, bukan sekadar angka. Tandai `[PERLU GURU]`
-jika rentang nilai belum ditetapkan sekolah.
+Ikuti bentuk KKTP sekolah. Jika tidak diatur, pakai bentuk **contoh resmi BSKAP** (Panduan Pembelajaran dan Asesmen 2025,
+Lampiran 5 dan 7): satu tabel per mapel/semester dengan kolom **Tujuan Pembelajaran | Kriteria Ketercapaian | Memenuhi |
+Belum Memenuhi**; baris terakhir **di tabel yang sama**: `| Rencana tindak lanjut | | <pengayaan bagi yang memenuhi> |
+<bimbingan bagi yang belum> |`.
+Kriteria ditulis sebagai perilaku/hasil kerja yang bisa diamati, bukan sekadar angka. Batas angka tuntas diambil dari
+`batas_ketuntasan` di kebijakan sekolah; jika belum ada, tulis `[PERLU GURU: batas nilai tuntas]`.
+Bila sekolah meminta rubrik bertingkat, pakai 4 tingkat: *Perlu bimbingan*, *Cukup*, *Baik*, *Sangat baik*.
 
 Selain dokumen KKTP, simpan juga datanya di `guru/data/kktp-<kode-mapel>.json` supaya buku nilai Excel memakai batas
 tuntas per TP dan menandai TP yang perlu remedial. Gabungkan dengan isi lama (jangan menghapus TP lain):
 ```json
-{ "mapel": "Matematika", "tp": { "TP3": { "batas": 75, "kriteria": "Baik: menyelesaikan soal cerita perkalian dengan langkah yang benar" } } }
+{ "mapel": "Matematika", "tp": { "TP3": { "batas": 75, "kriteria": "Memenuhi: menyelesaikan soal cerita perkalian dengan langkah yang benar" } } }
 ```
-`batas` = nilai minimal dianggap tuntas (0–100) sesuai rentang KKTP; `kriteria` = ringkasan tingkat tuntas satu kalimat.
+`batas` = nilai minimal dianggap tuntas (0–100) sesuai rentang KKTP; `kriteria` = ringkasan kriteria "Memenuhi" satu kalimat.
 Setelah itu tawarkan membuat ulang buku nilai (`/nilai`) bila sudah ada.
 
 ## 3. Riset materi

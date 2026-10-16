@@ -1,9 +1,19 @@
 # Versi Paket
 
-**Versi:** 0.10.0
+**Versi:** 0.11.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.11.0 — **Format standar BSKAP** (Panduan Pembelajaran dan Asesmen Edisi Revisi 2025) sebagai bawaan bila sekolah tidak
+  punya template: (1) RPM/RPP/Modul Ajar mengikuti contoh perencanaan SD Lampiran 7 — Identifikasi Murid, Dimensi Profil
+  Lulusan (8 kotak centang), Tujuan Pembelajaran, Praktik Pedagogik, Mitra Pembelajaran, Lingkungan Pembelajaran,
+  Pemanfaatan Digital, Langkah Pembelajaran (memahami–mengaplikasi–merefleksi), Asesmen dan Tindak Lanjut (tabel
+  Memenuhi/Belum Memenuhi + rencana tindak lanjut); ekspor Word memeriksa bagian yang belum ada. (2) KKTP bawaan berbentuk
+  Kriteria | Memenuhi | Belum Memenuhi (Lampiran 5 dan 7); rubrik 4 tingkat tetap tersedia bila sekolah memintanya.
+  (3) Buku nilai Excel punya kolom **Draf Deskripsi Rapor** otomatis bergaya contoh rapor BSKAP ("Ananda sudah mampu …
+  Ananda masih perlu bimbingan/penguatan dalam …") dari TP tertinggi dan terendah, dengan frasa TP yang bisa diubah di
+  lembar Keterangan TP; catatan T/R untuk impor e-Rapor dan opsi rapor tanpa angka untuk Fase A. Template sekolah tetap
+  diutamakan.
 - 0.10.0 — **Daftar Siswa otomatis**: guru cukup menaruh berkas yang sudah ada (ekspor daftar peserta didik Dapodik,
   format nilai e-Rapor, daftar hadir lama yang berisi nama, atau CSV) di `guru/masukan`. Alat mengenalinya, menyaring
   rombel kelas guru, menyimpannya sebagai `hasil/4 Administrasi/Daftar Siswa.xlsx`, dan memindahkan berkas sumber ke

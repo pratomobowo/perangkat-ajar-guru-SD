@@ -23,12 +23,21 @@ function lembar(xml: string) {
   return data
 }
 const ref = (a: string) => { const m = a.match(/([A-Z]+)(\d+)/)!; return { row: +m[2] - 1, col: colIdx(m[1]) } }
+/** Semua lembar dalam buku kerja (nama sesuai workbook.xml), supaya rumus lintas lembar ikut terhitung. */
+function semuaLembar(file: string) {
+  const z = bacaZip(file)
+  const nama = [...z["xl/workbook.xml"].matchAll(/<sheet [^>]*name="([^"]*)"/g)].map((m) => m[1].replace(/&amp;/g, "&"))
+  return Object.fromEntries(nama.map((n, i) => [n, lembar(z[`xl/worksheets/sheet${i + 1}.xml`])]))
+}
 function uji(nama: string, file: string, isi: Record<string, any>, harap: Record<string, any>) {
-  const data = lembar(bacaZip(file)["xl/worksheets/sheet1.xml"])
+  const lembaran = semuaLembar(file)
+  const data = Object.values(lembaran)[0]
   for (const [a, v] of Object.entries(isi)) { const { row, col } = ref(a); (data[row] ??= [])[col] = v }
-  const hf = HyperFormula.buildFromArray(data, { licenseKey: "gpl-v3" })
+  const hf = HyperFormula.buildFromSheets(lembaran, { licenseKey: "gpl-v3" })
+  const baca = (lembarKe: number, a: string) => hf.getCellValue({ sheet: lembarKe, ...ref(a) })
   let ok = true
-  for (const [a, v] of Object.entries(harap)) {
+  for (const [a, v0] of Object.entries(harap)) {
+    const v = typeof v0 === "function" ? v0(baca) : v0
     const got = hf.getCellValue({ sheet: 0, ...ref(a) })
     const sama = typeof v === "number" ? Math.abs((got as number) - v) < 1e-9 : got === v
     if (!sama) ok = false
@@ -45,6 +54,16 @@ let ok = uji("absen", `${d}/out/absen.xlsx`,
 ok = uji("nilai", `${d}/out/nilai.xlsx`,
   { B9: "Siswa 1", C9: 80, D9: 90, E9: 70, F9: 60, G9: 100, I9: 75, J9: 85, B10: "Siswa 2", C10: 50, E10: 71 },
   { H9: 80, K9: 80, L9: "TP5", M9: "TP4", H10: 61, K10: "", L10: "TP3", M10: "TP1", H11: "", C37: 65, H37: 71, C38: 80, C39: 50, N9: "TP4", N10: "TP1", N11: "" }) && ok
+// Draf deskripsi rapor (kolom O) gaya BSKAP: frasa TP diambil dari lembar Keterangan TP (kolom F, baris 4 = TP1).
+const frasa = (b: any, k: number) => b(1, `F${3 + k}`)
+ok = uji("deskripsi", `${d}/out/nilai.xlsx`,
+  { B9: "Siswa 1", C9: 80, D9: 90, E9: 70, F9: 60, G9: 100, B10: "Siswa 2", C10: 90, D10: 90, E10: 90, F10: 90, G10: 90, B11: "Siswa 3", C11: 95, D11: 85 },
+  {
+    O9: (b: any) => `Ananda sudah mampu ${frasa(b, 5)}. Ananda masih perlu bimbingan dalam ${frasa(b, 4)}.`,
+    O10: (b: any) => `Ananda sudah mampu ${frasa(b, 1)}.`,
+    O11: (b: any) => `Ananda sudah mampu ${frasa(b, 1)}. Ananda perlu penguatan dalam ${frasa(b, 2)}.`,
+    O12: "",
+  }) && ok
 // KKTP per TP: TP1 < 85 dan TP3 < 75 ikut tercatat belum tuntas
 ok = uji("nilai-kktp", `${d}/out/nilai-kktp.xlsx`,
   { C9: 80, D9: 90, E9: 70, F9: 60, G9: 100, C10: 90, D10: 70, E10: 75 },

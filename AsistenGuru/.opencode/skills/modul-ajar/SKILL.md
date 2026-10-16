@@ -13,7 +13,8 @@ description: Menyiapkan bahan mengajar untuk satu topik atau TP — Modul Ajar, 
 - Format: ikuti `sekolah/preferensi-sekolah.md` (Modul Ajar, RPM, RPP, atau keduanya) dan template di `sekolah/template/`
   atau `guru/template/`. Nama berkas draf mengikuti nama template yang ada: jika ada `RPP.md`/`RPP.docx`, draf rencana
   ditulis sebagai `RPP.md` dengan susunan kerangka itu; jika `Modul Ajar.*`, sebagai `Modul Ajar.md`; selain itu `RPM.md`.
-  Jika tidak diatur, pakai RPM ringkas (`references/kerangka.md`) dan tulis di bawah judul: "Kerangka ringkas, belum template resmi sekolah".
+  Jika tidak diatur, pakai **kerangka standar BSKAP** (`references/kerangka.md`, dari Panduan Pembelajaran dan Asesmen 2025
+  Lampiran 7) dan salin judul `##`-nya persis — ekspor Word memeriksanya dan melaporkan bagian yang belum ada.
 - Tanyakan paling banyak 3 hal yang tidak bisa diturunkan: jumlah pertemuan dan JP per pertemuan, kemampuan awal murid,
   serta sarana yang tersedia (fotokopi, proyektor, alat peraga).
 
@@ -23,8 +24,9 @@ jika tidak ada, pakai `riset_materi`. Catat sumber yang dipakai.
 
 ## 3. Tulis dokumen
 Simpan draf di `guru/draf/2 Modul dan LKPD/<Mapel> <Kode TP> <Topik Singkat>/` (ikuti "Format draf" di instruksi agent):
-- `Modul Ajar.md` (atau `RPM.md` jika sekolah memakai RPM) — modul ajar/RPM. Jumlah menit kegiatan per pertemuan harus sama dengan JP × menit per JP dari profil.
-  Sertakan daftar "Yang perlu dibawa ke kelas" berupa checklist (`- [ ]`) dan bagian `## Sumber` di akhir.
+- `Modul Ajar.md` (atau `RPM.md`/`RPP.md` sesuai istilah sekolah) — perencanaan pembelajaran. Jumlah menit kegiatan per
+  pertemuan harus sama dengan JP × menit per JP dari profil. Sertakan daftar "Yang perlu dibawa ke kelas" berupa
+  checklist (`- [ ]`) dan bagian `## Sumber` di akhir.
 - `LKPD.md` — lembar siswa siap fotokopi: kolom nama, petunjuk singkat, soal bertahap dari mudah ke menantang.
   Pisahkan tiap pertemuan dengan `<!-- halaman-baru -->`. **Jangan** memasukkan kunci jawaban di berkas ini.
 - `Kunci LKPD.md` — kunci dan pembahasan singkat untuk guru.

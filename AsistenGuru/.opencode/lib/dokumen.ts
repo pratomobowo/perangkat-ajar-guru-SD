@@ -37,6 +37,24 @@ export function opsiDokumen(profil: Profil, kebijakan: Kebijakan, jenis: JenisDo
   }
 }
 
+/**
+ * Kerangka perencanaan pembelajaran menurut contoh resmi BSKAP untuk SD (Panduan Pembelajaran dan Asesmen Edisi Revisi
+ * 2025, Lampiran 7, hlm. 104–106). Dipakai bila sekolah/guru tidak punya template sendiri. "Sumber" tambahan aturan paket.
+ */
+export const KERANGKA_BSKAP = [
+  "## Identifikasi Murid",
+  "## Dimensi Profil Lulusan",
+  "## Tujuan Pembelajaran",
+  "## Praktik Pedagogik",
+  "## Mitra Pembelajaran",
+  "## Lingkungan Pembelajaran",
+  "## Pemanfaatan Digital",
+  "## Langkah Pembelajaran",
+  "## Asesmen dan Tindak Lanjut",
+  "## Sumber",
+].join("\n")
+export const KERANGKA_BSKAP_UNTUK = ["rpm", "modul-ajar", "rpp"]
+
 /** Menebak jenis dokumen dari nama berkas: LKPD/Soal = lembar siswa, Kunci = kunci guru, lainnya dokumen guru. */
 export function tebakJenis(nama: string): JenisDokumen {
   const n = nama.toLowerCase()
@@ -68,6 +86,10 @@ export async function simpanDokumen(akar: string, sub: string, md: string, opsi:
   if (kerangka) {
     const hilang = bagianHilang(md, (await bacaTeks(akar, kerangka.rel)) ?? "")
     if (hilang.length) catatan.push(`Bagian di kerangka ${kerangka.rel} yang belum ada di draf: ${hilang.join("; ")}. Lengkapi draf lalu ekspor ulang.`)
+  } else if (KERANGKA_BSKAP_UNTUK.includes(kunci)) {
+    // Tanpa template sekolah/guru: perencanaan pembelajaran mengikuti contoh resmi BSKAP (PPA 2025, Lampiran 7).
+    const hilang = bagianHilang(md, KERANGKA_BSKAP)
+    if (hilang.length) catatan.push(`Bagian standar BSKAP (Panduan Pembelajaran dan Asesmen 2025, Lampiran 7) yang belum ada di draf: ${hilang.join("; ")}. Lengkapi draf lalu ekspor ulang.`)
   }
 
   let hasil: ReturnType<typeof buatDocx>
