@@ -1,29 +1,97 @@
-# Asisten Guru — Perangkat Ajar Guru SD untuk OpenCode
+# Asisten Guru SD
 
-Asisten pribadi guru SD/SDIT berbasis [OpenCode 2](https://opencode.ai) yang mengurus administrasi pembelajaran dari hulu ke hilir:
-kalender → minggu efektif → ATP → Prota/Promes → modul ajar/RPM dan LKPD → asesmen → jurnal, daftar hadir, dan buku nilai.
-Guru cukup bercerita dan memeriksa. Dokumen Word dan Excel yang rapi dan siap cetak disiapkan oleh asisten.
+**Asisten pribadi untuk guru SD/MI/SDIT** yang berjalan di aplikasi [OpenCode](https://opencode.ai).
+Guru cukup mengobrol seperti biasa, asisten menyiapkan perangkat ajar dan administrasi kelas dalam bentuk
+**Word dan Excel yang siap cetak**.
 
-> Status: **v0.8.0**, untuk OpenCode 2 (Desktop atau CLI), utamanya guru pengguna Windows. Uji coba Matematika Kelas 4 (Fase B).
-> Lihat [`uji-e2e/LAPORAN-v03.md`](uji-e2e/LAPORAN-v03.md).
+> Versi **0.13.1** · tahap uji coba · untuk OpenCode 2 (Desktop atau terminal), utamanya laptop Windows.
 
-## Alur paling ringkas untuk guru
+---
 
-1. Taruh dokumen dari sekolah (CP, kalender, jadwal, contoh RPP/modul, KKTP, buku) di folder `Documents\AsistenGuru\guru\masukan`.
-2. Ketik `/siapkan` dan perkenalkan diri singkat (kelas, mapel, JP).
-3. Asisten membaca dokumen, menyimpan semuanya di tempat yang benar, lalu menyusun perangkat tahap demi tahap. Setiap tahap
-   dilaporkan: **✔ selesai**, **⚠ perlu dicek**, **➜ berikutnya**. Ketik "lanjut", atau "jalankan semua" agar otomatis.
-4. `/status` kapan saja untuk melihat perangkat yang sudah dan belum ada.
+## Apa saja yang bisa dibantu?
 
-## Cara pasang paling mudah (untuk guru)
+| Kebutuhan guru | Yang disiapkan asisten |
+|---|---|
+| Perencanaan setahun | Minggu efektif, ATP, Prota, Promes |
+| Persiapan mengajar | Modul Ajar / RPM / RPP, LKPD, kunci jawaban, kartu media |
+| Penilaian | KKTP, kisi-kisi, soal ulangan harian, STS, SAS, beserta kuncinya |
+| Administrasi kelas | Daftar hadir, buku nilai (nilai rapor dan deskripsi rapor otomatis), jurnal mengajar, jadwal pelajaran, kalender pendidikan |
+| Kokurikuler | Rencana kegiatan, jurnal, penilaian per dimensi profil lulusan, deskripsi rapor |
+| Memahami murid | "Budi kurangnya di mana?", "Siapa yang perlu remedial?" |
+| Bahan pelajaran | Mengunduh Buku Siswa dan Panduan Guru resmi, mencari materi dari sumber tepercaya |
 
-1. Pasang **OpenCode Desktop** dari [opencode.ai/download](https://opencode.ai/download), lalu buka.
-2. Tempel link repositori ini ke kolom chat OpenCode, lalu ketik:
+Sudah diuji untuk **Matematika, Bahasa Indonesia, IPAS, dan Pendidikan Pancasila** di kelas 2, 3, 4, dan 5.
+
+---
+
+## Cara memasang (± 5 menit)
+
+1. Unduh dan pasang **OpenCode Desktop** dari [opencode.ai/download](https://opencode.ai/download), lalu buka.
+2. Salin link halaman ini, tempel ke kolom chat OpenCode, lalu ketik:
    **"Tolong pasang Asisten Guru dari link ini."**
-   Saat OpenCode meminta izin menjalankan perintah, pilih izinkan.
-3. Setelah selesai, buka folder **Documents → AsistenGuru** di OpenCode (menu Open Project), lalu ketik **`/mulai`**.
+   Jika OpenCode meminta izin, pilih **izinkan**.
+3. Setelah selesai, buka folder **Documents › AsistenGuru** di OpenCode (menu **Open Project**).
 
-Untuk memperbarui di kemudian hari, cukup ketik "tolong perbarui asisten" di dalam Asisten Guru. Data Anda tetap aman.
+Selesai. Untuk memperbarui di kemudian hari, ketik saja **"tolong perbarui asisten"**. Data Anda tetap aman.
+
+---
+
+## Cara memakai
+
+**Cukup mengobrol biasa.** Tidak perlu menghafal perintah. Contoh:
+
+- *"Minggu depan saya mengajar pecahan, tolong siapkan bahannya."*
+- *"Buatkan soal ulangan harian 10 soal pilihan ganda."*
+- *"Absen bulan November dong."*
+- *"Hari ini saya mengajar apa?"*
+- *"Daffa nilai matematikanya kenapa ya, kok turun?"*
+
+**Baru pertama kali, atau bingung harus mulai dari mana?** Ketik **`/bingung`**. Asisten akan menuntun pelan-pelan,
+satu langkah demi satu langkah, dan menjelaskan istilah (CP, ATP, KKTP, dan lainnya) dengan bahasa sehari-hari.
+
+**Punya dokumen dari sekolah?** Taruh di folder **Documents › AsistenGuru › guru › masukan**, misalnya kalender
+pendidikan, jadwal, contoh RPP sekolah, atau daftar siswa dari Dapodik/e-Rapor. Lalu ketik
+*"Siapkan semua perangkat saya, jalankan semua."* Asisten membaca dokumennya dan menyusun semuanya sekaligus.
+
+**Hasilnya di mana?** Di folder **Documents › AsistenGuru › hasil**, sudah dikelompokkan:
+1 Perencanaan, 2 Modul dan LKPD, 3 Asesmen, 4 Administrasi, 5 Kokurikuler.
+
+Ketik **`/bantuan`** kapan saja untuk melihat menu.
+
+---
+
+## Hal yang perlu diketahui
+
+- **Semua hasil adalah draf.** Guru tetap memeriksa isinya. Bagian yang perlu keputusan guru diberi **stabilo kuning**
+  bertanda `[PERLU GURU]`, dan dokumen berlabel **DRAF** sampai CP-nya dicocokkan dengan dokumen resmi.
+- **Bahan diambil dari sumber resmi.** CP diambil dari Keputusan BSKAP 046/2025, materi dari buku resmi Kemendikdasmen,
+  dan sumbernya dicantumkan. Jika sekolah tidak punya format sendiri, dokumen mengikuti contoh resmi BSKAP (Panduan
+  Pembelajaran dan Asesmen 2025).
+- **Angka dihitung alat, bukan ditebak AI.** Minggu efektif, JP, nilai rapor, dan rekap absen dihitung oleh program dan
+  rumus Excel.
+- **Nama siswa:** cukup diberikan sekali lewat berkas (Dapodik/e-Rapor/absen lama) dan otomatis terisi di semua Excel.
+  Daftar siswa, absensi, dan buku nilai tidak bisa dibaca langsung oleh AI. Pengaturan bawaan mengizinkan nama disebut
+  saat guru bertanya analisis seorang anak. **Jika guru memakai model AI gratis**, operator sebaiknya mengubah
+  `nama_ke_ai` menjadi `false` di `sekolah/kebijakan.json`, karena model gratis bisa memakai data untuk pelatihan.
+  Pemrosesan data anak juga memerlukan persetujuan orang tua (UU 27/2022).
+- **Butuh internet** untuk AI-nya, serta untuk mengambil CP dan buku resmi.
+- **Belum didukung:** CP Pendidikan Agama (dari Kemenag) belum bisa diambil otomatis, dan impor langsung ke e-Rapor
+  masih dikembangkan.
+- **Jika asisten diam lama:** tekan **Esc**, lalu kirim ulang pesannya. Model gratis kadang lambat.
+
+---
+
+## Untuk operator sekolah
+
+Asisten bisa langsung dipakai tanpa pengaturan. Agar dokumen memakai identitas sekolah, isi
+**`sekolah/kebijakan.json`** (nama sekolah, kepala sekolah, kertas A4/F4, bobot nilai, batas tuntas). Sekolah juga bisa
+menaruh template Word sendiri. Panduan lengkap: [`AsistenGuru/README-PASANG.md`](AsistenGuru/README-PASANG.md).
+
+Pemasangan manual: salin folder `AsistenGuru/` ke `Documents\AsistenGuru` di laptop guru, buka di OpenCode 2
+(versi 2.0.30 atau lebih baru), pilih model dengan `/models`, lalu ketik `/mulai`. Tidak perlu Python, Node.js, atau
+Office untuk membuat berkas.
+
+---
 
 ## Petunjuk untuk asisten AI
 
@@ -49,129 +117,69 @@ Bagian ini untuk asisten AI (misalnya OpenCode) yang diminta memasang atau mempe
 4. Setelah berhasil, sampaikan ke pengguna (guru, bukan orang teknis) dengan singkat:
    - letak folder (dari baris `ASISTEN_GURU_SELESAI`);
    - cara membuka: di OpenCode Desktop pilih **Open Project** lalu folder itu; di terminal `cd` ke folder itu lalu `opencode`;
-   - setelah terbuka, ketik `/mulai` untuk menyiapkan profil, atau `/bantuan` untuk melihat menu;
+   - setelah terbuka, ketik `/mulai` untuk menyiapkan profil, `/bingung` bila belum tahu harus mulai dari mana, atau
+     `/bantuan` untuk melihat menu;
    - jika `[Asisten Guru] PERHATIAN` menyebut OpenCode 1, minta pengguna memasang OpenCode 2 dulu.
 5. Asisten Guru butuh **OpenCode 2**. Di dalam folder AsistenGuru, agent `asisten-guru` dan aturan di `AGENTS.md`
    yang mengurus pemakaian sehari-hari. Jangan mengubah berkas di folder itu dari sesi lain.
 
-## Fitur
+---
 
-| Guru mengetik | Asisten menyiapkan |
-|---|---|
-| `/bingung` | Guru awam dituntun langkah demi langkah: bahan yang kurang (CP, ATP, buku, kalender, daftar siswa) dijelaskan dengan bahasa awam dan diambilkan otomatis dengan izin, lalu permintaan awal dilanjutkan |
-| `/siapkan` | Semua perangkat dari dokumen sekolah di `guru/masukan`, bertahap dengan insight atau otomatis |
-| `/status` | Peta perangkat: sudah ada, belum ada, penanda [PERLU GURU], langkah berikutnya |
-| "Budi kurangnya di mana?" | Analisis satu anak dari buku nilai, daftar hadir, dan kokurikuler yang sudah diisi guru (data dikirim ke AI dengan nomor absen); "siapa perlu remedial TP3?" untuk kelas |
-| `/mulai` | Profil guru, jadwal pelajaran, dan kalender pendidikan (sekali di awal tahun) |
-| `/hari-ini` | Agenda: status hari, jadwal, TP minggu ini dan depan, bahan yang belum dibuat, pengingat jurnal |
-| `/rencana matematika` | Rincian minggu efektif, ATP, Prota, dan Promes (Word) |
-| `/modul pecahan senilai` | Modul Ajar/RPM/RPP (format contoh resmi BSKAP bila sekolah tidak punya template), LKPD siap fotokopi, dan kunci terpisah (Word), dengan materi dari buku resmi dan sumbernya |
-| `/buku` | Mencari dan mengunduh Buku Siswa dan Panduan Guru resmi (SIBI) untuk kelas guru ke pustaka |
-| "carikan materi siklus air" | Riset dari pustaka buku resmi (PDF) lalu situs tepercaya, lengkap dengan halaman/URL sumber |
-| `/soal ulangan harian TP3` | KKTP, kisi-kisi, lembar soal, serta kunci dan penskoran (Word) |
-| `/kokurikuler` | Kokurikuler (pengganti P5): perencanaan kegiatan, jurnal, Excel penilaian per dimensi profil lulusan, draf deskripsi rapor |
-| `/kalender`, `/jadwal` | Kalender pendidikan dan jadwal pelajaran kelas (Word), dengan cek bentrok dan JP |
-| "susun draf KSP sekolah kami" | Draf Kurikulum Satuan Pendidikan (5 komponen panduan 2025) untuk kepala sekolah/waka |
-| `/jurnal tadi mengajar …` | Jurnal mengajar bulanan (Word) |
-| `/absen oktober` | Daftar hadir bulanan dengan rekap otomatis (Excel) |
-| `/nilai matematika 1` | Buku nilai per TP dengan rumus nilai rapor (Excel) |
-| `/format`, "hurufnya Times 12", "pakai Word yang sudah saya edit sebagai contoh" | Format Word milik guru (gaya, kerangka bagian, Word contoh) dipakai di setiap ekspor berikutnya |
-| "mulai sekarang selalu …" | Mengingat preferensi guru untuk sesi berikutnya |
+## Untuk pengembang
 
-Guru juga bisa bercerita biasa tanpa perintah, misalnya "minggu depan saya mengajar pecahan, tolong siapkan bahannya".
+<details>
+<summary>Isi repositori, pengujian, dan catatan teknis</summary>
 
-## Prinsip
-
-1. **Guru memutuskan, asisten menyiapkan.** Semua hasil adalah draf. Bagian yang butuh keputusan guru diberi stabilo `[PERLU GURU]`.
-2. **Angka dihitung alat, bukan ditebak model.** Minggu efektif, JP, Prota, Promes, dan agenda dihitung tool TypeScript.
-   Rekap absensi dan nilai dihitung rumus Excel.
-3. **Satu sumber data, banyak dokumen.** ATP, Prota, dan Promes dibuat dari data yang sama sehingga selalu konsisten.
-4. **Regulasi dan materi dari sumber tepercaya.** CP diambil dari `sekolah/referensi/cp/`, bukan dari ingatan model.
-   Materi diambil dari buku resmi di pustaka, lalu dari situs yang ditetapkan sekolah, dan sumbernya dicantumkan.
-   Jika belum terverifikasi, dokumen otomatis berlabel DRAF.
-5. **Nama murid tidak pernah dikirim ke AI.** Nama hanya diketik guru langsung di Excel.
-6. **Siap cetak tanpa diedit.** Kop sekolah, identitas, nomor halaman, tanda tangan, ukuran kertas A4/F4, dan orientasi diatur otomatis.
-
-## Struktur repositori
+### Isi repositori
 
 ```
-AsistenGuru/                 ← paket yang disalin ke komputer guru (satu folder per guru)
-├─ opencode.json             agent bawaan, izin, share dimatikan
-├─ AGENTS.md                 aturan inti
+AsistenGuru/            paket yang dipasang di laptop guru
 ├─ .opencode/
-│  ├─ agents/asisten-guru.md persona, peta tugas, format draf, izin (tulis hanya guru/ dan hasil/)
-│  ├─ commands/              menu slash
-│  ├─ skills/                guru-setup, perencanaan-tahunan, modul-ajar, asesmen, administrasi-harian, umpan-balik-guru,
-│  │                         kelola-asisten, riset-materi, template-guru, kokurikuler, kurikulum-satuan-pendidikan,
-│  │                         siapkan-semua
-│  ├─ paket.json             nama dan versi paket (dipakai pemasang dan alat perbarui_paket)
-│  ├─ plugins/asisten-guru.ts plugin OpenCode 2 yang mendaftarkan alat (tanpa paket npm)
-│  ├─ alat/                  hitung_minggu_efektif, susun_perencanaan, agenda_hari_ini, ekspor_word,
-│  │                         buat_absensi_excel, buat_nilai_excel, perbarui_paket, baca_buku, riset_materi,
-│  │                         unduh_buku, atur_gaya, simpan_template_word, buat_kalender_pendidikan,
-│  │                         buat_jadwal_kelas, ambil_cp, buat_penilaian_kokurikuler_excel, baca_masukan,
-│  │                         status_perangkat, daftar_siswa, analisis_siswa, cek_kesiapan
-│  ├─ lib/                   kalender, perencanaan, penulis .docx/.xlsx/.zip, pustaka, riset (tanpa dependensi)
-│  └─ vendor/pdfjs/          pdf.js (Apache-2.0) untuk membaca teks PDF buku
-├─ sekolah/                  milik sekolah: kebijakan.json, preferensi-sekolah.md, referensi CP dan buku, template
-├─ guru/                     milik guru: profil, kalender, preferensi, gaya dan template Word, buku, data ATP/Promes, draf
-├─ hasil/                    Word dan Excel siap cetak (1 Perencanaan, 2 Modul dan LKPD, 3 Asesmen, 4 Administrasi,
-│                            5 Kokurikuler, 6 Dokumen Sekolah)
-├─ VERSI.md                  versi paket dan catatan perubahan
-├─ README-PASANG.md          panduan operator sekolah
-└─ PANDUAN-GURU.md           panduan satu halaman untuk guru
-pasang.ps1, pasang.sh        pemasang dan pembaru satu perintah (Windows; macOS/Linux)
-KONSEP.md                    konsep produk, arsitektur, peran, dan peta jalan
-uji-e2e/                     skrip uji, transkrip, contoh hasil, dan laporan v0.1 serta v0.2
+│  ├─ agents/           persona asisten dan peta tugas
+│  ├─ skills/           panduan kerja per tugas (modul-ajar, asesmen, pendamping-guru, siapkan-semua, …)
+│  ├─ commands/         menu perintah (/bingung, /siapkan, /modul, /absen, …)
+│  ├─ plugins/          plugin OpenCode 2 yang mendaftarkan 21 alat (tanpa paket npm)
+│  ├─ alat/  lib/       alat dan pustaka: kalender, perencanaan, Word/Excel, pembaca PDF/Word/Excel, daftar siswa, analisis, …
+│  └─ vendor/pdfjs/     pdf.js (Apache-2.0) untuk membaca PDF buku
+├─ sekolah/             milik sekolah: kebijakan.json, referensi CP dan buku, template
+├─ guru/                milik guru: profil, kalender, data perencanaan, draf, buku, folder masukan
+├─ hasil/               Word dan Excel siap cetak
+├─ AGENTS.md            aturan inti (privasi, sumber, batas kerja)
+└─ VERSI.md             catatan perubahan
+pasang.ps1, pasang.sh   pemasang dan pembaru satu perintah (memilih tag rilis tertinggi)
+KONSEP.md               konsep produk dan peta jalan
+uji-e2e/                skrip uji dan laporan (LAPORAN-v03.md)
 ```
 
-## Memasang secara manual (operator sekolah)
+### Pengujian
 
-Kebutuhan: [OpenCode 2](https://opencode.ai/download) (Desktop atau CLI, versi 2.0.30 atau lebih baru) dan koneksi internet
-untuk model AI. Tidak perlu Python, Node.js, pandoc, atau Office untuk membuat berkas, karena alat berjalan di runtime bawaan
-OpenCode dan tidak memakai paket npm. OpenCode 1 tidak didukung lagi.
+Semua uji di `uji-e2e/fixture` dijalankan dengan `bun <nama>.ts`:
 
-1. Jalankan pemasang di atas, atau salin folder `AsistenGuru/` ke komputer guru, misalnya ke `Documents\AsistenGuru` di Windows.
-2. Operator atau waka kurikulum mengisi:
-   - `sekolah/referensi/cp/<mapel>-fase-<x>.md` dengan CP resmi (Keputusan Kepala BSKAP No. 046/H/KR/2025). Isi `elemen`
-     dan ubah `status` menjadi `TERVERIFIKASI` setelah diperiksa.
-   - `sekolah/kebijakan.json`: identitas sekolah, kepala sekolah, kertas A4/F4, aturan minggu efektif, cadangan JP,
-     bobot nilai, dan batas ketuntasan.
-   - Bagian `[ISI]` di `sekolah/preferensi-sekolah.md`.
-3. Buka folder itu di OpenCode Desktop, atau jalankan `opencode` dari terminal di folder itu.
-4. Pilih model dengan `/models`, lalu guru mengetik `/mulai` atau `/bantuan`.
+| Uji | Isi |
+|---|---|
+| `uji-lib.ts` | minggu efektif, ATP, Prota/Promes, agenda, Word dan Excel |
+| `uji-alat.ts` | seluruh alat lewat plugin OpenCode 2, termasuk berkas ala Notepad Windows dan jalur Windows |
+| `uji-masukan.ts` | pembaca Word/Excel/PDF dari sekolah dan peta perangkat |
+| `uji-cp.ts` | pengambil CP dari PDF Keputusan BSKAP 046/H/KR/2025 |
+| `uji-template.ts` | format Word milik guru/sekolah (`SOFFICE=…` untuk membuka hasil di LibreOffice) |
+| `uji-siswa.ts` | daftar siswa otomatis (Dapodik, e-Rapor, absen lama, CSV) dan privasi |
+| `uji-analisis.ts` | analisis siswa dan kelas |
+| `uji-kesiapan.ts` | cek bahan sebelum membuat perangkat |
 
-Rincian ada di [`AsistenGuru/README-PASANG.md`](AsistenGuru/README-PASANG.md).
+Ditambah: `uji-e2e/rumus` (rumus Excel dihitung HyperFormula), `uji-e2e/pasang/uji-pasang.sh` (pemasang sh dan ps1),
+`uji-e2e/jalankan.sh` (OpenCode terisolasi dengan skenario guru), dan `uji-e2e/rute/jalankan-rute.sh` (15 permintaan
+bahasa sehari-hari → alat yang tepat). Hasil uji end-to-end per versi ada di
+[`uji-e2e/LAPORAN-v03.md`](uji-e2e/LAPORAN-v03.md).
 
-## Pengujian
+### Keterbatasan teknis
 
-| Uji | Perintah | Isi |
-|---|---|---|
-| Pustaka | `cd uji-e2e/fixture && bun uji-lib.ts` | Minggu efektif, validasi ATP, Prota/Promes, agenda, Word dan Excel |
-| Daftar siswa dan privasi | `cd uji-e2e/fixture && bun uji-siswa.ts` | Daftar siswa dikenali otomatis dari ekspor Dapodik (disaring per rombel), format e-Rapor, daftar hadir lama, dan CSV; nama terisi di absensi dan buku nilai; berkas sumber dipindah ke folder terkunci; Word berisi NISN tidak ditampilkan; **tidak ada nama siswa di jawaban alat** |
-| Kesiapan bahan | `cd uji-e2e/fixture && bun uji-kesiapan.ts` | Bahan wajib/dianjurkan per tugas, tawaran otomatis (ambil_cp, unduh_buku, susun ATP, buat buku nilai) vs langkah guru, CP tidak wajib bila ATP ada, istilah dalam bahasa awam |
-| Analisis siswa | `cd uji-e2e/fixture && bun uji-analisis.ts` | Guru mengisi nilai/absensi di Excel → analisis satu anak (TP belum tuntas, rata-rata kelas, nilai rapor dibulatkan seperti Excel, kehadiran), nama ganda, nomor absen, ringkasan kelas + laporan bernama di folder terkunci, saklar `privasi.nama_ke_ai`, **tanpa nama di jawaban alat (bawaan)** |
-| Masukan dan status | `cd uji-e2e/fixture && bun uji-masukan.ts` | Pembaca Word/Excel/PDF guru (tanggal Excel, format lama, foto) dan peta perangkat (langkah berikutnya, STS dekat, [PERLU GURU]) |
-| CP resmi | `cd uji-e2e/fixture && bun uji-cp.ts` | Parser CP dari PDF Keputusan BSKAP 046/H/KR/2025 (judul, elemen terpotong, butir, salah ketik kelas) |
-| Template guru | `cd uji-e2e/fixture && bun uji-template.ts` | Gaya, kerangka, Word contoh (termasuk Word berbahasa Indonesia, kop di header, hasil editan guru), kunci dan template wajib sekolah; `SOFFICE=...` membuka hasil di LibreOffice |
-| Alat dan plugin | `cd uji-e2e/fixture && bun uji-alat.ts` | Keenam alat lewat plugin OpenCode 2, termasuk berkas ala Notepad Windows (BOM, CRLF) dan jalur Windows |
-| Rumus Excel | `cd uji-e2e/rumus && bun install && bun uji-rumus-fixture.ts ../fixture` | Menghitung rumus dengan HyperFormula dan membandingkannya dengan nilai harapan |
-| Pemasang | `uji-e2e/pasang/uji-pasang.sh` | `perbarui_paket`, `pasang.sh`, dan `pasang.ps1` (jika `pwsh` ada): pasang baru, perbarui dari v0.2 berisi data, pasang ulang |
-| End-to-end | `uji-e2e/jalankan.sh` | Menjalankan OpenCode 2 terisolasi dengan skenario guru (lihat komentar di skrip) |
+- Berkas Word/Excel diuji dengan LibreOffice dan validasi skema, belum dengan Microsoft Office langsung.
+- Belum diuji di laptop Windows sungguhan dan dengan banyak model AI (uji memakai satu model gratis).
+- Kualitas pedagogis rumusan TP dan isi materi tetap perlu dinilai guru.
 
-Hasil uji v0.2: kalender dan minggu efektif cocok dengan hitungan manual, 28/28 kunci jawaban benar, semua rumus Excel benar,
-dan 0 pelanggaran skema OOXML pada 15 berkas. Tidak ada nama murid yang tersimpan.
+### Peta jalan
 
-## Keterbatasan
+Impor ke e-Rapor (menunggu template resmi dari sekolah), CP Pendidikan Agama, varian MI (Kemenag), uji coba guru di
+Windows. Lihat [`KONSEP.md`](KONSEP.md).
 
-- CP dalam repositori ini masih **kosong** (`BELUM-TERISI`). Uji memakai ringkasan sekunder (`uji-e2e/contoh-hasil-v01/fixture-cp-sekunder.md`),
-  bukan teks resmi.
-- Berkas belum diverifikasi dengan membukanya langsung di Microsoft Office. Verifikasi memakai validasi skema, HyperFormula,
-  Quick Look, dan docx-preview.
-- Kualitas pedagogis rumusan TP dan pembagian materi antarkelas dalam satu fase tetap perlu dinilai guru.
-- Server model gratis kadang lambat atau macet. Solusinya, tekan Esc lalu kirim ulang.
-
-## Peta jalan
-
-Mengisi template Word milik sekolah, deskripsi capaian rapor, KKTP yang tersambung ke buku nilai, banyak mapel untuk guru kelas,
-kokurikuler, varian MI (Kemenag), dan CP resmi terpusat. Lihat [`KONSEP.md`](KONSEP.md).
+</details>
