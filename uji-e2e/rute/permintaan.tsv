@@ -1,0 +1,15 @@
+r01	minggu depan saya ngajar pecahan, tolong siapin bahannya ya	cek_kesiapan|modul-ajar
+r02	bikinin soal ulangan harian pecahan 10 soal pilihan ganda dong	asesmen|cek_kesiapan
+r03	absen bulan november dong bu	buat_absensi_excel|cek_kesiapan
+r04	buatkan buku nilai matematika semester 2	buat_nilai_excel|cek_kesiapan
+r05	hari ini saya ngajar apa ya?	agenda_hari_ini
+r06	tadi saya ngajar pecahan senilai jam 1-2, ada 2 anak sakit. tolong dicatat ya	administrasi-harian|agenda_hari_ini
+r07	Daffa nilai matematikanya kenapa ya kok jelek	analisis_siswa
+r08	tolong cariin buku paket IPAS kelas 4	unduh_buku|riset-materi
+r09	jadwal pelajaran kelas saya mau dibikin word	buat_jadwal_kelas|administrasi-harian
+r10	mulai sekarang semua dokumen pakai huruf Times New Roman ukuran 12 ya	atur_gaya|template-guru
+r11	ada versi baru gak asistennya?	perbarui_paket|kelola-asisten
+r12	saya mau bikin kegiatan kokurikuler tema lingkungan buat semester ini	kokurikuler
+r13	apa aja yang belum saya siapin?	status_perangkat|siapkan-semua
+r14	kalender dari sekolah sudah saya taruh di folder masukan	baca_masukan
+r15	berapa minggu efektif semester 1?	hitung_minggu_efektif

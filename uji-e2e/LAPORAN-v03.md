@@ -248,6 +248,32 @@ Guru dengan profil dan kalender saja (tanpa CP, ATP, buku), model gratis:
 | "1,3" | RPM format BSKAP lengkap (tanpa bagian hilang), LKPD, kunci, media; sumber Buku Siswa Bab 2 dan Panduan Guru dengan halaman |
 
 
+## Tanpa perintah garis miring: pemilihan alat dari bahasa sehari-hari (v0.13.0)
+
+15 permintaan bahasa sehari-hari, masing-masing di sesi baru (model gratis), workspace berisi profil, kalender, ATP,
+Daftar Siswa, dan buku nilai/absensi terisi (`uji-e2e/rute/jalankan-rute.sh`, daftar di `rute/permintaan.tsv`):
+
+| Pesan guru | Dipakai | Cocok |
+|---|---|---|
+| minggu depan saya ngajar pecahan, tolong siapin bahannya ya | cek_kesiapan → modul-ajar + pendamping (CP dianjurkan, pilihan bernomor) | ✔ |
+| bikinin soal ulangan harian pecahan 10 soal pilihan ganda dong | cek_kesiapan → asesmen + pendamping | ✔ |
+| absen bulan november dong bu | cek_kesiapan → buat_absensi_excel | ✔ |
+| buatkan buku nilai matematika semester 2 | cek_kesiapan → buat_nilai_excel | ✔ |
+| hari ini saya ngajar apa ya? | agenda_hari_ini | ✔ |
+| tadi saya ngajar pecahan senilai jam 1-2, ada 2 anak sakit. tolong dicatat ya | agenda_hari_ini → jurnal (administrasi-harian) → ekspor_word | ✔ |
+| Daffa nilai matematikanya kenapa ya kok jelek | analisis_siswa (TP3 66 dan TP4 68 belum tuntas, kehadiran 100%) | ✔ |
+| tolong cariin buku paket IPAS kelas 4 | riset-materi → baca_buku → unduh_buku | ✔ |
+| jadwal pelajaran kelas saya mau dibikin word | administrasi-harian → data jadwal belum ada, menanyakan 3 hal | ✔ |
+| mulai sekarang semua dokumen pakai huruf Times New Roman ukuran 12 ya | template-guru → atur_gaya | ✔ |
+| ada versi baru gak asistennya? | kelola-asisten → perbarui_paket | ✔ |
+| saya mau bikin kegiatan kokurikuler tema lingkungan buat semester ini | kokurikuler → cek_kesiapan → dokumen Word | ✔ |
+| apa aja yang belum saya siapin? | siapkan-semua → status_perangkat | ✔ |
+| kalender dari sekolah sudah saya taruh di folder masukan | baca_masukan → folder kosong → menuntun dengan tenang (pendamping) | ✔ |
+| berapa minggu efektif semester 1? | hitung_minggu_efektif | ✔ |
+
+Hasil: 15/15 cocok.
+
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
