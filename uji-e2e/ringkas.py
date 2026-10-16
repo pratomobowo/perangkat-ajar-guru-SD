@@ -1,4 +1,4 @@
-"""Ringkas log JSON `opencode run --format json` menjadi transkrip yang mudah dibaca."""
+"""Ringkas log JSON `opencode run --format json` (OpenCode 1 dan 2) menjadi transkrip yang mudah dibaca."""
 import json
 import re
 import sys
@@ -6,10 +6,11 @@ import sys
 
 def ringkas_input(tool, inp):
     if tool == "skill":
-        return inp.get("name", "")
-    if tool in ("read", "write", "edit"):
-        return re.split(r"/(?:PerangkatAjar|AsistenGuru)/", inp.get("filePath", ""))[-1]
-    if tool == "bash":
+        return inp.get("name") or inp.get("id") or json.dumps(inp, ensure_ascii=False)
+    if tool in ("read", "write", "edit", "patch"):
+        path = inp.get("filePath") or inp.get("path") or ""
+        return re.split(r"/(?:PerangkatAjar|AsistenGuru)/", path.replace("\\", "/"))[-1]
+    if tool in ("bash", "shell"):
         return inp.get("command", "")[:160]
     if tool in ("glob", "grep", "list"):
         return json.dumps(inp, ensure_ascii=False)[:160]
@@ -35,7 +36,7 @@ def main(path):
             print(f"  {mark} {tool}: {arg}")
             if tool == "skill":
                 skills.append(arg)
-            if tool in ("write", "edit") and st.get("status") == "completed":
+            if tool in ("write", "edit", "patch") and st.get("status") == "completed":
                 writes.append(arg)
         elif ev["type"] == "error":
             print(f"  !! ERROR: {json.dumps(ev.get('error', ev), ensure_ascii=False)[:300]}")

@@ -65,10 +65,34 @@ export function cariAkar(dir: string): string {
   return resolve(dir)
 }
 
+/** Membaca teks. BOM (Notepad Windows) dibuang dan akhir baris CRLF diseragamkan menjadi LF. */
 export async function bacaTeks(akar: string, rel: string): Promise<string | null> {
   const p = join(akar, rel)
   if (!existsSync(p)) return null
-  return readFile(p, "utf8")
+  return (await readFile(p, "utf8")).replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n")
+}
+
+/**
+ * Jalur relatif terhadap akar dengan garis miring biasa. Menerima jalur gaya Windows (`guru\draf\...`),
+ * awalan `./`, atau jalur absolut di dalam akar.
+ */
+export function relatif(akar: string, p: string): string {
+  let s = p.trim().replace(/\\/g, "/")
+  const a = akar.replace(/\\/g, "/").replace(/\/$/, "")
+  if (s.toLowerCase().startsWith(a.toLowerCase() + "/")) s = s.slice(a.length + 1)
+  return s.replace(/^(\.\/)+/, "")
+}
+
+/** Karakter yang tidak boleh ada di nama berkas/folder Windows diganti, spasi dan titik di ujung nama dibuang. */
+export function jalurAman(rel: string): string {
+  return rel
+    .split("/")
+    .map((bagian) => {
+      let b = bagian.replace(/[<>:"|?*\x00-\x1f]/g, "-").replace(/[ .]+$/, "")
+      if (/^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$/i.test(b)) b = `_${b}`
+      return b
+    })
+    .join("/")
 }
 
 export async function bacaJson<T>(akar: string, rel: string, jikaTidakAda?: string): Promise<T> {
@@ -84,10 +108,10 @@ export async function bacaJson<T>(akar: string, rel: string, jikaTidakAda?: stri
   }
 }
 
-/** Menulis berkas hanya di dalam guru/ atau hasil/. */
+/** Menulis berkas hanya di dalam guru/ atau hasil/. Mengembalikan jalur yang benar-benar ditulis. */
 export async function tulis(akar: string, rel: string, isi: string | Uint8Array): Promise<string> {
-  const n = normalize(rel).replace(/\\/g, "/")
-  if (n.includes("..") || !(n.startsWith("guru/") || n.startsWith("hasil/")))
+  const n = jalurAman(normalize(rel).replace(/\\/g, "/"))
+  if (n.split("/").includes("..") || !(n.startsWith("guru/") || n.startsWith("hasil/")))
     throw new Gagal(`Tidak boleh menulis di ${rel}. Hanya folder guru/ dan hasil/ yang boleh diubah.`)
   const p = join(akar, n)
   await mkdir(dirname(p), { recursive: true })
@@ -123,6 +147,8 @@ export async function muatDasar(akar: string) {
   )
   const kebijakan = await bacaJson<Kebijakan>(akar, "sekolah/kebijakan.json")
   if (!kalender.semester?.length) throw new Gagal("guru/kalender.json belum berisi tanggal semester.")
+  // Fase bisa diturunkan dari kelas (A: 1–2, B: 3–4, C: 5–6) bila tidak ditulis di profil.
+  if (!profil.fase && profil.kelas >= 1 && profil.kelas <= 6) profil.fase = "ABC"[Math.ceil(profil.kelas / 2) - 1]
   return { profil, kalender, kebijakan }
 }
 
@@ -138,7 +164,7 @@ export function cariMapel(profil: Profil, nama: string): Mapel {
 
 /** Frontmatter sederhana "kunci: nilai" dari berkas Markdown. */
 export function frontmatter(md: string): Record<string, string> {
-  const m = md.match(/^---\n([\s\S]*?)\n---/)
+  const m = md.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n").match(/^---\n([\s\S]*?)\n---/)
   const out: Record<string, string> = {}
   if (!m) return out
   for (const baris of m[1].split("\n")) {
