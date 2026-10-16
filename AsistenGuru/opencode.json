@@ -35,6 +35,11 @@
       "effect": "deny"
     },
     {
+      "action": "edit",
+      "resource": "guru/ingatan/*",
+      "effect": "deny"
+    },
+    {
       "action": "read",
       "resource": "hasil/4 Administrasi/*",
       "effect": "deny"

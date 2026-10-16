@@ -56,6 +56,39 @@ Guru hanya perlu aplikasi untuk membukanya (Word/Excel, WPS, LibreOffice, atau G
   nomor absen dan nama hanya ada di laporan Excel. Daftar Siswa, daftar hadir, dan buku nilai tetap tidak bisa dibaca
   langsung oleh asisten di kedua pilihan.
 
+## Ingatan asisten
+- Asisten menyimpan ingatan di `guru\ingatan\` (per guru, di laptop guru): `tentang-guru.md`, `catatan-kerja.md`,
+  `pengingat.md` (Markdown, bisa dibuka di Notepad) dan `riwayat.db` (arsip riwayat kerja, SQLite; bila SQLite tidak
+  tersedia otomatis memakai `riwayat.md`). Ingatan inti dimuat otomatis di setiap sesi lewat plugin.
+- Asisten hanya bisa menulis ingatan lewat alat `ingat` (izin edit folder ini ditolak), yang menolak nomor identitas,
+  kata sandi/kunci API, perintah tersembunyi, dan nama siswa bila `privasi.nama_ke_ai` bukan `true`.
+- Menghapus ingatan: hapus barisnya di Notepad, atau hapus folder `guru\ingatan` untuk mulai dari nol.
+
+## Memakai model dari Sumopod (opsional)
+Sumopod (ai.sumopod.com) menyediakan model berbayar dengan antarmuka yang kompatibel OpenAI. Pasang sekali per laptop:
+1. Buat berkas `C:\Users\<nama pengguna>\.config\opencode\opencode.json` (buat foldernya bila belum ada; di macOS/Linux
+   `~/.config/opencode/opencode.json`), isi:
+   ```json
+   {
+     "$schema": "https://opencode.ai/config.json",
+     "provider": {
+       "sumopod": {
+         "npm": "@ai-sdk/openai-compatible",
+         "name": "Sumopod",
+         "options": { "baseURL": "https://ai.sumopod.com/v1", "apiKey": "ISI-KUNCI-API-SEKOLAH" },
+         "models": { "deepseek-v4.1-flash:netra": { "name": "DeepSeek V4.1 Flash (Sumopod)" } }
+       }
+     }
+   }
+   ```
+   Model lain dari daftar Sumopod bisa ditambah di `models` dengan nama persisnya.
+2. Tutup dan buka lagi OpenCode, ketik `/models`, pilih **Sumopod › DeepSeek V4.1 Flash**.
+3. Kunci API jangan ditaruh di folder AsistenGuru atau dibagikan; satu kunci untuk laptop yang dikelola sekolah.
+   Model berbayar Sumopod boleh dipakai dengan `nama_ke_ai: true` bila sekolah sudah memastikan ketentuan datanya.
+
+Diuji di server Linux dengan OpenCode 2.0.30 (model terdaftar sebagai `sumopod/deepseek-v4.1-flash:netra`). Di Windows,
+pastikan model muncul di `/models`; jika tidak, periksa lokasi berkas di atas.
+
 ## Memperbarui paket
 - Guru cukup mengetik `/perbarui` (atau "tolong perbarui asisten") di Asisten Guru. Untuk paket versi 0.2 yang belum punya
   perintah itu, jalankan lagi pemasang (lihat README repositori) atau minta OpenCode memasangnya dari link GitHub.

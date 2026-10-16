@@ -8,6 +8,8 @@ Aturan ini selalu berlaku, apa pun permintaannya.
   menimpa, atau menghapusnya; izinnya memang dikunci.
 
 ## Privasi siswa
+- Ingatan lintas sesi (`guru/ingatan/`) hanya ditulis lewat alat `ingat`, yang menolak nomor identitas dan menolak nama
+  siswa bila `privasi.nama_ke_ai` tidak `true`. Jangan mencoba menulis berkas ingatan dengan cara lain.
 - Jangan meminta, menyimpan, atau menulis nama siswa, NISN, alamat, atau data pribadi lain ke berkas. Di percakapan pakai
   nomor absen atau jumlah — kecuali nama yang dikirim alat `analisis_siswa` (kebijakan sekolah mengizinkan), yang boleh
   disebut di jawaban.

@@ -27,10 +27,16 @@ import acuanJp from "../alat/acuan_jp.ts"
 import liburNasional from "../alat/libur_nasional.ts"
 import periksaPerangkatPpg from "../alat/periksa_perangkat_ppg.ts"
 import berkasPpg from "../alat/berkas_ppg.ts"
+import ingat from "../alat/ingat.ts"
+import cariIngatan from "../alat/cari_ingatan.ts"
+import { blokIngatan, catatRiwayat } from "../lib/ingatan.ts"
 import susunPerencanaan from "../alat/susun_perencanaan.ts"
 import unduhBuku from "../alat/unduh_buku.ts"
 
-const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat, daftarSiswa, analisisSiswa, cekKesiapan, acuanJp, liburNasional, periksaPerangkatPpg, berkasPpg]
+const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat, daftarSiswa, analisisSiswa, cekKesiapan, acuanJp, liburNasional, periksaPerangkatPpg, berkasPpg, ingat, cariIngatan]
+
+/** Alat yang membuat berkas: hasilnya dicatat otomatis di arsip riwayat (bisa dicari dengan cari_ingatan). */
+const DICATAT = new Set(["ekspor_word", "susun_perencanaan", "buat_absensi_excel", "buat_nilai_excel", "buat_penilaian_kokurikuler_excel", "buat_kalender_pendidikan", "buat_jadwal_kelas", "berkas_ppg", "unduh_buku", "ambil_cp"])
 
 export default {
   id: "asisten-guru",
@@ -43,6 +49,25 @@ export default {
         return r?.data?.results ?? r?.results ?? []
       },
     }
+    // Ingatan lintas sesi: blok ingatan ditempel ke system prompt. Satu salinan per sesi (dibekukan saat panggilan
+    // pertama, seperti Hermes Agent) supaya awalan prompt tetap sama dan cache model terpakai; catatan baru berlaku
+    // di sesi berikutnya.
+    if (typeof ctx.session?.hook === "function") {
+      const salinan = new Map<string, string>()
+      await ctx.session.hook("context", async (event: any) => {
+        try {
+          let blok = salinan.get(event.sessionID)
+          if (blok === undefined) {
+            blok = await blokIngatan(akar)
+            if (salinan.size > 50) salinan.clear()
+            salinan.set(event.sessionID, blok)
+          }
+          event.system.push({ type: "text", text: blok })
+        } catch {
+          // Ingatan bersifat pelengkap: kegagalan membaca tidak boleh menghentikan percakapan.
+        }
+      })
+    }
     await ctx.tool.transform((editor: any) => {
       for (const a of ALAT) {
         editor.add({
@@ -53,7 +78,9 @@ export default {
           options: { codemode: false },
           execute: async (input: unknown) => {
             try {
-              return { content: await a.jalankan((input ?? {}) as any, akar, konteks) }
+              const hasil = await a.jalankan((input ?? {}) as any, akar, konteks)
+              if (DICATAT.has(a.nama)) await catatRiwayat(akar, "alat", `${a.nama}: ${hasil.split("\n")[0]}`)
+              return { content: hasil }
             } catch (e) {
               if (e instanceof Gagal) return { content: `GAGAL: ${e.message}` }
               throw e

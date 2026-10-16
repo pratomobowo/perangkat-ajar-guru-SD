@@ -19,7 +19,7 @@ Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 - `/jurnal tadi mengajar ...` — catat jurnal harian
 - `/absen oktober` — Excel daftar hadir
 - `/nilai matematika 1` — Excel buku nilai semester 1
-- `/ingat` — aturan yang saya ingat untuk Anda
+- `/ingat` — apa yang saya ingat tentang Anda, pekerjaan berjalan, pengingat, dan aturan (bisa diubah/dihapus)
 - `/word nama-berkas` — ubah dokumen ke Word
 - `/buku` — cari dan unduh buku teks resmi (Buku Siswa dan Panduan Guru) untuk kelas Anda
 - `/format` — lihat atau ubah format Word Anda (huruf, margin, kop, template sendiri)

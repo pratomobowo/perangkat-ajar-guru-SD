@@ -348,7 +348,33 @@ Uji rute r16 ("saya lagi PPG, video ujian kinerjanya harus gimana sih?", sesi ba
 
 Hasil: 3/3 Word terbuka di LibreOffice. Satu giliran macet tanpa keluaran (pola model gratis), diulang dan berhasil.
 
+## Ingatan lintas sesi (v0.16.0)
+
+Riset: Hermes Agent (Nous Research) memakai dua berkas kecil yang selalu dimuat ke system prompt (MEMORY.md 2.200 dan
+USER.md 1.375 karakter, ditulis agen lewat alat `memory`, dibekukan per sesi demi cache prompt) plus arsip sesi SQLite
+FTS5 yang dicari bila perlu. OpenCode 2.0.30 menyediakan hal yang dibutuhkan: hook plugin `session.hook("context")`
+(menambah system prompt sebelum panggilan model; tipe terkonfirmasi di `@opencode/plugin` 2.0.30) dan `bun:sqlite` +
+FTS5 di dalam runtime plugin (terbukti: `bun:sqlite OK, fts5 OK, bun 1.4.2`).
+
+Uji unit `uji-ingatan.ts` (41 cek): tambah/duplikat/ganti/hapus, batas penuh → arahan merangkum, karakter tersembunyi,
+pola injeksi, kunci API, NISN, nama siswa sesuai `privasi.nama_ke_ai`, pengingat (tanggal wajib, lewat ditolak, BESOK /
+N hari lagi / TERLEWAT), aturan aktif `preferensi.md`, arsip SQLite (kata, awalan, rentang tanggal, kata bersimbol),
+cadangan Markdown tanpa SQLite, hook plugin (salinan per sesi), pencatatan otomatis `ekspor_word`, panggilan paralel.
+
+E2E OpenCode dengan model **Sumopod `deepseek-v4.1-flash:netra`** (provider OpenAI-compatible di config global HOME uji):
+
+| Sesi | Pesan guru | Hasil |
+|---|---|---|
+| A | "panggil saya Bu Rin… kelas ribut habis istirahat, tepuk pecahan… ingatkan 20 Oktober kumpul nilai STS" | `ingat` ×3 paralel tanpa diminta. **Temuan:** dua tulisan ke berkas yang sama bertabrakan ("Bu Rin" hilang, byte NUL) → antrean + tulis atomik + uji paralel; uji ulang: 3 catatan utuh. **Temuan kecil:** model menghitung sendiri "mulai 13 Oktober" (sudah lewat) → tanggal mulai dihitung alat |
+| A | "buatin daftar hadir November… kisi-kisi STS minggu depan" | `cek_kesiapan`, `ingat` (catatan kerja STS), lalu `buat_absensi_excel` → `riwayat.db` tercatat otomatis |
+| B (baru) | "Assalamualaikum bu" | Tanpa alat apa pun: "Wa'alaikumussalam, **Bu Rin**… Pengingat: **Selasa, 20 Oktober 2026 (4 hari lagi)**… sedang menyiapkan STS Matematika". **Temuan kecil:** "selamat pagi" di malam hari → jam mulai sesi ditambahkan ke blok |
+| C (baru) | "kemarin-kemarin kita udah bikin dokumen apa aja?" | `cari_ingatan` → Daftar Hadir November + STS berjalan + pengingat |
+
+Purwarupa sebelumnya juga membuktikan blok ingatan dipakai tanpa model membaca berkasnya (hanya `profil.json` yang
+dibaca). Melanjutkan sesi lama (`--session`) setelah service dimulai ulang sempat macet tanpa keluaran (dua kali); sesi
+baru berjalan normal.
+
 ## Cara mengulang
-1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
+1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts && bun uji-ingatan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
    jalankan `jalankan.sh` per langkah. Pesan guru ada di `log-v02-final/*.pesan.txt`.

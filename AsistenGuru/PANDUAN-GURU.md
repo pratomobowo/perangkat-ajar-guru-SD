@@ -22,7 +22,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | "Budi kurangnya di mana?" | Analisis satu anak dari buku nilai dan daftar hadir yang sudah Ibu/Bapak isi: TP yang kuat, TP yang perlu dibantu, kehadiran, dan saran. "Siapa yang perlu remedial TP3?" untuk satu kelas (laporan lengkap ada di Excel) |
 | `/nilai matematika 1` | Membuat Excel buku nilai semester 1 |
 | `/ppg` | Sedang ikut PPG Guru Tertentu? Checklist UKPPPG sesuai juknis 2026 (nama berkas resmi sudah terisi), pendampingan perangkat dan skenario video Ujian Kinerja 2 JP dari ide dan kelas Ibu/Bapak sendiri, latihan soal PCK, SJT, dan uraian reflektif. Hasil di folder `hasil\7 PPG` |
-| `/ingat` | Melihat aturan yang diingat asisten |
+| `/ingat` | Melihat apa yang diingat asisten tentang Anda, pekerjaan yang sedang berjalan, pengingat, dan aturan Anda — bisa diubah atau dihapus |
 | `/format` | Mengatur format Word Anda (huruf, margin, kop, atau pakai Word Anda sendiri sebagai contoh) |
 | `/perbarui` | Mengecek versi dan memperbarui Asisten Guru (data Anda tetap aman) |
 | `/bantuan` | Menampilkan menu ini |
@@ -42,5 +42,9 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 - Ingin format Word sesuai selera? Katakan saja, misalnya "hurufnya Times New Roman 12", "LKPD tanpa kop", atau edit Word
   hasil asisten di Word lalu katakan "pakai yang ini sebagai contoh LKPD". Format itu dipakai untuk dokumen berikutnya.
 - Ingin asisten selalu melakukan sesuatu? Katakan "mulai sekarang selalu ...", maka asisten akan mengingatnya.
+- **Asisten ingat Anda di sesi berikutnya**: panggilan, kebiasaan kelas, pekerjaan yang belum selesai, dan dokumen
+  yang sudah dibuat. Katakan "ingatkan saya tanggal 20 kumpul nilai" — pengingat muncul saat asisten dibuka (tidak ada
+  notifikasi saat OpenCode tertutup). Tanya "minggu lalu kita bikin apa?" untuk melihat riwayat. Semua ingatan ada di
+  folder `guru\ingatan` dan boleh dibuka/dihapus dengan Notepad.
 - Jika asisten diam terlalu lama, tekan Esc lalu kirim ulang pesan Anda.
 - Cadangkan folder **AsistenGuru** sesekali (salin ke flashdisk atau Google Drive), terutama folder `guru` dan `hasil`.

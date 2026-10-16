@@ -1,6 +1,6 @@
 ---
 name: umpan-balik-guru
-description: Mencatat dan menerapkan arahan guru yang bersifat tetap tentang cara asisten bekerja (format, gaya bahasa, bagian wajib, istilah, urutan) supaya diingat di sesi berikutnya. Gunakan saat guru berkata "mulai sekarang", "selalu", "jangan lagi", "lain kali", "tolong ingat", "saya lebih suka", "lupakan aturan itu", "hapus aturan tadi", "apa yang kamu ingat", atau "usulkan ke sekolah".
+description: Mencatat dan menerapkan arahan guru yang bersifat tetap tentang cara asisten bekerja (format, gaya bahasa, bagian wajib, istilah, urutan) supaya diingat di sesi berikutnya. Gunakan saat guru memberi arahan tentang cara membuat dokumen: "mulai sekarang", "selalu", "jangan lagi", "lain kali", "saya lebih suka", "lupakan aturan itu", "hapus aturan tadi", "aturan apa saja yang kamu pakai", atau "usulkan ke sekolah". Hal tentang guru, pekerjaan berjalan, dan pengingat disimpan dengan alat `ingat`, bukan di sini.
 ---
 
 # Umpan Balik Guru
@@ -26,7 +26,8 @@ ditangani skill `template-guru`, bukan disimpan di `guru/preferensi.md`.
 
 ## Membatalkan dan melihat aturan
 - "Lupakan aturan tadi" / "batalkan aturan 3" → ubah statusnya menjadi `dibatalkan`. Jangan menghapus barisnya.
-- "Apa yang kamu ingat?" → tampilkan aturan berstatus `aktif` dalam daftar pendek.
+- "Aturan apa saja yang kamu pakai?" → tampilkan aturan berstatus `aktif` dalam daftar pendek. Aturan aktif juga
+  dimuat otomatis di setiap sesi (blok INGATAN ASISTEN). Untuk "apa yang kamu ingat?" secara umum, lihat perintah /ingat.
 
 ## Usulkan ke sekolah
 Jika guru menilai aturannya layak untuk semua guru, buat `guru/usulan-ke-sekolah/<tanggal>-<judul>.md` berisi aturan,
