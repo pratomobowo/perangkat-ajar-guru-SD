@@ -60,6 +60,35 @@ const HURUF = "ABCDEF"
 const pecahanTeks = /^\s*(\d{1,2})\s*\/\s*(\d{1,2})\s*$/
 const jamTeks = /^\s*(\d{1,2})[.:](\d{2})\s*$/
 
+/**
+ * Soal "membaca gambar" (jam berapa / pecahan berapa yang ditunjukkan): jawaban harus sama dengan gambarnya. Model AI
+ * gratis kadang menukar huruf jawaban; pemeriksaan ini menangkapnya. Soal turunan (… lagi, sebelum, yang tidak diarsir)
+ * tidak diperiksa.
+ */
+function cocokGambar(no: string, tanya: string, g: Spek | undefined, pilihan: string[], benar: number) {
+  if (!g || /lagi|kemudian|sebelum|sesudah|setelah|lalu|tidak|bukan|belum|sisa|kurang|lebih|selisih|tambah/i.test(tanya)) return
+  let target: (p: string) => boolean
+  let teksGambar: string
+  if (g.jenis === "jam") {
+    const m = (g.menit ?? 0) as number, j = g.jam as number
+    teksGambar = `${String(j).padStart(2, "0")}.${String(m).padStart(2, "0")}`
+    target = (p) => {
+      const x = p.match(jamTeks)
+      return !!x && Number(x[2]) === m && Number(x[1]) % 12 === j % 12
+    }
+  } else if (g.jenis === "pecahan" && g.penyebut) {
+    const a = Array.isArray(g.arsir) ? g.arsir.length : Number(g.pembilang ?? 0), b = Number(g.penyebut)
+    teksGambar = `${a}/${b}`
+    target = (p) => {
+      const x = p.match(pecahanTeks)
+      return !!x && Number(x[1]) === a && Number(x[2]) === b
+    }
+  } else return
+  const ada = pilihan.findIndex(target)
+  if (ada >= 0 && ada !== benar)
+    throw new Gagal(`${no}: gambar menunjukkan ${teksGambar} (pilihan ${HURUF[ada]}), tetapi jawabannya ${HURUF[benar]} (${pilihan[benar]}). Perbaiki jawaban atau gambarnya.`)
+}
+
 /** Memeriksa dan merapikan satu bagian. Hasilnya dipakai untuk tampilan cetak dan disisipkan ke HTML interaktif. */
 function rapikan(b: Spek, i: number): Spek {
   const dasar = { jenis: b.jenis, ...(b.judul ? { judul: teks(b.judul, "Judul bagian", 120) } : {}), ...(b.petunjuk ? { petunjuk: teks(b.petunjuk, "Petunjuk", 400) } : {}) }
@@ -117,6 +146,7 @@ function rapikan(b: Spek, i: number): Spek {
           const j = String(q.jawaban ?? "").trim()
           const benar = /^[A-F]$/i.test(j) && HURUF.indexOf(j.toUpperCase()) < pilihan.length ? HURUF.indexOf(j.toUpperCase()) : pilihan.findIndex((p) => p.toLowerCase() === j.toLowerCase())
           if (benar < 0) throw new Gagal(`${no}: jawaban "${q.jawaban}" tidak cocok dengan pilihan. Tulis hurufnya (A–${HURUF[pilihan.length - 1]}) atau teks pilihan yang persis.`)
+          cocokGambar(no, tanya, q.gambar, pilihan, benar)
           return { tanya, ...(q.gambar ? { gambar: q.gambar } : {}), pilihan, benar, ...(bahas ? { bahas } : {}) }
         }
         const jawaban = (Array.isArray(q.jawaban) ? q.jawaban : [q.jawaban]).map((v: unknown) => teks(v, `${no} (jawaban)`, 80))

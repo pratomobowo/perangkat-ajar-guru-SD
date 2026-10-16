@@ -1,9 +1,11 @@
 # Versi Paket
 
-**Versi:** 0.9.0
+**Versi:** 0.9.1
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.9.1 — Media: soal kuis "membaca gambar" (jam berapa, pecahan berapa yang diarsir) diperiksa otomatis; bila kunci tidak
+  sama dengan gambarnya, `buat_media` menolak dengan pesan jelas dan asisten memperbaikinya sendiri.
 - 0.9.0 — **Media ajar interaktif** (`/media`, alat `buat_media`): satu berkas HTML yang berjalan tanpa internet di smart
   TV/papan sentuh, laptop + proyektor, atau HP. Bagian yang tersedia: kuis (pilihan ganda/isian, skor, pembahasan),
   kartu kilat yang bisa dibalik, pasangkan dan kartu memori, urutkan, roda putar nomor absen, bingo dengan pemanggil,

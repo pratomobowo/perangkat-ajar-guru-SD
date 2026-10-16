@@ -97,6 +97,11 @@ const r = rapikanSpek({ judul: "Uji", bagian: [
 ] })
 const kuis = r.bagian[0].soal
 cek("kuis: jawaban huruf kecil 'b' → pilihan ke-2; teks pilihan → indeksnya; isian → daftar jawaban", kuis[0].benar === 1 && kuis[1].benar === 1 && JSON.stringify(kuis[2].jawaban) === '["2"]')
+cek("kuis gambar: soal turunan dan jam sore (19.30 = 07.30 di jam analog) tidak ditolak", !galat(() => rapikanSpek({ judul: "J", bagian: [{ jenis: "kuis", soal: [
+  { tanya: "30 menit lagi pukul berapa?", gambar: { jenis: "jam", jam: 7, menit: 0 }, pilihan: ["07.00", "07.30"], jawaban: "B" },
+  { tanya: "Bagian yang tidak diarsir?", gambar: { jenis: "pecahan", pembilang: 1, penyebut: 4 }, pilihan: ["1/4", "3/4"], jawaban: "B" },
+  { tanya: "Jam berapa ini?", gambar: { jenis: "jam", jam: 7, menit: 30 }, pilihan: ["19.30", "08.30"], jawaban: "A" },
+] }] })))
 cek("peraga jam: tantangan 7:30 dirapikan menjadi 07.30", JSON.stringify(r.bagian[2].tantangan) === '["07.30","13.05"]')
 const ditolak: [string, any, string][] = [
   ["kuis: jawaban tidak cocok pilihan", { jenis: "kuis", soal: [{ tanya: "x", pilihan: ["1", "2"], jawaban: "C" }] }, "Tulis hurufnya (A–B)"],
@@ -110,6 +115,8 @@ const ditolak: [string, any, string][] = [
   ["ular & tangga di petak sama", { jenis: "ular_tangga", tangga: [[5, 20]], ular: [[5, 1]] }, "lebih dari satu"],
   ["bingo jawaban kembar", { jenis: "bingo", ukuran: 3, isi: [{ soal: "2×3", jawaban: "6" }, { soal: "3×2", jawaban: "6" }, "a", "b", "c", "d", "e", "f"] }, "kembar: 6"],
   ["bagian tak dikenal", { jenis: "puzzle" }, "Pilih: kuis"],
+  ["kuis jam: gambar 09.15 tetapi jawaban 09.45", { jenis: "kuis", soal: [{ tanya: "Jam berapa ini?", gambar: { jenis: "jam", jam: 9, menit: 15 }, pilihan: ["09.00", "09.15", "09.45"], jawaban: "C" }] }, "gambar menunjukkan 09.15 (pilihan B)"],
+  ["kuis pecahan: gambar 3/4 tetapi jawaban 1/4", { jenis: "kuis", soal: [{ tanya: "Bagian yang diarsir menunjukkan pecahan…", gambar: { jenis: "pecahan", pembilang: 3, penyebut: 4 }, pilihan: ["1/4", "3/4"], jawaban: "A" }] }, "gambar menunjukkan 3/4"],
 ]
 for (const [n, b, pesan] of ditolak) { const g = galat(() => rapikanSpek({ judul: "J", bagian: [b] })); cek(`ditolak: ${n}`, g.includes(pesan), g) }
 
