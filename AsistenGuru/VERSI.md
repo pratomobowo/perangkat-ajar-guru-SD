@@ -1,9 +1,16 @@
 # Versi Paket
 
-**Versi:** 0.11.0
+**Versi:** 0.12.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.12.0 — **Analisis siswa** (`analisis_siswa`): guru cukup bertanya "Budi kurangnya di mana?" atau "siapa yang perlu
+  remedial TP3?". Alat membaca buku nilai, daftar hadir, dan penilaian kokurikuler yang sudah diisi guru di komputer guru,
+  lalu memberi asisten data anak itu berlabel nomor absen: nilai tiap TP dibanding batas tuntas dan rata-rata kelas,
+  STS/SAS/nilai rapor, TP terkuat/terlemah, kehadiran per bulan, kokurikuler. Analisis kelas memakai nomor absen dan
+  menyimpan laporan Excel lengkap dengan nama di folder administrasi (terkunci dari asisten). Nama dicocokkan lokal
+  (nama sebagian, nama ganda ditanyakan). Sekolah dengan persetujuan orang tua dan model AI yang tidak menyimpan data
+  dapat mengaktifkan `privasi.nama_ke_ai` di kebijakan sekolah.
 - 0.11.0 — **Format standar BSKAP** (Panduan Pembelajaran dan Asesmen Edisi Revisi 2025) sebagai bawaan bila sekolah tidak
   punya template: (1) RPM/RPP/Modul Ajar mengikuti contoh perencanaan SD Lampiran 7 — Identifikasi Murid, Dimensi Profil
   Lulusan (8 kotak centang), Tujuan Pembelajaran, Praktik Pedagogik, Mitra Pembelajaran, Lingkungan Pembelajaran,

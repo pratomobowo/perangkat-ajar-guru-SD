@@ -40,6 +40,8 @@ export type Kebijakan = {
   gaya_dokumen?: Record<string, unknown> | null
   gaya_dikunci?: string[] | null
   template_wajib?: boolean | null
+  /** Privasi siswa. nama_ke_ai = true hanya bila sekolah punya persetujuan orang tua dan memakai model yang tidak menyimpan data. */
+  privasi?: { nama_ke_ai?: boolean } | null
 }
 export type TP = {
   kode: string

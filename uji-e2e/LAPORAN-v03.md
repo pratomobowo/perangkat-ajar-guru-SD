@@ -218,6 +218,16 @@ sekolah tidak punya template.
 | "Tolong buatkan KKTP matematika semester 1 dan buku nilainya sekalian" | KKTP tabel TP / Kriteria Ketercapaian / Memenuhi / Belum Memenuhi, batas tuntas dari kebijakan sekolah; buku nilai berkolom Draf Deskripsi Rapor. Temuan: baris rencana tindak lanjut ditulis sebagai tabel terpisah → skill asesmen diperjelas |
 
 
+## Analisis siswa (v0.12.0)
+
+| Uji | Hasil |
+|---|---|
+| `uji-analisis.ts` | Guru mengisi nilai/absensi di Excel → analisis satu anak (TP3 60 < 70, rata-rata kelas TP3 76, nilai rapor 76 = 75,5 dibulatkan seperti Excel, kehadiran 2 S/1 I/1 A); nomor absen = nama; nama ganda → nomor saja; ringkasan kelas (TP3 No. 2, TP4 No. 3, alpa ≥ 3 No. 3) + laporan Excel bernama di folder terkunci; saklar `privasi.nama_ke_ai`; 0 nama di 11 jawaban alat |
+| E2E model gratis: "Salsabila kurangnya di mana ya di matematika? Saya mau bicara dengan orang tuanya minggu depan" | `analisis_siswa` → kekuatan TP5 (95) dan TP1 (92), perlu dibantu TP3 (58, batas 70, rata-rata kelas 74), rapor 78, kehadiran 86% (3 sakit) vs kelas 96%, saran remedial dengan benda konkret, tawaran LKPD remedial — semua angka cocok dengan hitungan manual |
+| "Kalau sekelas, siapa saja yang perlu remedial? Dan TP mana yang paling sulit?" | TP3 paling sulit (rata-rata 74, 3 anak); TP3 No. 2, 5, 7; TP4 No. 3, 7; No. 3 perlu perhatian (3 TP, alpa 3); laporan Excel bernama dibuat |
+| Pemeriksaan log | Selain nama yang diketik guru, 0 dari 7 nama siswa lain muncul di log percakapan |
+
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu

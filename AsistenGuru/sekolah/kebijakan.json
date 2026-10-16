@@ -3,7 +3,10 @@
   "nama_sekolah": null,
   "alamat_sekolah": null,
   "kota": null,
-  "kepala_sekolah": { "nama": null, "nip": null },
+  "kepala_sekolah": {
+    "nama": null,
+    "nip": null
+  },
   "kertas": "A4",
   "_kertas_pilihan": "A4 atau F4",
   "huruf": "Arial",
@@ -13,7 +16,11 @@
   },
   "cadangan_jp_per_semester": null,
   "bobot_nilai_rapor": null,
-  "_contoh_bobot_nilai_rapor": { "formatif": 50, "sts": 25, "sas": 25 },
+  "_contoh_bobot_nilai_rapor": {
+    "formatif": 50,
+    "sts": 25,
+    "sas": 25
+  },
   "batas_ketuntasan": null,
   "_batas_ketuntasan_petunjuk": "Angka 0-100. Nilai di bawahnya diberi warna merah di buku nilai Excel.",
   "gaya_dokumen": {},
@@ -26,5 +33,9 @@
     "_petunjuk": "web: false untuk mematikan riset web. domain_tepercaya: situs yang boleh dipakai sebagai sumber materi (subdomain ikut). null = bawaan: kemendikdasmen.go.id, kemdikbud.go.id, kemenag.go.id, belajar.id, bps.go.id, bmkg.go.id, id.wikipedia.org.",
     "web": true,
     "domain_tepercaya": null
-  }
+  },
+  "privasi": {
+    "nama_ke_ai": false
+  },
+  "_privasi_petunjuk": "nama_ke_ai: biarkan false. Isi true hanya bila sekolah punya persetujuan orang tua (UU 27/2022 Pasal 25) dan guru memakai model AI yang tidak menyimpan atau melatih data. Bila false, analisis siswa memakai nomor absen."
 }

@@ -47,6 +47,12 @@ Guru hanya perlu aplikasi untuk membukanya (Word/Excel, WPS, LibreOffice, atau G
   alat di komputer guru memindahkannya ke `hasil\4 Administrasi` (terkunci dari asisten: baca, ubah, dan grep ditolak)
   dan mengisi nama di semua Excel administrasi. Asisten hanya menerima jumlah siswa. Dokumen Word/PDF yang memuat NISN
   tidak ditampilkan ke asisten.
+- Analisis siswa (`analisis_siswa`) dihitung di komputer guru dari Excel yang sudah diisi. Ke asisten hanya dikirim data
+  anak yang ditanyakan, berlabel nomor absen (tanpa nama, tanpa NISN); analisis kelas memakai nomor absen dan laporan
+  bernama disimpan di `hasil\4 Administrasi`. Sekolah yang sudah punya persetujuan orang tua (UU 27/2022 Pasal 25) dan
+  memakai model AI yang tidak menyimpan/melatih data boleh mengisi `"privasi": { "nama_ke_ai": true }` di
+  `sekolah/kebijakan.json` agar nama ikut dikirim. Model gratis di OpenCode Zen dapat memakai data untuk perbaikan model,
+  jadi biarkan `false` bila guru memakai model gratis.
 
 ## Memperbarui paket
 - Guru cukup mengetik `/perbarui` (atau "tolong perbarui asisten") di Asisten Guru. Untuk paket versi 0.2 yang belum punya

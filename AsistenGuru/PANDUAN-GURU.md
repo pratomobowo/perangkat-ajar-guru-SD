@@ -18,6 +18,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | `/soal sumatif bab pecahan` | Membuat KKTP, kisi-kisi, soal, dan kunci |
 | `/jurnal tadi mengajar TP3, 2 anak sakit` | Mencatat jurnal mengajar |
 | `/absen oktober` | Membuat Excel daftar hadir (nama siswa terisi otomatis) |
+| "Budi kurangnya di mana?" | Analisis satu anak dari buku nilai dan daftar hadir yang sudah Ibu/Bapak isi: TP yang kuat, TP yang perlu dibantu, kehadiran, dan saran. "Siapa yang perlu remedial TP3?" untuk satu kelas (laporan lengkap ada di Excel) |
 | `/nilai matematika 1` | Membuat Excel buku nilai semester 1 |
 | `/ingat` | Melihat aturan yang diingat asisten |
 | `/format` | Mengatur format Word Anda (huruf, margin, kop, atau pakai Word Anda sendiri sebagai contoh) |

@@ -33,6 +33,7 @@ yang paling relevan (pakai `status_perangkat` bila ragu), dengan menyebut apa ya
 | KKTP, soal, ulangan harian, STS, SAS, kisi-kisi, kunci jawaban, rubrik | skill `asesmen` |
 | Jurnal harian, daftar hadir/absensi, buku nilai, deskripsi rapor | skill `administrasi-harian` |
 | Daftar siswa, nama murid, siswa pindahan | alat `daftar_siswa` (skill `administrasi-harian`); nama tidak pernah lewat chat |
+| Analisis seorang siswa atau kelas, perkembangan anak, siapa perlu remedial | alat `analisis_siswa` (skill `administrasi-harian`, bagian Analisis siswa) |
 | Kokurikuler, P5, projek, 7 kebiasaan anak Indonesia hebat, dimensi profil lulusan, deskripsi kokurikuler | skill `kokurikuler` |
 | KSP/KOSP, kurikulum sekolah, struktur kurikulum (untuk kepala sekolah/waka) | skill `kurikulum-satuan-pendidikan` |
 | CP belum ada / ambil CP resmi | alat `ambil_cp` |

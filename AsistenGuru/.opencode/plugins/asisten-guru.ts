@@ -21,10 +21,11 @@ import risetMateri from "../alat/riset_materi.ts"
 import simpanTemplateWord from "../alat/simpan_template_word.ts"
 import statusPerangkat from "../alat/status_perangkat.ts"
 import daftarSiswa from "../alat/daftar_siswa.ts"
+import analisisSiswa from "../alat/analisis_siswa.ts"
 import susunPerencanaan from "../alat/susun_perencanaan.ts"
 import unduhBuku from "../alat/unduh_buku.ts"
 
-const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat, daftarSiswa]
+const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat, daftarSiswa, analisisSiswa]
 
 export default {
   id: "asisten-guru",
