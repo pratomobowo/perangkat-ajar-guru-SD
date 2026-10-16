@@ -15,6 +15,7 @@ Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 - `/modul pecahan senilai` — modul ajar/RPM dan LKPD
 - `/soal sumatif bab pecahan` — KKTP, kisi-kisi, soal, kunci
 - `/kokurikuler` — kegiatan kokurikuler (pengganti P5): perencanaan, jurnal, penilaian, deskripsi rapor
+- `/ppg` — sedang PPG? Checklist UKPPPG, perangkat dan video Ujian Kinerja, latihan PCK/SJT/uraian reflektif
 - `/jurnal tadi mengajar ...` — catat jurnal harian
 - `/absen oktober` — Excel daftar hadir
 - `/nilai matematika 1` — Excel buku nilai semester 1

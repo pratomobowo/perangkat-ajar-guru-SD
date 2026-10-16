@@ -1,9 +1,17 @@
 # Versi Paket
 
-**Versi:** 0.14.0
+**Versi:** 0.15.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.15.0 — **Pendamping PPG** untuk guru yang mengikuti PPG bagi Guru Tertentu, sesuai Petunjuk Teknis UKPPPG 2026: skill
+  `pendamping-ppg` (perintah `/ppg`) menuntun perangkat Ujian Kinerja 2 JP dari ide dan kelas guru sendiri (aturan
+  integritas juknis: perangkat hasil pengembangan sendiri, video direkam khusus, ujian tertulis dikerjakan mandiri),
+  skenario video (rundown per menit, rencana video edit ±30 menit yang memperlihatkan ketujuh aspek), dan latihan PCK,
+  SJT berbobot 1–5, serta uraian reflektif dengan umpan balik per empat komponen. Alat `berkas_ppg` membuat Word
+  checklist UKPPPG (ketentuan perangkat, video, unggah, perangkat dan ruang ujian tertulis) dengan nama berkas resmi
+  terisi nama dan NIM guru; alat `periksa_perangkat_ppg` memeriksa draf perangkat terhadap tujuh aspek ruang lingkup
+  penilaian Ujian Kinerja, durasi 2 JP, dan instrumen asesmen. Folder hasil baru: `7 PPG`.
 - 0.14.0 — Untuk guru yang baru pertama kali mengajar: alat `acuan_jp` (JP per minggu tiap mapel dari struktur kurikulum
   resmi Permendikdasmen 13/2025) dipakai bila guru belum tahu JP — sebelumnya model menebak; alat `libur_nasional` (libur
   nasional dan cuti bersama resmi SKB 3 Menteri 2026 dan 2027) dipakai untuk kalender perkiraan bila sekolah belum memberi

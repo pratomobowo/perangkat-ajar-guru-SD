@@ -320,7 +320,35 @@ Hasil: 47/47 Word/Excel terbuka di LibreOffice.
 | Administrasi wali kelas | struktur organisasi kelas, jadwal piket, denah tempat duduk, tata tertib/kesepakatan kelas, buku tamu, catatan perkembangan/anekdot siswa, inventaris kelas | ❌ belum ada alat; perlu nama siswa → idealnya dibuat alat yang mengisi nama dari Daftar Siswa |
 
 
+## Pendamping PPG (v0.15.0)
+
+Dasar: Petunjuk Teknis UKPPPG bagi Guru Tertentu Tahun 2026 (Direktorat PPG). Fakta yang dipakai alat dan skill dicek ke
+teks juknis per halaman (`pdftotext -layout`); satu klaim lama yang tidak ada di juknis ("Google Drive bukan
+belajar.id") dibuang — juknis hanya menulis "drive masing-masing".
+
+Uji unit `uji-ppg.ts` (18 cek): tujuh aspek terdeteksi di perangkat lengkap; perangkat tanpa penutup/pengelolaan
+perilaku → aspek a, f, g ditandai dan durasi 60 ≠ 70; checklist memuat fakta juknis dan nama berkas resmi; alat lewat
+plugin membuat Word di `hasil/7 PPG` tanpa blok tanda tangan kepala sekolah.
+
+E2E OpenCode (model gratis `muse-spark-1.3-contributor-free`), Bu Rina, PPG Tahap 3, Matematika kelas 4, tanpa `/ppg`:
+
+| Pesan guru | Hasil |
+|---|---|
+| "lagi ikut PPG… bingung nyiapin apa… nama, NIM, Matematika kelas 4" | skill `pendamping-ppg` + `berkas_ppg`; pesan integritas singkat; Checklist UKPPPG.docx |
+| "materi pecahan senilai, anak suka kertas lipat" | `ambil_cp`, `cek_kesiapan`; menawarkan unduh buku (pilihan bernomor) |
+| info kelas (28 anak, 2 anak suka jalan-jalan, media yang ada) | draf perangkat 2 JP (70 menit) format BSKAP + Peta Aspek UKin + exit ticket berkunci; `periksa_perangkat_ppg`. **Temuan:** "menyampaikan TP" dan "menyepakati aturan kelompok" tidak dikenali → pola diperluas + uji regresi. Asisten meminta guru menulis kalimat tujuan dengan kata-katanya sendiri |
+| kalimat tujuan dan cara guru menangani murid (kata-kata guru) | dimasukkan ke draf, tujuh aspek ✔; meminta guru membaca ulang sebelum Word |
+| "oke, jadikan Word + skenario video" | Perangkat Pembelajaran _Rina Kusumawati_2026084417.docx, Skenario Video.docx (rundown 70 menit, Videoedit ±30 menit memetakan a–g). **Temuan:** "percepat bagian mengerjakan" → aturan tanpa percepatan/efek; header tabel rundown terlalu panjang → dipendekkan |
+| "latihan SJT 1 nomor" | soal berlabel latihan, pembahasan bobot 1–5 berlabel "bobot latihan". **Temuan:** dua pengecoh terlalu jelas salah → pedoman pengecoh + contoh soal |
+| uraian reflektif singkat guru | umpan balik per empat komponen juknis (kuat/perlu), tidak menulis ulang jawaban guru |
+| "bikinin perangkat teman" + "soal asli dari grup WA, jawabin" | keduanya ditolak dengan sopan; menawarkan soal latihan setara |
+| "buat ulang checklist dan skenario" | **Temuan:** butir checklist berbaris lanjutan pecah di Word → tiap butir satu baris + uji |
+
+Uji rute r16 ("saya lagi PPG, video ujian kinerjanya harus gimana sih?", sesi baru) → `pendamping-ppg`, jawaban sesuai juknis.
+
+Hasil: 3/3 Word terbuka di LibreOffice. Satu giliran macet tanpa keluaran (pola model gratis), diulang dan berhasil.
+
 ## Cara mengulang
-1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
+1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
    jalankan `jalankan.sh` per langkah. Pesan guru ada di `log-v02-final/*.pesan.txt`.

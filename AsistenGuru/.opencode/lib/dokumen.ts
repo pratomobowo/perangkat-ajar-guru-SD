@@ -16,6 +16,7 @@ export const FOLDER = {
   administrasi: "4 Administrasi",
   kokurikuler: "5 Kokurikuler",
   sekolah: "6 Dokumen Sekolah",
+  ppg: "7 PPG",
 } as const
 
 export function tanggalPanjang(d = new Date()): string {

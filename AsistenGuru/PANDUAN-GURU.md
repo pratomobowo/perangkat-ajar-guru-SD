@@ -21,6 +21,7 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | `/absen oktober` | Membuat Excel daftar hadir (nama siswa terisi otomatis) |
 | "Budi kurangnya di mana?" | Analisis satu anak dari buku nilai dan daftar hadir yang sudah Ibu/Bapak isi: TP yang kuat, TP yang perlu dibantu, kehadiran, dan saran. "Siapa yang perlu remedial TP3?" untuk satu kelas (laporan lengkap ada di Excel) |
 | `/nilai matematika 1` | Membuat Excel buku nilai semester 1 |
+| `/ppg` | Sedang ikut PPG Guru Tertentu? Checklist UKPPPG sesuai juknis 2026 (nama berkas resmi sudah terisi), pendampingan perangkat dan skenario video Ujian Kinerja 2 JP dari ide dan kelas Ibu/Bapak sendiri, latihan soal PCK, SJT, dan uraian reflektif. Hasil di folder `hasil\7 PPG` |
 | `/ingat` | Melihat aturan yang diingat asisten |
 | `/format` | Mengatur format Word Anda (huruf, margin, kop, atau pakai Word Anda sendiri sebagai contoh) |
 | `/perbarui` | Mengecek versi dan memperbarui Asisten Guru (data Anda tetap aman) |

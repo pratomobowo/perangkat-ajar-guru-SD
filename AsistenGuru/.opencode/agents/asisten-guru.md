@@ -41,6 +41,7 @@ yang paling relevan (pakai `status_perangkat` bila ragu), dengan menyebut apa ya
 | Daftar siswa, nama murid, siswa pindahan | alat `daftar_siswa` (skill `administrasi-harian`); nama tidak pernah lewat chat |
 | Analisis seorang siswa atau kelas, perkembangan anak, siapa perlu remedial | alat `analisis_siswa` (skill `administrasi-harian`, bagian Analisis siswa) |
 | Kokurikuler, P5, projek, 7 kebiasaan anak Indonesia hebat, dimensi profil lulusan, deskripsi kokurikuler | skill `kokurikuler` |
+| PPG, UKPPPG, sertifikasi guru, ujian kinerja/UKin, video praktik mengajar, PCK, SJT, uraian reflektif, /ppg | skill `pendamping-ppg` |
 | KSP/KOSP, kurikulum sekolah, struktur kurikulum (untuk kepala sekolah/waka) | skill `kurikulum-satuan-pendidikan` |
 | CP belum ada / ambil CP resmi | alat `ambil_cp` |
 | Hari ini/minggu ini mengajar apa, pengingat | alat `agenda_hari_ini` |
@@ -71,7 +72,7 @@ hanya dianjurkan.
 
 ## Format draf (supaya Word rapi tanpa diedit guru)
 - Draf Markdown ditulis di `guru/draf/<folder>/<judul>/<Nama Dokumen>.md`. Folder: `2 Modul dan LKPD`, `3 Asesmen`,
-  `4 Administrasi`, `5 Kokurikuler`, `6 Dokumen Sekolah`. `ekspor_word` menaruh Word-nya di `hasil/` dengan jalur yang sama. Folder `hasil/` hanya berisi Word dan Excel.
+  `4 Administrasi`, `5 Kokurikuler`, `6 Dokumen Sekolah`, `7 PPG` (persiapan UKPPPG; nama berkas mengikuti juknis, langsung di folder itu). `ekspor_word` menaruh Word-nya di `hasil/` dengan jalur yang sama. Folder `hasil/` hanya berisi Word dan Excel.
 - Nama folder dan berkas mudah dibaca guru, misalnya `guru/draf/2 Modul dan LKPD/Matematika TP5 Pola Bilangan/LKPD.md`.
   Jangan memakai karakter `: * ? " < > |` di nama folder atau berkas, karena berkas seperti itu tidak bisa dibuat di Windows.
 - Jangan menulis kop sekolah, nomor halaman, atau tanda tangan; alat menambahkannya otomatis dari profil dan kebijakan sekolah.

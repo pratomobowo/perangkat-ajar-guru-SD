@@ -25,10 +25,12 @@ import analisisSiswa from "../alat/analisis_siswa.ts"
 import cekKesiapan from "../alat/cek_kesiapan.ts"
 import acuanJp from "../alat/acuan_jp.ts"
 import liburNasional from "../alat/libur_nasional.ts"
+import periksaPerangkatPpg from "../alat/periksa_perangkat_ppg.ts"
+import berkasPpg from "../alat/berkas_ppg.ts"
 import susunPerencanaan from "../alat/susun_perencanaan.ts"
 import unduhBuku from "../alat/unduh_buku.ts"
 
-const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat, daftarSiswa, analisisSiswa, cekKesiapan, acuanJp, liburNasional]
+const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat, daftarSiswa, analisisSiswa, cekKesiapan, acuanJp, liburNasional, periksaPerangkatPpg, berkasPpg]
 
 export default {
   id: "asisten-guru",
