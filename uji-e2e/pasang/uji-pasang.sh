@@ -19,8 +19,8 @@ cek() { if eval "$2"; then echo "  ✔ $1"; else echo "  ✖ $1"; GAGAL=$((GAGAL
 pasang() { # <pemasang> <zip> <tujuan>
   case $1 in
     ts) bun "$DIR/pasang-ts.ts" "$2" "$3" > /dev/null ;;
-    sh) ASISTEN_GURU_ZIP=$2 ASISTEN_GURU_DIR=$3 bash "$REPO/pasang.sh" > "$KERJA/log" 2>&1 ;;
-    ps1) ASISTEN_GURU_ZIP=$2 ASISTEN_GURU_DIR=$3 "$PWSH" -NoProfile -File "$REPO/pasang.ps1" > "$KERJA/log" 2>&1 ;;
+    sh) HOME=$KERJA/rumah-sh XDG_CONFIG_HOME= ASISTEN_GURU_ZIP=$2 ASISTEN_GURU_DIR=$3 bash "$REPO/pasang.sh" > "$KERJA/log" 2>&1 ;;
+    ps1) HOME=$KERJA/rumah-ps1 APPDATA= ASISTEN_GURU_ZIP=$2 ASISTEN_GURU_DIR=$3 "$PWSH" -NoProfile -File "$REPO/pasang.ps1" > "$KERJA/log" 2>&1 ;;
   esac
 }
 
@@ -60,5 +60,33 @@ for P in ts sh ps1; do
   cek "pasang ulang: cadangan paling banyak 3" "[[ \$(ls -1 '$U/.cadangan' | wc -l) -le 3 ]]"
   cek "pasang ulang: tidak ada berkas berlebih di .opencode" "diff <(cd '$T/.opencode' && find . -type f | sort) <(cd '$U/.opencode' && find . -type f ! -path './node_modules/*' ! -name package.json | sort) > /dev/null"
 done
+
+# ---------- Pilihan lokasi pemasangan ----------
+lokasi() { # <sh|ps1> <rumah> <dir-atau-kosong> [cek]
+  local env=(HOME=$2 XDG_CONFIG_HOME= APPDATA= ASISTEN_GURU_ZIP=$KERJA/baru.zip)
+  [[ -n $3 ]] && env+=(ASISTEN_GURU_DIR=$3)
+  [[ ${4:-} == cek ]] && env+=(ASISTEN_GURU_CEK=1)
+  if [[ $1 == sh ]]; then env "${env[@]}" bash "$REPO/pasang.sh" > "$KERJA/log" 2>&1
+  else env "${env[@]}" "$PWSH" -NoProfile -File "$REPO/pasang.ps1" > "$KERJA/log" 2>&1; fi
+}
+for P in sh ps1; do
+  if [[ $P == ps1 && -z $PWSH ]]; then continue; fi
+  echo "== lokasi ($P)"
+  R=$KERJA/rumah-lokasi-$P; mkdir -p "$R/Documents"
+  lokasi $P "$R" "" cek
+  cek "mode cek: lokasi bawaan disebut, tidak memasang" "grep -q 'ASISTEN_GURU_LOKASI_BAWAAN .*Documents.AsistenGuru' '$KERJA/log' && [[ ! -d '$R/Documents/AsistenGuru' ]]"
+  cek "mode cek: daftar drive" "grep -q '^ASISTEN_GURU_DRIVE ' '$KERJA/log'"
+  D=$KERJA/dataD-$P; mkdir -p "$D"; echo foto > "$D/foto-keluarga.jpg"
+  lokasi $P "$R" "$D"
+  cek "folder berisi berkas lain (seperti D:\\): dipasang di subfolder AsistenGuru, berkas lain utuh" "[[ -f '$D/AsistenGuru/.opencode/paket.json' && -f '$D/foto-keluarga.jpg' && ! -e '$D/.opencode' ]]"
+  lokasi $P "$R" "" cek
+  cek "mode cek: lokasi terpasang diingat" "grep -q 'ASISTEN_GURU_TERPASANG .*dataD-$P.AsistenGuru' '$KERJA/log'"
+  echo '{"nama_panggilan": "Bu D"}' > "$D/AsistenGuru/guru/profil.json"
+  lokasi $P "$R" ""
+  cek "pembaruan tanpa ASISTEN_GURU_DIR memakai lokasi yang diingat (bukan Documents)" "grep -q 'folder=.*dataD-$P.AsistenGuru' '$KERJA/log' && [[ ! -d '$R/Documents/AsistenGuru' ]] && grep -q 'Bu D' '$D/AsistenGuru/guru/profil.json'"
+done
+echo "== lokasi folder sistem (sh)"
+lokasi sh "$KERJA/rumah-sistem" /usr/AsistenGuru
+cek "folder sistem ditolak dengan pesan yang jelas" "grep -q 'folder sistem' '$KERJA/log' && [[ ! -d /usr/AsistenGuru ]]"
 
 echo; if ((GAGAL)); then echo "$GAGAL pemeriksaan GAGAL"; exit 1; else echo "Semua pemeriksaan lulus"; fi

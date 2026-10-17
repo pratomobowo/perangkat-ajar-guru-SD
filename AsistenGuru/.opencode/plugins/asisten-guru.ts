@@ -2,6 +2,9 @@
 // Sengaja tanpa import "@opencode/plugin" (Plugin.define hanya mengembalikan objeknya), supaya tidak ada paket
 // yang perlu diunduh di komputer guru. Logika alat ada di ../alat/, pustaka bersama di ../lib/.
 
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
+import { homedir } from "node:os"
+import { dirname, join } from "node:path"
 import type { Alat, Konteks } from "../lib/alat.ts"
 import { Gagal, cariAkar } from "../lib/berkas.ts"
 import agendaHariIni from "../alat/agenda_hari_ini.ts"
@@ -44,10 +47,30 @@ const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksp
 /** Alat yang membuat berkas: hasilnya dicatat otomatis di arsip riwayat (bisa dicari dengan cari_ingatan). */
 const DICATAT = new Set(["ekspor_word", "susun_perencanaan", "buat_absensi_excel", "buat_nilai_excel", "buat_penilaian_kokurikuler_excel", "buat_kalender_pendidikan", "buat_jadwal_kelas", "berkas_ppg", "unduh_buku", "ambil_cp", "buat_administrasi_wali_kelas", "buat_kelompok", "buat_analisis_butir_excel", "isi_rekap_sekolah"])
 
+/**
+ * Mencatat lokasi folder AsistenGuru untuk pemasang (pasang.ps1/pasang.sh), supaya pembaruan lewat pemasang memakai
+ * folder ini walaupun guru memasangnya di drive lain atau memindahkannya. Gagal menulis tidak menghentikan plugin.
+ */
+function catatLokasi(akar: string) {
+  try {
+    if (!existsSync(join(akar, ".opencode", "paket.json"))) return
+    const berkas = process.platform === "win32"
+      ? join(process.env.APPDATA ?? join(homedir(), "AppData", "Roaming"), "AsistenGuru", "lokasi.txt")
+      : join(process.env.XDG_CONFIG_HOME || join(homedir(), ".config"), "asisten-guru", "lokasi")
+    if (existsSync(berkas) && readFileSync(berkas, "utf8").replace(/^\uFEFF/, "").split(/\r?\n/)[0].trim() === akar) return
+    mkdirSync(dirname(berkas), { recursive: true })
+    // Windows PowerShell 5.1 membaca berkas tanpa BOM sebagai ANSI; BOM menjaga jalur berhuruf non-ASCII.
+    writeFileSync(berkas, `${process.platform === "win32" ? "\uFEFF" : ""}${akar}\n`)
+  } catch {
+    // Catatan lokasi hanya pelengkap.
+  }
+}
+
 export default {
   id: "asisten-guru",
   async setup(ctx: any) {
     const akar = cariAkar(ctx.location.directory)
+    catatLokasi(akar)
     const konteks: Konteks = {
       // Pencarian lewat penyedia web search OpenCode; penyaringan domain dilakukan alat riset_materi.
       cariWeb: async (kueri) => {

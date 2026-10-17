@@ -6,7 +6,9 @@
 # Aturan (sama dengan .opencode/lib/paket.ts):
 # - .opencode\ dan berkas paket di akar diganti versi baru; yang lama dicadangkan di .cadangan\.
 # - sekolah\ hanya ditambah berkas yang belum ada. guru\ dan hasil\ tidak pernah disentuh.
-# Opsional: $env:ASISTEN_GURU_DIR (folder tujuan), $env:ASISTEN_GURU_ZIP (berkas/URL zip, untuk uji).
+# Opsional: $env:ASISTEN_GURU_DIR (folder tujuan, misalnya D:\AsistenGuru; bawaan: lokasi pemasangan sebelumnya, atau
+#           Documents\AsistenGuru), $env:ASISTEN_GURU_CEK = '1' (hanya tampilkan pilihan lokasi/drive, tidak memasang),
+#           $env:ASISTEN_GURU_ZIP (berkas/URL zip, untuk uji).
 
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
@@ -18,16 +20,45 @@ $Diabaikan = '^\.opencode/(node_modules/|package\.json$|package-lock\.json$|bun\
 
 function Tulis([string]$Pesan) { Write-Host "[Asisten Guru] $Pesan" }
 
-if ($env:ASISTEN_GURU_DIR) { $Tujuan = $env:ASISTEN_GURU_DIR }
-else {
-    $Dokumen = [Environment]::GetFolderPath('MyDocuments')
-    if (-not $Dokumen) {
-        $Rumah = if ($env:USERPROFILE) { $env:USERPROFILE } else { $HOME }
-        $Dokumen = Join-Path $Rumah 'Documents'
-    }
-    $Tujuan = Join-Path $Dokumen 'AsistenGuru'
+$Rumah = if ($env:USERPROFILE) { $env:USERPROFILE } else { $HOME }
+$Dokumen = [Environment]::GetFolderPath('MyDocuments')
+if (-not $Dokumen) { $Dokumen = Join-Path $Rumah 'Documents' }
+$Bawaan = Join-Path $Dokumen 'AsistenGuru'
+# Lokasi pemasangan diingat supaya pembaruan berikutnya tidak membuat salinan kedua di tempat lain.
+$DirIngat = if ($env:APPDATA) { Join-Path $env:APPDATA 'AsistenGuru' } else { Join-Path $Rumah '.config/asisten-guru' }
+$Ingat = Join-Path $DirIngat 'lokasi.txt'
+$Terpasang = $null
+if (Test-Path -LiteralPath $Ingat) {
+    $L = (Get-Content -LiteralPath $Ingat -TotalCount 1)
+    if ($L -and ((Test-Path -LiteralPath (Join-Path $L '.opencode/paket.json')) -or (Test-Path -LiteralPath (Join-Path $L 'opencode.json')))) { $Terpasang = $L }
 }
+if ($env:ASISTEN_GURU_CEK -eq '1') {
+    Write-Output "ASISTEN_GURU_LOKASI_BAWAAN $Bawaan"
+    if ($Terpasang) { Write-Output "ASISTEN_GURU_TERPASANG $Terpasang" }
+    if ($Dokumen -match 'OneDrive') { Write-Output 'ASISTEN_GURU_DOCUMENTS_ONEDRIVE ya' }
+    foreach ($D in [IO.DriveInfo]::GetDrives()) {
+        if ($D.DriveType -eq 'Fixed' -and $D.IsReady -and $D.TotalSize -gt 1GB) {
+            Write-Output ("ASISTEN_GURU_DRIVE {0} bebas={1}GB" -f $D.Name.TrimEnd('\'), [math]::Floor($D.AvailableFreeSpace / 1GB))
+        }
+    }
+    return
+}
+$Tujuan = if ($env:ASISTEN_GURU_DIR) { $env:ASISTEN_GURU_DIR } elseif ($Terpasang) { $Terpasang } else { $Bawaan }
+if ($Tujuan -match '^[A-Za-z]:$') { $Tujuan += '\' }
 $Tujuan = [IO.Path]::GetFullPath($Tujuan)
+# Akar drive (D:\) atau folder lain yang sudah berisi berkas dan bukan pemasangan Asisten Guru: pasang di subfolder AsistenGuru.
+$AkarDrive = ([IO.Path]::GetPathRoot($Tujuan) -eq $Tujuan)
+$Berisi = (Test-Path -LiteralPath $Tujuan) -and @(Get-ChildItem -LiteralPath $Tujuan -Force -ErrorAction SilentlyContinue).Count -gt 0
+$SudahAG = (Test-Path -LiteralPath (Join-Path $Tujuan 'opencode.json')) -or (Test-Path -LiteralPath (Join-Path $Tujuan '.opencode'))
+if ($AkarDrive -or ($Berisi -and -not $SudahAG -and (Split-Path $Tujuan -Leaf) -ne 'AsistenGuru')) { $Tujuan = Join-Path $Tujuan 'AsistenGuru' }
+$Akar = [IO.Path]::GetPathRoot($Tujuan)
+if ($Akar -and -not (Test-Path -LiteralPath $Akar)) { throw "[Asisten Guru] Drive $Akar tidak ditemukan di komputer ini. Pilih drive lain, misalnya $Bawaan." }
+foreach ($Sistem in @($env:WINDIR, $env:ProgramFiles, ${env:ProgramFiles(x86)}, $env:ProgramData) | Where-Object { $_ }) {
+    if ($Tujuan.StartsWith($Sistem, [StringComparison]::OrdinalIgnoreCase)) { throw "[Asisten Guru] Folder $Tujuan adalah folder sistem Windows. Pilih folder lain, misalnya D:\AsistenGuru atau $Bawaan." }
+}
+try { New-Item -ItemType Directory -Force -Path $Tujuan -ErrorAction Stop | Out-Null }
+catch { throw "[Asisten Guru] Folder $Tujuan tidak bisa dibuat (izin ditolak). Pilih folder lain, misalnya D:\AsistenGuru atau $Bawaan." }
+if ($Tujuan -match 'OneDrive|Google Drive|Dropbox') { Tulis 'PERHATIAN: folder ini ikut tersinkron awan; Word/Excel bisa terkunci saat sinkronisasi. Bila sering bermasalah, pindahkan ke folder lain (misalnya D:\AsistenGuru).' }
 
 $Kerja = Join-Path ([IO.Path]::GetTempPath()) ("asisten-guru-" + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $Kerja | Out-Null
@@ -128,6 +159,7 @@ try {
         if ($V -match 'v?1\.') { Tulis "PERHATIAN: OpenCode $V terdeteksi. Asisten Guru butuh OpenCode 2. Pasang dari https://opencode.ai/download" }
     }
     Tulis 'Langkah berikutnya: buka folder di atas sebagai proyek di OpenCode (Desktop: Open Project; terminal: cd ke folder itu lalu ketik opencode), lalu ketik /mulai.'
+    try { New-Item -ItemType Directory -Force -Path $DirIngat | Out-Null; Set-Content -LiteralPath $Ingat -Value $Tujuan -Encoding UTF8 } catch {}
     Write-Output "ASISTEN_GURU_SELESAI versi=$VersiBaru folder=$Tujuan"
 }
 finally {

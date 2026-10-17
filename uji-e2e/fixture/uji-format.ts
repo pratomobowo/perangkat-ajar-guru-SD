@@ -44,12 +44,17 @@ function formatNilai() {
 }
 
 const akar = mkdtempSync(join(tmpdir(), "asisten-format-"))
+const konfig = mkdtempSync(join(tmpdir(), "asisten-konfig-"))
+const xdgLama = process.env.XDG_CONFIG_HOME
+process.env.XDG_CONFIG_HOME = konfig
 try {
   cpSync(join(SINI, "../../AsistenGuru"), akar, { recursive: true })
   cpSync(join(SINI, "guru"), join(akar, "guru"), { recursive: true })
   cpSync(join(SINI, "sekolah/kebijakan.json"), join(akar, "sekolah/kebijakan.json"))
   const alat: Record<string, any> = {}
   await plugin.setup({ location: { directory: akar }, tool: { transform: async (f: any) => f({ add: (t: any) => (alat[t.name] = t) }) }, websearch: { query: async () => ({}) } })
+  const lok = join(konfig, "asisten-guru/lokasi")
+  cek("plugin mencatat lokasi folder untuk pemasang (pembaruan ke folder yang sama walau dipindah ke drive lain)", existsSync(lok) && readFileSync(lok, "utf8").trim() === akar, existsSync(lok) ? readFileSync(lok, "utf8") : "(tidak ada)")
   const keluaran: string[] = []
   const jalan = async (n: string, a: any = {}) => { const t = (await alat[n].execute(a, {})).content as string; keluaran.push(t); return t }
   const adm = join(akar, "hasil/4 Administrasi")
@@ -122,6 +127,9 @@ try {
   cek("tidak ada nama siswa di hasil alat mana pun (kecuali analisis_siswa yang diizinkan kebijakan)", !keluaran.filter((t) => !t.includes("Siswa No.")).some((t) => NAMA.some((n) => t.includes(n))), keluaran.find((t) => NAMA.some((n) => t.includes(n))) ?? "")
 } finally {
   rmSync(akar, { recursive: true, force: true })
+  rmSync(konfig, { recursive: true, force: true })
+  if (xdgLama === undefined) delete process.env.XDG_CONFIG_HOME
+  else process.env.XDG_CONFIG_HOME = xdgLama
 }
 console.log(gagal ? `\n${gagal} pemeriksaan GAGAL` : "\nSemua pemeriksaan lulus")
 process.exit(gagal ? 1 : 0)

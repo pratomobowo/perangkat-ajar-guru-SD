@@ -4,7 +4,7 @@
 Guru cukup mengobrol seperti biasa, asisten menyiapkan perangkat ajar dan administrasi kelas dalam bentuk
 **Word dan Excel yang siap cetak**.
 
-> Versi **0.19.0** · tahap uji coba · untuk OpenCode 2 (Desktop atau terminal), utamanya laptop Windows.
+> Versi **0.20.0** · tahap uji coba · untuk OpenCode 2 (Desktop atau terminal), utamanya laptop Windows.
 
 ---
 
@@ -36,7 +36,9 @@ Sudah diuji untuk **Matematika, Bahasa Indonesia, IPAS, dan Pendidikan Pancasila
 2. Salin link halaman ini, tempel ke kolom chat OpenCode, lalu ketik:
    **"Tolong pasang Asisten Guru dari link ini."**
    Jika OpenCode meminta izin, pilih **izinkan**.
-3. Setelah selesai, buka folder **Documents › AsistenGuru** di OpenCode (menu **Open Project**).
+   OpenCode akan menanyakan mau dipasang di mana: **Documents** (bawaan), **drive D:**, atau folder lain.
+3. Setelah selesai, buka folder AsistenGuru di lokasi tadi (misalnya **D:\AsistenGuru**) di OpenCode (menu **Open Project**).
+   Folder ini boleh dipindah utuh kapan saja ke tempat lain; buka lagi lewat Open Project dan semuanya tetap jalan.
 
 Selesai. Untuk memperbarui di kemudian hari, ketik saja **"tolong perbarui asisten"**. Data Anda tetap aman.
 
@@ -107,18 +109,33 @@ Office untuk membuat berkas.
 
 Bagian ini untuk asisten AI (misalnya OpenCode) yang diminta memasang atau memperbarui Asisten Guru dari repositori ini.
 
-1. **Jangan meng-clone repositori atau menyalin berkas satu per satu.** Jalankan satu perintah pemasang resmi sesuai sistem
-   operasi pengguna. Pemasang mengunduh rilis bertag terbaru dan memasangnya ke `Documents/AsistenGuru`.
-   - Windows (bisa dari PowerShell, cmd, maupun bash):
-     ```
-     powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/pratomobowo/perangkat-ajar-guru-SD/main/pasang.ps1 | iex"
-     ```
-   - macOS dan Linux:
-     ```
-     curl -fsSL https://raw.githubusercontent.com/pratomobowo/perangkat-ajar-guru-SD/main/pasang.sh | bash
-     ```
-   Sebelum menjalankannya, jelaskan ke pengguna dalam satu kalimat bahwa perintah ini mengunduh dan memasang Asisten Guru
-   ke folder Documents, lalu minta izin.
+1. **Jangan meng-clone repositori atau menyalin berkas satu per satu.** Pakai pemasang resmi. URL pemasang:
+   Windows `https://raw.githubusercontent.com/pratomobowo/perangkat-ajar-guru-SD/main/pasang.ps1`, macOS/Linux
+   `https://raw.githubusercontent.com/pratomobowo/perangkat-ajar-guru-SD/main/pasang.sh`.
+   **a. Tanyakan lokasi dulu.** Jalankan mode cek (tidak memasang apa pun) dengan variabel `ASISTEN_GURU_CEK=1`:
+   - PowerShell: `$env:ASISTEN_GURU_CEK='1'; powershell -NoProfile -ExecutionPolicy Bypass -Command "irm <URL pasang.ps1> | iex"`
+   - cmd: `set "ASISTEN_GURU_CEK=1" && powershell -NoProfile -ExecutionPolicy Bypass -Command "irm <URL pasang.ps1> | iex"`
+   - bash (Git Bash di Windows): `ASISTEN_GURU_CEK=1 powershell -NoProfile -ExecutionPolicy Bypass -Command "irm <URL pasang.ps1> | iex"`
+   - macOS/Linux: `curl -fsSL <URL pasang.sh> | ASISTEN_GURU_CEK=1 bash`
+   Keluarannya: `ASISTEN_GURU_LOKASI_BAWAAN <folder>`, `ASISTEN_GURU_DRIVE <drive> bebas=<n>GB` per drive, dan bila
+   sudah pernah dipasang `ASISTEN_GURU_TERPASANG <folder>`.
+   - Bila ada `ASISTEN_GURU_TERPASANG`: ini pembaruan. Sampaikan "Asisten Guru sudah ada di <folder>, saya perbarui di
+     sana" — jangan menanyakan lokasi lagi.
+   - Bila belum: tanyakan guru dengan pilihan bernomor, misalnya
+     `1. Documents\AsistenGuru (bawaan)  2. D:\AsistenGuru (sisa 120 GB)  3. Folder lain — sebutkan, misalnya E:\Sekolah`.
+     Tampilkan pilihan drive hanya untuk drive yang muncul di keluaran. Bila ada `ASISTEN_GURU_DOCUMENTS_ONEDRIVE ya`,
+     sarankan drive lain (folder OneDrive bisa mengunci Word/Excel saat sinkronisasi).
+   **b. Pasang** ke lokasi yang dipilih dengan variabel `ASISTEN_GURU_DIR`:
+   - PowerShell: `$env:ASISTEN_GURU_CEK=''; $env:ASISTEN_GURU_DIR='D:\AsistenGuru'; powershell -NoProfile -ExecutionPolicy Bypass -Command "irm <URL pasang.ps1> | iex"`
+   - cmd: `set "ASISTEN_GURU_CEK=" && set "ASISTEN_GURU_DIR=D:\AsistenGuru" && powershell -NoProfile -ExecutionPolicy Bypass -Command "irm <URL pasang.ps1> | iex"`
+   - bash (Git Bash di Windows): `ASISTEN_GURU_DIR='D:\AsistenGuru' powershell -NoProfile -ExecutionPolicy Bypass -Command "irm <URL pasang.ps1> | iex"`
+   - macOS/Linux: `curl -fsSL <URL pasang.sh> | ASISTEN_GURU_DIR="$HOME/Sekolah/AsistenGuru" bash`
+   Untuk lokasi bawaan pakai perintah yang sama dengan `ASISTEN_GURU_DIR` dikosongkan. Jangan menaruh `$env:` di dalam
+   tanda kutip ganda perintah `-Command` (akan diganti kosong oleh shell pemanggil).
+   Bila guru menyebut drive saja (`D:`) atau folder yang sudah berisi berkas lain, pemasang membuat subfolder
+   `AsistenGuru` di dalamnya; folder sistem (Windows, Program Files) ditolak dengan pesan yang jelas. Lokasi diingat, jadi
+   pembaruan berikutnya otomatis ke folder yang sama. Sebelum menjalankan, jelaskan satu kalimat bahwa perintah ini
+   mengunduh dan memasang Asisten Guru ke folder itu, lalu minta izin.
 2. **Berhasil** jika keluaran memuat baris `ASISTEN_GURU_SELESAI versi=<versi> folder=<folder>`. Jika gagal, sampaikan
    pesan bertanda `[Asisten Guru]` apa adanya dengan bahasa sederhana. Jangan memperbaiki dengan cara lain, misalnya
    menyalin berkas manual.

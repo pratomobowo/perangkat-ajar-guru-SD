@@ -1,9 +1,15 @@
 # Versi Paket
 
-**Versi:** 0.19.0
+**Versi:** 0.20.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.20.0 — **Pilih lokasi pemasangan** (misalnya drive D:). Saat guru meminta "pasang Asisten Guru", asisten AI menjalankan
+  mode cek pemasang (`ASISTEN_GURU_CEK=1`: lokasi bawaan, daftar drive beserta sisa ruang, lokasi yang sudah terpasang),
+  menanyakan lokasi dengan pilihan bernomor, lalu memasang ke `ASISTEN_GURU_DIR`. Pemasang membuat subfolder AsistenGuru
+  bila yang disebut hanya drive atau folder yang sudah berisi berkas lain, menolak folder sistem, mengingatkan bila folder
+  ikut OneDrive/Google Drive/Dropbox, dan mengingat lokasi sehingga pembaruan berikutnya ke folder yang sama. Plugin
+  mencatat ulang lokasi setiap kali Asisten Guru dibuka, jadi folder boleh dipindah utuh kapan saja.
 - 0.19.0 — **Semua Excel bawaan bisa mengikuti format sekolah atau guru** (aturan inti di AGENTS.md: format sekolah
   wajib > format guru > format sekolah > bawaan; Word sudah mengikutinya sejak 0.6.0). Alat `simpan_template_excel`
   menyimpan format untuk Daftar Hadir, Buku Nilai (boleh khusus mapel), Penilaian Kokurikuler, Analisis Butir Soal,

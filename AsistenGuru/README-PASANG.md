@@ -22,7 +22,8 @@ pembuat Word/Excel memakai sistem plugin OpenCode 2.
 
 ## Di komputer guru (Windows)
 Cara termudah: buka OpenCode, tempel link https://github.com/pratomobowo/perangkat-ajar-guru-SD lalu ketik
-"Tolong pasang Asisten Guru dari link ini". OpenCode menjalankan pemasang resmi dan memasang ke `Documents\AsistenGuru`.
+"Tolong pasang Asisten Guru dari link ini". OpenCode menanyakan lokasi (Documents, drive D:, atau folder lain), lalu
+menjalankan pemasang resmi. Lokasi diingat untuk pembaruan berikutnya; folder boleh dipindah utuh kapan saja.
 Isian sekolah bisa disalin ke `sekolah\` sesudahnya.
 
 Cara manual:

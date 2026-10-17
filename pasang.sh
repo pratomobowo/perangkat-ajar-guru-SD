@@ -6,7 +6,8 @@
 # Aturan (sama dengan .opencode/lib/paket.ts):
 # - .opencode/ dan berkas paket di akar diganti versi baru; yang lama dicadangkan di .cadangan/.
 # - sekolah/ hanya ditambah berkas yang belum ada. guru/ dan hasil/ tidak pernah disentuh.
-# Opsional: ASISTEN_GURU_DIR (folder tujuan), ASISTEN_GURU_ZIP (berkas/URL zip, untuk uji).
+# Opsional: ASISTEN_GURU_DIR (folder tujuan; bawaan: lokasi pemasangan sebelumnya, atau ~/Documents/AsistenGuru),
+#           ASISTEN_GURU_CEK=1 (hanya tampilkan pilihan lokasi, tidak memasang), ASISTEN_GURU_ZIP (berkas/URL zip, untuk uji).
 set -euo pipefail
 
 REPO=pratomobowo/perangkat-ajar-guru-SD
@@ -14,8 +15,33 @@ BERKAS_AKAR="AGENTS.md opencode.json PANDUAN-GURU.md README-PASANG.md VERSI.md"
 DIABAIKAN='^\.opencode/(node_modules/|package\.json$|package-lock\.json$|bun\.lock$|\.gitignore$)'
 tulis() { echo "[Asisten Guru] $*"; }
 
-TUJUAN=${ASISTEN_GURU_DIR:-$HOME/Documents/AsistenGuru}
-mkdir -p "$TUJUAN"; TUJUAN=$(cd "$TUJUAN" && pwd)
+# Lokasi pemasangan diingat supaya pembaruan berikutnya tidak membuat salinan kedua di tempat lain.
+INGAT=${XDG_CONFIG_HOME:-$HOME/.config}/asisten-guru/lokasi
+BAWAAN=$HOME/Documents/AsistenGuru
+TERPASANG=
+if [[ -f $INGAT ]]; then
+  L=$(head -1 "$INGAT")
+  if [[ -n $L && ( -f $L/.opencode/paket.json || -f $L/opencode.json ) ]]; then TERPASANG=$L; fi
+fi
+if [[ ${ASISTEN_GURU_CEK:-} == 1 ]]; then
+  echo "ASISTEN_GURU_LOKASI_BAWAAN $BAWAAN"
+  if [[ -n $TERPASANG ]]; then echo "ASISTEN_GURU_TERPASANG $TERPASANG"; fi
+  df -Pk 2>/dev/null | awk 'NR>1 && $6 !~ /^\/(proc|sys|dev|run|boot)/ && $2 > 1048576 { printf "ASISTEN_GURU_DRIVE %s bebas=%dGB\n", $6, $4/1048576 }'
+  exit 0
+fi
+TUJUAN=${ASISTEN_GURU_DIR:-${TERPASANG:-$BAWAAN}}
+TUJUAN=${TUJUAN/#\~/$HOME}
+# Folder yang sudah ada, berisi berkas lain, dan bukan pemasangan Asisten Guru: pasang di subfolder AsistenGuru.
+if [[ -d $TUJUAN && ! -f $TUJUAN/opencode.json && ! -d $TUJUAN/.opencode && $(basename "$TUJUAN") != AsistenGuru && -n $(ls -A "$TUJUAN" 2>/dev/null) ]]; then
+  TUJUAN=${TUJUAN%/}/AsistenGuru
+fi
+case $TUJUAN in
+  /|/bin|/bin/*|/sbin|/sbin/*|/usr|/usr/*|/etc|/etc/*|/System|/System/*|/Library|/Library/*|/Applications|/Applications/*)
+    tulis "Folder $TUJUAN adalah folder sistem. Pilih folder lain, misalnya $BAWAAN."; exit 1 ;;
+esac
+mkdir -p "$TUJUAN" 2>/dev/null || { tulis "Folder $TUJUAN tidak bisa dibuat (izin ditolak atau drive tidak ada). Pilih folder lain."; exit 1; }
+TUJUAN=$(cd "$TUJUAN" && pwd)
+case $TUJUAN in *OneDrive*|*"Google Drive"*|*Dropbox*) tulis "PERHATIAN: folder ini ikut tersinkron awan; Word/Excel bisa terkunci saat sinkronisasi. Bila sering bermasalah, pindahkan ke folder lain.";; esac
 KERJA=$(mktemp -d "${TMPDIR:-/tmp}/asisten-guru-XXXXXX")
 trap 'rm -rf "$KERJA"' EXIT
 
@@ -99,4 +125,5 @@ if command -v opencode > /dev/null; then
   [[ $V =~ ^v?1\. ]] && tulis "PERHATIAN: OpenCode $V terdeteksi. Asisten Guru butuh OpenCode 2. Pasang dari https://opencode.ai/download"
 fi
 tulis "Langkah berikutnya: buka folder di atas sebagai proyek di OpenCode (Desktop: Open Project; terminal: cd ke folder itu lalu ketik opencode), lalu ketik /mulai."
+mkdir -p "$(dirname "$INGAT")" 2>/dev/null && echo "$TUJUAN" > "$INGAT" 2>/dev/null || true
 echo "ASISTEN_GURU_SELESAI versi=$VERSI_BARU folder=$TUJUAN"
