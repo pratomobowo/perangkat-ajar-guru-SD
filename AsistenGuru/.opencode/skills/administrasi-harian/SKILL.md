@@ -1,6 +1,6 @@
 ---
 name: administrasi-harian
-description: Mengurus administrasi kelas harian dan bulanan — jadwal pelajaran kelas dalam Word, jurnal mengajar harian, daftar hadir/absensi siswa dalam Excel dengan rekap otomatis, buku nilai Excel per TP dengan rumus nilai rapor, serta kalimat deskripsi capaian rapor, administrasi wali kelas (struktur organisasi, piket, denah tempat duduk, kesepakatan kelas), dan pembagian kelompok. Gunakan saat guru berkata "isi jurnal", "tadi saya mengajar ...", "absen", "daftar hadir", "rekap kehadiran", "buku nilai", "olah nilai", "nilai rapor", "deskripsi rapor", "jadwal piket", "denah tempat duduk", "struktur organisasi kelas", "tata tertib/kesepakatan kelas", "bagi kelompok", atau "administrasi wali kelas".
+description: Mengurus administrasi kelas harian dan bulanan — jadwal pelajaran kelas dalam Word, jurnal mengajar harian, daftar hadir/absensi siswa dalam Excel dengan rekap otomatis, buku nilai Excel per TP dengan rumus nilai rapor, serta kalimat deskripsi capaian rapor, pengisian rekap nilai dari sekolah untuk rapor, administrasi wali kelas (struktur organisasi, piket, denah tempat duduk, kesepakatan kelas), dan pembagian kelompok. Gunakan saat guru berkata "isi jurnal", "tadi saya mengajar ...", "absen", "daftar hadir", "rekap kehadiran", "buku nilai", "olah nilai", "nilai rapor", "deskripsi rapor", "jadwal piket", "denah tempat duduk", "struktur organisasi kelas", "tata tertib/kesepakatan kelas", "bagi kelompok", atau "administrasi wali kelas".
 ---
 
 # Administrasi Harian
@@ -34,6 +34,22 @@ atau kelas ("siapa yang perlu remedial TP3?", "TP mana yang paling sulit", "siap
 4. Untuk kelas: sebut siswa seperti yang dikirim alat (nama bila sekolah mengizinkan, selain itu nomor absen), lalu beri
    tahu berkas laporan lengkap dengan nama yang dibuat alat.
 5. Jika data belum diisi (nilai/absensi kosong), katakan apa yang perlu diisi guru di Excel; jangan mengarang.
+
+## Rekap nilai dari sekolah (untuk rapor)
+Banyak sekolah memberi guru Excel rekap nilai (misalnya "STS Ganjil") yang diisi guru lalu dimasukkan operator ke e-Rapor.
+1. Guru menaruh berkasnya di folder masukan (bila dari Google Sheets: unduh sebagai Microsoft Excel). `baca_masukan`
+   mengenalinya sebagai REKAP NILAI dan memindahkannya ke folder terkunci (berisi data siswa).
+2. Panggil `isi_rekap_sekolah` dengan `berkas`. Untuk rekap STS, isi `sampai` = tanggal STS dari kalender (kehadiran
+   dihitung sampai tanggal itu); untuk rekap akhir semester, tanggal SAS.
+3. Sampaikan ringkas: berapa siswa cocok, kolom apa yang terisi otomatis, dan kolom yang masih harus diisi guru
+   (misalnya nilai tugas, tahsin, ibadah, akhlak). Jangan menyebut nama siswa.
+   Untuk mengisi ulang (misalnya setelah nilai bertambah), panggil `isi_rekap_sekolah` **tanpa** `berkas`: templat
+   terakhir di folder terkunci dipakai otomatis — jangan meminta guru menaruh berkasnya lagi.
+   Jangan membuat daftar hadir baru untuk bulan yang sudah lewat hanya agar kolom sakit/izin/alfa terisi (daftar hadir
+   kosong berarti semua hadir); bila alat melaporkan bulan yang kurang, guru mengisi kolom itu sendiri.
+4. Arti kolom mengikuti buku nilai: UH = rata-rata nilai TP, UTS/STS/PTS = nilai STS, UAS/SAS/PAS = nilai SAS. Bila sekolah
+   memakai arti lain, tanyakan guru dan isi sendiri bagian itu. Sel yang sudah diisi guru tidak ditimpa kecuali guru
+   meminta (`timpa`=true).
 
 ## Administrasi wali kelas
 Alat `buat_administrasi_wali_kelas` membuat satu Excel berisi Struktur Organisasi (nama dipilih guru lewat daftar

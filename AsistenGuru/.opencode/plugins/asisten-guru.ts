@@ -33,14 +33,16 @@ import buatAdministrasiWaliKelas from "../alat/buat_administrasi_wali_kelas.ts"
 import buatKelompok from "../alat/buat_kelompok.ts"
 import buatAnalisisButirExcel from "../alat/buat_analisis_butir_excel.ts"
 import bahanRefleksiSemester from "../alat/bahan_refleksi_semester.ts"
+import isiRekapSekolah from "../alat/isi_rekap_sekolah.ts"
+import simpanTemplateExcel from "../alat/simpan_template_excel.ts"
 import { blokIngatan, catatRiwayat } from "../lib/ingatan.ts"
 import susunPerencanaan from "../alat/susun_perencanaan.ts"
 import unduhBuku from "../alat/unduh_buku.ts"
 
-const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat, daftarSiswa, analisisSiswa, cekKesiapan, acuanJp, liburNasional, periksaPerangkatPpg, berkasPpg, ingat, cariIngatan, buatAdministrasiWaliKelas, buatKelompok, buatAnalisisButirExcel, bahanRefleksiSemester]
+const ALAT: Alat[] = [hitungMingguEfektif, susunPerencanaan, agendaHariIni, eksporWord, buatAbsensiExcel, buatNilaiExcel, perbaruiPaket, bacaBuku, risetMateri, unduhBuku, aturGaya, simpanTemplateWord, buatKalenderPendidikan, buatJadwalKelas, ambilCp, buatPenilaianKokurikulerExcel, bacaMasukan, statusPerangkat, daftarSiswa, analisisSiswa, cekKesiapan, acuanJp, liburNasional, periksaPerangkatPpg, berkasPpg, ingat, cariIngatan, buatAdministrasiWaliKelas, buatKelompok, buatAnalisisButirExcel, bahanRefleksiSemester, isiRekapSekolah, simpanTemplateExcel]
 
 /** Alat yang membuat berkas: hasilnya dicatat otomatis di arsip riwayat (bisa dicari dengan cari_ingatan). */
-const DICATAT = new Set(["ekspor_word", "susun_perencanaan", "buat_absensi_excel", "buat_nilai_excel", "buat_penilaian_kokurikuler_excel", "buat_kalender_pendidikan", "buat_jadwal_kelas", "berkas_ppg", "unduh_buku", "ambil_cp", "buat_administrasi_wali_kelas", "buat_kelompok", "buat_analisis_butir_excel"])
+const DICATAT = new Set(["ekspor_word", "susun_perencanaan", "buat_absensi_excel", "buat_nilai_excel", "buat_penilaian_kokurikuler_excel", "buat_kalender_pendidikan", "buat_jadwal_kelas", "berkas_ppg", "unduh_buku", "ambil_cp", "buat_administrasi_wali_kelas", "buat_kelompok", "buat_analisis_butir_excel", "isi_rekap_sekolah"])
 
 export default {
   id: "asisten-guru",

@@ -35,6 +35,8 @@ Panggil `status_perangkat`. Sampaikan ringkas (≤ 6 baris): yang sudah ada, yan
    | ATP/TP dari sekolah | dasar untuk `guru/data/atp-<mapel>.json` (skill perencanaan-tahunan) |
    | KKTP sekolah | `guru/data/kktp-<mapel>.json` (format di skill asesmen) |
    | Contoh RPP/Modul/LKPD/format sekolah (.docx) | `simpan_template_word` dengan `berkas` dan `dokumen` (RPM, Modul Ajar, RPP, LKPD, …) |
+   | Format Excel kosong dari sekolah (daftar hadir, buku nilai, dll.; `baca_masukan` menandai FORMAT EXCEL KOSONG) | `simpan_template_excel` dengan `berkas` dan `dokumen` (skill template-guru, bagian Format Excel) |
+   | Rekap nilai dari operator yang sudah berisi daftar siswa | `isi_rekap_sekolah` |
    | Buku PDF | `baca_masukan` dengan `jadikan_buku: true` |
    | Lainnya | tanyakan satu kalimat untuk apa dokumen itu |
 3. Laporkan dalam satu pesan: dokumen apa saja yang dikenali dan disimpan di mana, serta data yang masih kurang. Data

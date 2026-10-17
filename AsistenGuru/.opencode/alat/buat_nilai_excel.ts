@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { alat } from "../lib/alat.ts"
+import { isiDariTemplat, penandaDasar, templatExcel } from "../lib/formatexcel.ts"
 import { type ATP, Gagal, bacaJson, cariMapel, jalurAman, muatDasar, slug, tulis } from "../lib/berkas.ts"
 import { type KKTP, nilaiXlsx } from "../lib/administrasi.ts"
 import { FOLDER } from "../lib/dokumen.ts"
@@ -38,10 +39,26 @@ export default alat<{ mapel: string; semester: number }>({
     )
     const kktp = await bacaJson<KKTP>(akar, `guru/data/kktp-${kode}.json`)
     const d = await pastikanDaftarSiswa(akar)
-    const h = nilaiXlsx(profil, kebijakan, atp, mapel.nama, semester, Object.keys(kktp).length ? kktp : null, d?.siswa)
     const dasar = `hasil/${FOLDER.administrasi}/Buku Nilai ${mapel.nama} Kelas ${profil.kelas} Semester ${semester} ${profil.tahun_ajaran.replace("/", "-")}`
     let rel = `${dasar}.xlsx`
     for (let i = 2; existsSync(join(akar, jalurAman(rel))); i++) rel = `${dasar} (${i}).xlsx`
+    // Format sekolah/guru didahulukan (boleh khusus mapel: "Buku Nilai Matematika.xlsx").
+    const t = await templatExcel(akar, "Buku Nilai", mapel.nama)
+    if (t) {
+      const tp = (atp.tp ?? []).filter((x) => x.semester === semester)
+      const penanda: Record<string, string> = { ...penandaDasar(profil, kebijakan), mapel: mapel.nama, semester: String(semester), jumlah_tp: String(tp.length) }
+      tp.forEach((x, i) => {
+        penanda[`tp_${i + 1}`] = `${x.kode} ${x.tujuan}`
+        penanda[`kode_tp_${i + 1}`] = x.kode
+        penanda[`tujuan_tp_${i + 1}`] = x.tujuan
+        const batas = (kktp as any)?.tp?.[x.kode]?.batas ?? kebijakan.batas_ketuntasan
+        if (typeof batas === "number") penanda[`batas_tp_${i + 1}`] = String(batas)
+      })
+      const r = await isiDariTemplat(akar, t, { siswa: d?.siswa ?? [], mapel: mapel.nama, penanda })
+      rel = await tulis(akar, rel, r.data)
+      return [`Selesai: ${rel}.`, r.pesan, `Penanda TP tersedia: {{tp_1}}…{{tp_${tp.length}}}, {{kode_tp_n}}, {{batas_tp_n}}.`, d?.siswa.length ? "" : pesanNama({ namaTerisi: 0 }, d)].filter(Boolean).join("\n")
+    }
+    const h = nilaiXlsx(profil, kebijakan, atp, mapel.nama, semester, Object.keys(kktp).length ? kktp : null, d?.siswa)
     rel = await tulis(akar, rel, h.data)
     return [
       `Selesai: ${rel} — ${h.tp} kolom TP, ${h.siswa} baris siswa.`,

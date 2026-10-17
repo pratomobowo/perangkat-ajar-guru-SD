@@ -20,6 +20,7 @@ Tampilkan menu berikut apa adanya, lalu tanyakan guru mau mulai dari mana:
 - "buatkan administrasi wali kelas" — struktur organisasi, jadwal piket, denah tempat duduk, kesepakatan kelas (Excel)
 - "bagi kelas jadi 6 kelompok" — kelompok belajar, nama terisi otomatis
 - "analisis butir soal STS matematika 25 soal" — tingkat kesukaran, daya beda, pengecoh otomatis
+- "operator kasih rekap nilai STS, tolong isiin" — rekap nilai dari sekolah diisi otomatis dari buku nilai dan daftar hadir
 - `/absen oktober` — Excel daftar hadir
 - `/nilai matematika 1` — Excel buku nilai semester 1
 - `/refleksi` — refleksi diri guru per semester (wajib), dari data nilai, analisis soal, kehadiran, dan jurnal

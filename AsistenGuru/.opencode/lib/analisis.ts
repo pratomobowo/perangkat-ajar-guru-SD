@@ -11,6 +11,7 @@ import { type Kebijakan, type Profil, bacaJson, tulis } from "./berkas.ts"
 import { FOLDER } from "./dokumen.ts"
 import { bacaTabelXlsx } from "./masukan.ts"
 import { type Siswa, bacaDaftarSiswa } from "./siswa.ts"
+import { bacaBukuNilaiUmum, bacaHadirUmum } from "./templatexcel.ts"
 import { G, type Sel, buatXlsx } from "./xlsx.ts"
 
 const angka = (v: unknown): number | null => {
@@ -96,8 +97,18 @@ async function semuaXlsx(akar: string, folder: string, awalan: string) {
 
 export async function muatData(akar: string) {
   const nilai: BukuNilai[] = [], hadir: Hadir[] = [], koku: Koku[] = []
-  for (const { f, p } of await semuaXlsx(akar, FOLDER.administrasi, "Buku Nilai ")) { const b = bacaBukuNilai(new Uint8Array(await readFile(p)), f); if (b) nilai.push(b) }
-  for (const { f, p } of await semuaXlsx(akar, FOLDER.administrasi, "Daftar Hadir ")) { const b = bacaHadir(new Uint8Array(await readFile(p)), f); if (b) hadir.push(b) }
+  // Format bawaan dibaca dulu; bila berkas dibuat dari format sekolah/guru, pembaca umum mengenali kolomnya dari judul.
+  for (const { f, p } of await semuaXlsx(akar, FOLDER.administrasi, "Buku Nilai ")) {
+    const data = new Uint8Array(await readFile(p))
+    const mapel = f.match(/^Buku Nilai (.+?) Kelas /)?.[1] ?? f.replace(/^Buku Nilai /, "").replace(/\.xlsx$/, "")
+    const b = bacaBukuNilai(data, f) ?? (() => { try { return bacaBukuNilaiUmum(data, f, mapel) } catch { return null } })()
+    if (b) nilai.push(b)
+  }
+  for (const { f, p } of await semuaXlsx(akar, FOLDER.administrasi, "Daftar Hadir ")) {
+    const data = new Uint8Array(await readFile(p))
+    const b = bacaHadir(data, f) ?? (() => { try { return bacaHadirUmum(data, f) } catch { return null } })()
+    if (b) hadir.push(b)
+  }
   for (const { f, p } of await semuaXlsx(akar, FOLDER.kokurikuler, "Penilaian Kokurikuler ")) { const b = bacaKoku(new Uint8Array(await readFile(p)), f); if (b) koku.push(b) }
   return { nilai, hadir, koku, daftar: (await bacaDaftarSiswa(akar)) ?? [] }
 }

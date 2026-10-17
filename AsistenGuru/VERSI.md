@@ -1,9 +1,26 @@
 # Versi Paket
 
-**Versi:** 0.18.0
+**Versi:** 0.19.0
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.19.0 — **Semua Excel bawaan bisa mengikuti format sekolah atau guru** (aturan inti di AGENTS.md: format sekolah
+  wajib > format guru > format sekolah > bawaan; Word sudah mengikutinya sejak 0.6.0). Alat `simpan_template_excel`
+  menyimpan format untuk Daftar Hadir, Buku Nilai (boleh khusus mapel), Penilaian Kokurikuler, Analisis Butir Soal,
+  Administrasi Wali Kelas, dan Kelompok — dari Excel sekolah di folder masukan atau Excel hasil asisten yang sudah diubah
+  guru (baris siswa dikosongkan sebelum disimpan). Alat pembuat Excel lalu mengisi format itu: kolom dikenali dari judul
+  (NO, NAMA, NIS, NISN, L/P, KELOMPOK, TP1…, UH, UTS/STS, UAS/SAS, SAKIT/IZIN/ALFA, judul bertingkat dan sel digabung),
+  penanda `{{...}}` untuk bagian bebas (judul, denah, piket, struktur), rumus dan tampilan tidak diubah. Buku nilai dan
+  daftar hadir berformat sekolah tetap terbaca oleh analisis siswa, refleksi, dan rekap. `baca_masukan` mengenali format
+  Excel kosong dan menebak jenisnya.
+  **Rekap nilai dari sekolah untuk rapor** (`isi_rekap_sekolah`): Excel rekap buatan sekolah/operator (diisi
+  guru, lalu dimasukkan operator ke e-Rapor) diisi otomatis. Kolom dikenali dari judulnya (NAMA/NIS/NISN, nama mapel
+  atau singkatannya, UH/TUGAS/UTS/STS/PTS/UAS/SAS/PAS, sakit/izin/alfa; judul bertingkat dan sel digabung didukung):
+  UH = rata-rata nilai TP, UTS = STS, UAS = SAS dari buku nilai; kehadiran dari daftar hadir semester ini sampai tanggal
+  yang ditentukan. Siswa dicocokkan lewat NISN/NIS/nama (urutan rekap boleh berbeda); templat kosong diisi identitas
+  dari Daftar Siswa. Hanya sel kosong yang diisi, format sekolah dipertahankan, hasil berupa salinan baru di folder
+  terkunci; kolom yang masih harus diisi guru (tugas, tahsin, ibadah, dll.) dilaporkan. `baca_masukan` mengenali berkas
+  rekap dan menawarkan pengisian.
 - 0.18.0 — **Refleksi diri guru per semester** (wajib menurut Permendikdasmen No. 1 Tahun 2026 tentang Standar Proses,
   Pasal 15: penilaian proses pembelajaran oleh guru melalui refleksi diri, minimal sekali per semester; standar proses
   lama Permendikbudristek 16/2022 dicabut). Alat `bahan_refleksi_semester` mengumpulkan data kelas tanpa nama siswa —

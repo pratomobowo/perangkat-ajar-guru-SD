@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { alat } from "../lib/alat.ts"
+import { isiDariTemplat, penandaDasar, templatExcel } from "../lib/formatexcel.ts"
 import { type Kebijakan, type Profil, Gagal, bacaJson, jalurAman, tulis } from "../lib/berkas.ts"
 import { FOLDER } from "../lib/dokumen.ts"
 import { tanggalIso } from "../lib/ingatan.ts"
@@ -57,14 +58,22 @@ export default alat<Masukan>({
     const dasar = `hasil/${FOLDER.administrasi}/Kelompok ${judul} ${tanggalIso()}`
     let rel = `${dasar}.xlsx`
     for (let i = 2; existsSync(join(akar, jalurAman(rel))); i++) rel = `${dasar} (${i}).xlsx`
-    rel = await tulis(akar, rel, kelompokXlsx(profil, kebijakan, g, judul, cara))
+    const t = await templatExcel(akar, "Kelompok")
+    let pesanFormat = ""
+    if (t) {
+      const penanda: Record<string, string> = { ...penandaDasar(profil, kebijakan), judul, jumlah_kelompok: String(g.length) }
+      g.forEach((x, i) => (penanda[`kelompok_${i + 1}`] = [...x].sort((p, q) => p.no - q.no).map((y) => y.nama).join(", ")))
+      const r = await isiDariTemplat(akar, t, { siswa: d.siswa, kelompok: g.map((x) => [...x].sort((p, q) => p.no - q.no)), penanda })
+      rel = await tulis(akar, rel, r.data)
+      pesanFormat = r.pesan
+    } else rel = await tulis(akar, rel, kelompokXlsx(profil, kebijakan, g, judul, cara))
     const rangkum = g.map((x, i) => {
       const l = x.filter((y) => y.jk === "L").length, p = x.filter((y) => y.jk === "P").length
       const v = x.map((y) => y.nilai).filter((y): y is number => typeof y === "number")
       return `K${i + 1}: ${x.length} siswa${l + p ? ` (L ${l}, P ${p})` : ""}${cara === "campur_nilai" && v.length ? `, rata-rata ${Math.round(v.reduce((s, y) => s + y, 0) / v.length)}` : ""}`
     })
     return [
-      `Selesai: ${rel}. ${g.length} kelompok dari ${anggota.length} siswa${keluar.size ? ` (${keluar.size} tidak ikut)` : ""}.${catatanNilai}`,
+      `Selesai: ${rel}.${pesanFormat ? ` ${pesanFormat}` : ""} ${g.length} kelompok dari ${anggota.length} siswa${keluar.size ? ` (${keluar.size} tidak ikut)` : ""}.${catatanNilai}`,
       rangkum.join("; "),
       "Sampaikan jumlah kelompok dan anggotanya saja (tanpa nama, tanpa nilai). Guru bisa memindah nama langsung di Excel. Minta ulang bila ingin hasil acak yang lain.",
     ].join("\n")

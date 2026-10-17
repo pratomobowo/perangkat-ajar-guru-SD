@@ -422,7 +422,52 @@ E2E OpenCode (model Sumopod), data guru disimulasikan (kunci + jawaban 12 siswa 
 Catatan lingkungan uji: setiap kali berkas paket di workspace uji diubah, service OpenCode memuat ulang dan run pertama
 bisa macet tanpa keluaran; pemanasan dengan pesan "halo" (diulang bila perlu) mengatasinya.
 
+## Rekap nilai dari sekolah untuk rapor (v0.19.0)
+
+Latar: format impor e-Rapor SD 2025.1 (dari panduan resmi: `f_tp`, `f_nilai` dengan nilai 0–100 tanpa rumus dan T/R per
+TP, `f_nilko` 1/2/3) baru bisa diisi bila guru mengunduhnya dari e-Rapor sekolah. Sekolah pengguna ternyata memakai
+**rekap nilai buatan sendiri** (Excel dari operator, diisi guru, lalu operator yang memasukkan ke e-Rapor). Berkas asli
+dipakai hanya untuk melihat struktur (nama tidak disalin ke repo): satu lembar, baris kode tersembunyi, judul mapel
+digabung, sub-kolom NILAI UH/TUGAS/UTS untuk 11 mapel, kolom SDIT (tahsin, hafalan surat, ibadah, akhlak), sakit/izin/alfa,
+angka tersimpan "97.0" dan NISN tersimpan sebagai angka.
+
+Uji unit `uji-rekap.ts` (17 cek) memakai templat tiruan berstruktur sama dengan nama samaran: pengenal judul dan
+singkatan mapel, deteksi rekap oleh `baca_masukan`, pencocokan lewat NISN dengan urutan berbeda, UH = rata-rata TP,
+UTS = STS, sel yang sudah diisi tidak ditimpa (kecuali `timpa`), gaya/gabungan sel/lembar sama dengan aslinya, templat
+dipindah ke folder terkunci, nama hasil bersih, templat kosong diisi identitas. Berkas asli juga diisi dengan angka
+buatan: 20/20 baris cocok, kolom TUGAS yang sudah berisi tidak berubah, LibreOffice membacanya normal (hasil dihapus).
+
+E2E OpenCode (model Sumopod), templat tiruan 12 siswa, buku nilai Matematika dan daftar hadir Oktober sudah diisi:
+
+| Pesan guru | Hasil |
+|---|---|
+| "operator ngasih format rekap nilai STS ganjil… tolong isiin" | `baca_masukan` mengenali REKAP NILAI → `isi_rekap_sekolah` dengan `sampai` = 25 September (tanggal STS dari kalender); 12/12 cocok, Matematika UH dan UTS terisi; kolom yang masih diisi guru disebut. **Temuan:** nama hasil berawalan "Sumber Daftar Siswa - " → dibersihkan. **Temuan:** asisten menawarkan membuat daftar hadir September agar S/I/A terisi — daftar hadir baru masih kosong (= semua hadir) sehingga akan menghasilkan data palsu → kehadiran kini hanya diisi bila setiap bulan sampai batas punya daftar hadir yang sudah diisi; bila tidak, kolom dibiarkan dan asisten dilarang membuat daftar hadir kosong untuk mengisinya |
+
+## Semua Excel mengikuti format sekolah atau guru (v0.19.0)
+
+Aturan inti (AGENTS.md): setiap dokumen bawaan wajib mengikuti format sekolah atau keinginan guru bila ada — format
+sekolah yang diwajibkan > format guru > format sekolah > bawaan. Word sudah demikian sejak v0.6.0 (Word contoh, gaya,
+kerangka); kini Excel juga: mesin `lib/templatexcel.ts` (pengenal judul kolom dari pengisi rekap, diperluas ke semua
+lembar, L/P, KELOMPOK, TP1…, penanda `{...}`, rumus tidak pernah ditimpa, gaya baris baru mengikuti baris pertama),
+alat `simpan_template_excel`, cabang format di keenam alat Excel, dan pembaca umum buku nilai/daftar hadir.
+
+Uji unit `uji-format.ts` (13 cek): format presensi sekolah (judul berpenanda, 31 kolom tanggal, S/I/A berumus COUNTIF)
+dikenali `baca_masukan`, disimpan, dipakai `buat_absensi_excel` (judul terisi, nama dan L/P terisi, 18 rumus utuh), lalu
+kehadiran yang diisi di format itu terbaca `analisis_siswa`; buku nilai sekolah khusus mapel (penanda mapel/semester/TP,
+rumus NA utuh) terbaca `analisis_siswa`; format dari Excel hasil yang berisi nama → nama dikosongkan, format lama
+dicadangkan; kelompok dan denah/piket berpenanda; `template_wajib` sekolah menang; `hapus` kembali ke bawaan; tidak ada
+nama siswa di keluaran alat. **Temuan:** kunci jenis dokumen tidak membuang akhiran `.xlsx` sehingga templat tidak
+ditemukan → diperbaiki.
+
+E2E OpenCode (model Sumopod), format presensi sekolah tiruan (judul berpenanda, kolom tanggal 1–31, S/I/A berumus):
+
+| Pesan guru | Hasil |
+|---|---|
+| "ini format presensi dari sekolah… mulai sekarang absen pakai format ini. Buatkan absen November" | `baca_masukan` → `simpan_template_excel` (Daftar Hadir) → `buat_absensi_excel`: judul "PRESENSI SISWA BULAN November 2026", "Kelas: 4A Wali Kelas: Rina Kusumawati", 12 nama + L/P terisi. **Temuan:** laporan alat mencantumkan 31 "kolom yang diisi guru" berlabel judul dokumen (`{{rombel}}`) karena baris judul yang digabung di atas tabel terbaca sebagai judul kolom, sehingga model mengira penanda belum terisi → judul di atas baris NAMA diabaikan, kolom tanggal diringkas, kolom berumus tidak dilaporkan |
+| (sesi baru) "buatkan absen bulan Desember" | memakai format sekolah otomatis, dilaporkan benar |
+| "rekap nilai STS dari operator yang kemarin tolong diisi ulang… kehadiran saya isi sendiri" | `isi_rekap_sekolah` tanpa `berkas` → "4A_STS_GANJIL_2026 (diisi).xlsx": Matematika UH 12 sel, UTS 12 sel; kehadiran dibiarkan (daftar hadir Juli–September belum ada). Sebelum perbaikan peta tugas, model sempat menanyakan lokasi berkas dan menawarkan membuat daftar hadir kosong |
+
 ## Cara mengulang
-1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts && bun uji-ingatan.ts && bun uji-walikelas.ts && bun uji-refleksi.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture && bun uji-rumus-butir.ts`.
+1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts && bun uji-ingatan.ts && bun uji-walikelas.ts && bun uji-refleksi.ts && bun uji-rekap.ts && bun uji-format.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture && bun uji-rumus-butir.ts`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu
    jalankan `jalankan.sh` per langkah. Pesan guru ada di `log-v02-final/*.pesan.txt`.

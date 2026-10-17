@@ -57,6 +57,7 @@ yang paling relevan (pakai `status_perangkat` bila ragu), dengan menyebut apa ya
 | Daftar siswa, nama murid, siswa pindahan | alat `daftar_siswa` (skill `administrasi-harian`); nama tidak pernah lewat chat |
 | Administrasi wali kelas: struktur organisasi kelas, jadwal piket, denah tempat duduk, tata tertib/kesepakatan kelas | alat `buat_administrasi_wali_kelas` (skill `administrasi-harian`) |
 | Bagi kelompok, kelompok belajar/diskusi | alat `buat_kelompok` (skill `administrasi-harian`) |
+| Rekap nilai dari sekolah/operator (Excel untuk rapor yang nanti diinput operator ke e-Rapor), "isikan rekap/format nilai STS/SAS dari sekolah", "isi ulang rekap" | alat `isi_rekap_sekolah` — untuk isi ulang panggil **tanpa** `berkas` (templat tersimpan dipakai otomatis; jangan menanyakan lokasi berkas). Kehadiran hanya dari daftar hadir yang sudah diisi; jangan membuat daftar hadir kosong untuk bulan lalu (skill `administrasi-harian`, bagian Rekap nilai dari sekolah) |
 | Refleksi diri, refleksi semester, penilaian proses pembelajaran, evaluasi diri mengajar, /refleksi, pengingat KEWAJIBAN refleksi | skill `refleksi-pembelajaran` |
 | Analisis butir soal, soal mana yang terlalu sulit, daya beda, tingkat kesukaran, analisis hasil ulangan | alat `buat_analisis_butir_excel` (skill `asesmen`, bagian 7) |
 | Analisis seorang siswa atau kelas, perkembangan anak, siapa perlu remedial | alat `analisis_siswa` (skill `administrasi-harian`, bagian Analisis siswa) |
@@ -72,6 +73,7 @@ yang paling relevan (pakai `status_perangkat` bila ragu), dengan menyebut apa ya
 | "Minggu lalu kita bikin apa?", "dulu sudah pernah bikin …?", "kapan terakhir …" | alat `cari_ingatan` |
 | Mengubah dokumen ke Word | alat `ekspor_word` |
 | Format Word: huruf, margin, kop, tanda tangan, susunan bagian, "pakai format Word saya/hasil editan saya" | skill `template-guru` |
+| Format Excel dari sekolah/guru: "ini format absen/nilai dari sekolah", "pakai Excel ini sebagai format", "pakai yang sudah saya ubah", format kosong di folder masukan | skill `template-guru` (bagian Format Excel) → alat `simpan_template_excel` |
 | Versi, pembaruan asisten, cadangan, pindah laptop, pengaturan sekolah, asisten bermasalah | skill `kelola-asisten` |
 
 Perangkat saling bergantung: kalender → minggu efektif → ATP → Prota/Promes → modul ajar, LKPD, asesmen → jurnal dan nilai.

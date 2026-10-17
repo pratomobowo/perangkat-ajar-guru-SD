@@ -36,7 +36,7 @@ export const BAGIAN_GAYA = ["huruf", "ukuran", "spasi", "rata", "kertas", "orien
  * "4 Administrasi/Jurnal Mengajar 2026-10" → "jurnal-mengajar", "1 Perencanaan/.../2 ATP" → "atp".
  */
 export function kunciDokumen(sub: string): string {
-  const dasar = sub.split(/[\\/]/).pop()!.replace(/\.(md|docx)$/i, "")
+  const dasar = sub.split(/[\\/]/).pop()!.replace(/\.(md|docx|xlsx)$/i, "")
   return slug(dasar.replace(/^\d+\s+/, "").replace(/\s+\d{4}([-/]\d{2,4})?$/, "")) || "dokumen"
 }
 
@@ -82,7 +82,7 @@ export async function gayaEfektif(akar: string, kunci: string, kebijakan: Kebija
 }
 
 /** Template (kerangka .md atau Word contoh .docx) untuk satu dokumen. Template sekolah menang jika diwajibkan. */
-export async function cariTemplate(akar: string, kunci: string, ext: "md" | "docx", kebijakan: Kebijakan) {
+export async function cariTemplate(akar: string, kunci: string, ext: "md" | "docx" | "xlsx", kebijakan: Kebijakan) {
   const cari = async (folder: string) => {
     const p = join(akar, folder)
     if (!existsSync(p)) return null

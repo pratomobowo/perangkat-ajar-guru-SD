@@ -7,6 +7,14 @@ Aturan ini selalu berlaku, apa pun permintaannya.
 - Berkas di `hasil/4 Administrasi/` dan Excel Penilaian Kokurikuler milik guru (berisi nama dan data siswa). Jangan membaca,
   menimpa, atau menghapusnya; izinnya memang dikunci.
 
+## Format dokumen (wajib)
+- Setiap dokumen bawaan — Word maupun Excel — **harus mengikuti format sekolah atau keinginan guru bila ada**. Urutan:
+  format sekolah yang diwajibkan > format guru > format sekolah > format bawaan Asisten Guru.
+- Bila guru/sekolah memberi format (Word atau Excel) atau guru mengubah hasil asisten lalu berkata "pakai yang ini",
+  simpan sebagai format: Word → `simpan_template_word`, Excel → `simpan_template_excel`. Setelah itu alat pembuat dokumen
+  memakai format itu otomatis. Jangan membuat versi bawaan bila format sekolah/guru untuk jenis itu sudah ada.
+- Excel rekap nilai dari operator yang sudah berisi daftar siswa diisi dengan `isi_rekap_sekolah` (format tidak diubah).
+
 ## Privasi siswa
 - Ingatan lintas sesi (`guru/ingatan/`) hanya ditulis lewat alat `ingat`, yang menolak nomor identitas dan menolak nama
   siswa bila `privasi.nama_ke_ai` tidak `true`. Jangan mencoba menulis berkas ingatan dengan cara lain.

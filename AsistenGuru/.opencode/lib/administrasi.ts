@@ -95,7 +95,7 @@ export function agenda(args: {
   return out.join("\n")
 }
 
-function hariBelajarBulan(profil: Profil, kal: Kalender, tahun: number, bulan: number): Date[] {
+export function hariBelajarBulan(profil: Profil, kal: Kalender, tahun: number, bulan: number): Date[] {
   const hs = hariSekolah(profil)
   const out: Date[] = []
   for (let d = new Date(Date.UTC(tahun, bulan - 1, 1)); d.getUTCMonth() === bulan - 1; d = tambah(d, 1))

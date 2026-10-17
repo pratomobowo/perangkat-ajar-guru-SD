@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { alat } from "../lib/alat.ts"
+import { isiDariTemplat, penandaDasar, templatExcel } from "../lib/formatexcel.ts"
 import { type Kebijakan, type Profil, bacaJson, jalurAman, tulis } from "../lib/berkas.ts"
 import { analisisButirXlsx } from "../lib/butir.ts"
 import { FOLDER } from "../lib/dokumen.ts"
@@ -28,10 +29,19 @@ export default alat<Masukan>({
     const profil = await bacaJson<Profil>(akar, "guru/profil.json", "Profil guru belum ada. Jalankan skill guru-setup dulu (/mulai).")
     const kebijakan = await bacaJson<Kebijakan>(akar, "sekolah/kebijakan.json")
     const d = await pastikanDaftarSiswa(akar)
-    const h = analisisButirXlsx(profil, kebijakan, d?.siswa ?? null, { judul: a.judul, jumlahSoal: a.jumlah_soal, opsi: a.opsi, kunci: a.kunci, batas: a.batas })
     const dasar = `hasil/${FOLDER.administrasi}/Analisis Butir Soal ${a.judul.trim()}`
     let rel = `${dasar}.xlsx`
     for (let i = 2; existsSync(join(akar, jalurAman(rel))); i++) rel = `${dasar} (${i}).xlsx`
+    const t = await templatExcel(akar, "Analisis Butir Soal")
+    if (t) {
+      const kunci = (a.kunci ?? "").toUpperCase().replace(/[^A-E01]/g, "")
+      const penanda: Record<string, string> = { ...penandaDasar(profil, kebijakan), judul: a.judul.trim(), jumlah_soal: String(a.jumlah_soal) }
+      kunci.split("").forEach((k, i) => (penanda[`kunci_${i + 1}`] = k))
+      const r = await isiDariTemplat(akar, t, { siswa: d?.siswa ?? [], penanda })
+      rel = await tulis(akar, rel, r.data)
+      return [`Selesai: ${rel}.`, r.pesan, kunci ? `Penanda kunci {{kunci_1}}…{{kunci_${kunci.length}}} tersedia.` : "", "Jangan menyebut nama siswa."].filter(Boolean).join("\n")
+    }
+    const h = analisisButirXlsx(profil, kebijakan, d?.siswa ?? null, { judul: a.judul, jumlahSoal: a.jumlah_soal, opsi: a.opsi, kunci: a.kunci, batas: a.batas })
     rel = await tulis(akar, rel, h.data)
     return [
       `Selesai: ${rel} (${h.m} soal, ${h.n} baris siswa${d?.siswa.length ? ", nama terisi otomatis" : "; Daftar Siswa belum ada sehingga nama kosong"}; batas tuntas ${h.batas}).`,

@@ -61,7 +61,7 @@ for (const windows of [false, true]) {
   try {
     const alat = await daftarAlat(akar)
     const jalan = async (n: string, input: any = {}) => (await alat[n].execute(input, {})).content as string
-    cek("plugin mendaftarkan 31 alat", Object.keys(alat).length === 31, Object.keys(alat).join(", "))
+    cek("plugin mendaftarkan 33 alat", Object.keys(alat).length === 33, Object.keys(alat).join(", "))
     cek("semua alat bukan Code Mode", Object.values(alat).every((t: any) => t.options?.codemode === false))
 
     let r = await jalan("hitung_minggu_efektif")

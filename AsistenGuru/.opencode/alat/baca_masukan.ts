@@ -2,6 +2,8 @@ import { existsSync } from "node:fs"
 import { mkdir, readdir, readFile, stat, copyFile } from "node:fs/promises"
 import { join } from "node:path"
 import { alat } from "../lib/alat.ts"
+import { adalahRekap } from "../lib/rekapsekolah.ts"
+import { adalahFormatKosong, tebakJenisExcel } from "../lib/templatexcel.ts"
 import { type Profil, Gagal, bacaJson, jalurAman, relatif } from "../lib/berkas.ts"
 import { bacaDokumen } from "../lib/masukan.ts"
 import { amankanSumber, bacaDaftarSiswa, bacaSumber, ringkas, saringRombel, selisih, simpanDaftarSiswa } from "../lib/siswa.ts"
@@ -25,7 +27,15 @@ async function tanganiDaftarSiswa(akar: string, p: string, nama: string): Promis
     return null
   }
   if (!d || d.siswa.length < 2) return null
+  const rekap = adalahRekap(new Uint8Array(await readFile(p)))
   const aman = await amankanSumber(akar, p)
+  const r = await tanganiDaftar(akar, d, nama, aman)
+  return rekap
+    ? `${r} Berkas ini juga REKAP NILAI dari sekolah (diisi guru untuk rapor, lalu dimasukkan operator ke e-Rapor): tawarkan mengisinya otomatis dengan isi_rekap_sekolah berkas="${aman}".`
+    : r
+}
+
+async function tanganiDaftar(akar: string, d: NonNullable<Awaited<ReturnType<typeof bacaSumber>>>, nama: string, aman: string): Promise<string> {
   const profil = await bacaJson<Profil>(akar, "guru/profil.json")
   let siswa
   try {
@@ -65,6 +75,15 @@ export default alat<{ berkas?: string; jadikan_buku?: boolean }>({
       for (const f of daftar.sort()) {
         const p = join(folder, f)
         if ((await stat(p)).isDirectory()) continue
+        // Format Excel kosong dari sekolah (tabel siswa tanpa isi, atau penanda {{...}}): jadikan format, bukan dibaca.
+        if (/\.xlsx$/i.test(f)) {
+          const data = new Uint8Array(await readFile(p))
+          if (adalahFormatKosong(data)) {
+            const jenis = tebakJenisExcel(f, data)
+            baris.push(`- ${f}: FORMAT EXCEL KOSONG dari sekolah/guru${jenis ? ` (kemungkinan ${jenis.join(" atau ")})` : ""}. Tanyakan guru format apa ini bila ragu, lalu ${jenis?.[0] === "Rekap Nilai" ? `isi dengan isi_rekap_sekolah berkas="${f}", atau ` : ""}simpan dengan simpan_template_excel berkas="guru/masukan/${f}" dokumen="<jenis>" supaya Excel jenis itu selalu memakai format sekolah.`)
+            continue
+          }
+        }
         const siswa = await tanganiDaftarSiswa(akar, p, f)
         if (siswa) {
           baris.push(`- ${f}: ${siswa}`)

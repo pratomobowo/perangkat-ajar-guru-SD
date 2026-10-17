@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { alat } from "../lib/alat.ts"
+import { isiDariTemplat, penandaDasar, templatExcel } from "../lib/formatexcel.ts"
 import { Gagal, bacaJson, daftar, jalurAman, muatDasar, slug, tulis } from "../lib/berkas.ts"
 import { FOLDER } from "../lib/dokumen.ts"
 import { pastikanDaftarSiswa } from "../lib/siswa.ts"
@@ -33,10 +34,18 @@ export default alat<{ tema: string }>({
       throw new Gagal(`Data kokurikuler "${args.tema}" belum ada di guru/data/. ${ada.length ? `Yang ada: ${ada.join(", ")}.` : ""} Tulis dulu sesuai skill kokurikuler (references/format-data.md).`)
     const k = await bacaJson<Kokurikuler>(akar, `guru/data/${f}`)
     const d = await pastikanDaftarSiswa(akar)
-    const h = penilaianKokurikulerXlsx(profil, kebijakan, k, d?.siswa)
     const dasar = `hasil/${FOLDER.kokurikuler}/Penilaian Kokurikuler ${k.tema} Kelas ${k.kelas ?? profil.kelas}`
     let rel = `${dasar}.xlsx`
     for (let i = 2; existsSync(join(akar, jalurAman(rel))); i++) rel = `${dasar} (${i}).xlsx`
+    const t = await templatExcel(akar, "Penilaian Kokurikuler")
+    if (t) {
+      const penanda: Record<string, string> = { ...penandaDasar(profil, kebijakan), tema: k.tema }
+      ;((k as any).dimensi ?? []).forEach((x: any, i: number) => (penanda[`dimensi_${i + 1}`] = typeof x === "string" ? x : x?.nama ?? ""))
+      const r = await isiDariTemplat(akar, t, { siswa: d?.siswa ?? [], penanda })
+      rel = await tulis(akar, rel, r.data)
+      return [`Selesai: ${rel}.`, r.pesan, d?.siswa.length ? "" : pesanNama({ namaTerisi: 0 }, d)].filter(Boolean).join("\n")
+    }
+    const h = penilaianKokurikulerXlsx(profil, kebijakan, k, d?.siswa)
     rel = await tulis(akar, rel, h.data)
     return [
       `Selesai: ${rel} — ${h.dimensi} kolom dimensi, ${h.siswa} baris murid.`,

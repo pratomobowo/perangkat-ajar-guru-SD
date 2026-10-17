@@ -1,8 +1,9 @@
 import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { alat } from "../lib/alat.ts"
+import { isiDariTemplat, penandaDasar, templatExcel } from "../lib/formatexcel.ts"
 import { Gagal, jalurAman, muatDasar, tulis } from "../lib/berkas.ts"
-import { absensiXlsx, tahunUntukBulan } from "../lib/administrasi.ts"
+import { absensiXlsx, hariBelajarBulan, tahunUntukBulan } from "../lib/administrasi.ts"
 import { NAMA_BULAN } from "../lib/kalender.ts"
 import { FOLDER } from "../lib/dokumen.ts"
 import { pastikanDaftarSiswa } from "../lib/siswa.ts"
@@ -32,10 +33,20 @@ export default alat<{ bulan: number; tahun?: number }>({
     const { profil, kalender, kebijakan } = await muatDasar(akar)
     const tahun = args.tahun ?? tahunUntukBulan(kalender, bulan)
     const d = await pastikanDaftarSiswa(akar)
-    const h = absensiXlsx(profil, kalender, kebijakan, tahun, bulan, d?.siswa)
     const dasar = `hasil/${FOLDER.administrasi}/Daftar Hadir Kelas ${profil.kelas} ${tahun}-${String(bulan).padStart(2, "0")} ${NAMA_BULAN[bulan]}`
     let rel = `${dasar}.xlsx`
     for (let i = 2; existsSync(join(akar, jalurAman(rel))); i++) rel = `${dasar} (${i}).xlsx`
+    // Format sekolah/guru didahulukan.
+    const t = await templatExcel(akar, "Daftar Hadir")
+    if (t) {
+      const hari = hariBelajarBulan(profil, kalender, tahun, bulan)
+      const penanda: Record<string, string> = { ...penandaDasar(profil, kebijakan), bulan: NAMA_BULAN[bulan], tahun: String(tahun), jumlah_hari_efektif: String(hari.length) }
+      hari.forEach((x, i) => (penanda[`tanggal_${i + 1}`] = String(x.getUTCDate())))
+      const r = await isiDariTemplat(akar, t, { siswa: d?.siswa ?? [], penanda })
+      rel = await tulis(akar, rel, r.data)
+      return [`Selesai: ${rel}.`, r.pesan, d?.siswa.length ? "" : pesanNama({ namaTerisi: 0 }, d)].filter(Boolean).join("\n")
+    }
+    const h = absensiXlsx(profil, kalender, kebijakan, tahun, bulan, d?.siswa)
     rel = await tulis(akar, rel, h.data)
     return [
       `Selesai: ${rel} — ${NAMA_BULAN[bulan]} ${tahun}, ${h.hari} hari sekolah, ${h.siswa} baris siswa.`,

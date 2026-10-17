@@ -1,10 +1,11 @@
 import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { alat } from "../lib/alat.ts"
+import { isiDariTemplat, penandaDasar, templatExcel } from "../lib/formatexcel.ts"
 import { type Kebijakan, type Profil, Gagal, bacaJson, jalurAman, tulis } from "../lib/berkas.ts"
 import { FOLDER } from "../lib/dokumen.ts"
 import { pastikanDaftarSiswa } from "../lib/siswa.ts"
-import { type UrutanDuduk, paketWaliKelasXlsx } from "../lib/walikelas.ts"
+import { KESEPAKATAN_BAWAAN, type UrutanDuduk, paketWaliKelasXlsx, susunanWaliKelas } from "../lib/walikelas.ts"
 
 type Masukan = { urutan_duduk?: UrutanDuduk; kolom_meja?: number; per_meja?: 1 | 2; jabatan?: string[]; kesepakatan?: string[] }
 
@@ -29,10 +30,21 @@ export default alat<Masukan>({
     const d = await pastikanDaftarSiswa(akar)
     if (!d?.siswa.length)
       throw new Gagal("Daftar Siswa belum ada, padahal semua lembar ini berisi nama. Sampaikan ke guru: taruh ekspor Dapodik, format nilai e-Rapor, atau daftar hadir lama yang berisi nama di folder guru\\masukan, lalu bilang \"sudah\". Jangan meminta guru mengetik nama di chat.")
-    const h = paketWaliKelasXlsx(profil, kebijakan, d.siswa, { urutanDuduk: a.urutan_duduk, kolomMeja: a.kolom_meja, perMeja: a.per_meja, jabatan: a.jabatan, kesepakatan: a.kesepakatan })
     const dasar = `hasil/${FOLDER.administrasi}/Administrasi Wali Kelas ${profil.rombel ?? profil.kelas} ${(profil.tahun_ajaran ?? "").replace("/", "-")}`.trim()
     let rel = `${dasar}.xlsx`
     for (let i = 2; existsSync(join(akar, jalurAman(rel))); i++) rel = `${dasar} (${i}).xlsx`
+    // Format sekolah/guru didahulukan: tabel berkolom NAMA diisi, dan penanda {{nama_n}}, {{duduk_n}}, {{piket_senin}},
+    // {{kesepakatan_n}} untuk denah/struktur/piket berformat bebas.
+    const t = await templatExcel(akar, "Administrasi Wali Kelas")
+    if (t) {
+      const su = susunanWaliKelas(profil, d.siswa, { urutanDuduk: a.urutan_duduk })
+      const penanda: Record<string, string> = { ...penandaDasar(profil, kebijakan), ...su.penanda }
+      ;(a.kesepakatan?.length ? a.kesepakatan : KESEPAKATAN_BAWAAN).forEach((k, i) => (penanda[`kesepakatan_${i + 1}`] = k))
+      const r = await isiDariTemplat(akar, t, { siswa: d.siswa, penanda })
+      rel = await tulis(akar, rel, r.data)
+      return [`Selesai: ${rel} (${d.siswa.length} siswa).`, r.pesan, `Penanda tersedia: {{nama_1}}…, {{duduk_1}}… (urut ${a.urutan_duduk ?? "absen"}), ${su.hari.map((h) => `{{piket_${h.toLowerCase()}}}`).join(", ")}, {{kesepakatan_1}}….`, "Jangan menyebut nama siswa."].join("\n")
+    }
+    const h = paketWaliKelasXlsx(profil, kebijakan, d.siswa, { urutanDuduk: a.urutan_duduk, kolomMeja: a.kolom_meja, perMeja: a.per_meja, jabatan: a.jabatan, kesepakatan: a.kesepakatan })
     rel = await tulis(akar, rel, h.data)
     return [
       `Selesai: ${rel} (${h.jumlah} siswa${d.baru ? `; Daftar Siswa baru dibuat dari ${d.baru}` : ""}).`,

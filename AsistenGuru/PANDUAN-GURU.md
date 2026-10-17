@@ -23,9 +23,11 @@ Ketik perintah di bawah, atau bercerita biasa, misalnya "minggu depan saya menga
 | "Buatkan administrasi wali kelas" | Struktur organisasi kelas, jadwal piket, denah tempat duduk, dan kesepakatan kelas dalam satu Excel; nama siswa terisi otomatis dan bisa diubah |
 | "Bagi kelas jadi 6 kelompok" | Kelompok belajar (acak, laki-laki/perempuan seimbang, atau campuran kemampuan dari buku nilai); siswa yang tidak hadir bisa dikecualikan |
 | "Analisis butir soal STS Matematika 25 soal" | Excel analisis butir: isi kunci dan jawaban siswa, tingkat kesukaran, daya beda, pengecoh, dan keputusan tiap soal terhitung otomatis |
+| "Operator kasih rekap nilai STS, tolong isiin" | Taruh Excel rekap dari sekolah di folder `guru\masukan`. Nilai (UH = rata-rata TP, UTS dari STS) dan sakit/izin/alfa diisi otomatis dari buku nilai dan daftar hadir; format sekolah tidak diubah; kolom lain (tugas, tahsin, dll.) Anda lengkapi lalu serahkan ke operator |
 | `/nilai matematika 1` | Membuat Excel buku nilai semester 1 |
 | `/ppg` | Sedang ikut PPG Guru Tertentu? Checklist UKPPPG sesuai juknis 2026 (nama berkas resmi sudah terisi), pendampingan perangkat dan skenario video Ujian Kinerja 2 JP dari ide dan kelas Ibu/Bapak sendiri, latihan soal PCK, SJT, dan uraian reflektif. Hasil di folder `hasil\7 PPG` |
 | `/refleksi` | **Wajib tiap semester** (Permendikdasmen 1/2026): refleksi diri guru disusun dari data nilai, analisis soal, kehadiran, dan jurnal Anda, lalu jawaban Anda atas beberapa pertanyaan. Asisten mengingatkan menjelang akhir semester |
+| "Ini format absen/nilai dari sekolah, pakai ini" | Taruh Excel format sekolah di folder `guru\masukan`, atau ubah Excel hasil asisten lalu bilang "pakai yang ini sebagai format". Daftar hadir, buku nilai, penilaian kokurikuler, analisis soal, administrasi wali kelas, dan kelompok berikutnya mengikuti format itu (nama terisi otomatis). Bisa memakai penanda seperti `{{bulan}}`, `{{nama_1}}` di sel. "Kembalikan format bawaan" untuk membatalkan |
 | `/ingat` | Melihat apa yang diingat asisten tentang Anda, pekerjaan yang sedang berjalan, pengingat, dan aturan Anda — bisa diubah atau dihapus |
 | `/format` | Mengatur format Word Anda (huruf, margin, kop, atau pakai Word Anda sendiri sebagai contoh) |
 | `/perbarui` | Mengecek versi dan memperbarui Asisten Guru (data Anda tetap aman) |

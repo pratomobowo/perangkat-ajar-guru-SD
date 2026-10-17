@@ -230,3 +230,19 @@ export function kelompokXlsx(profil: Profil, kebijakan: Kebijakan, kelompok: Ang
   gabung.push(`A${baris.length}:D${baris.length}`)
   return buatXlsx([{ nama: "Kelompok", baris, gabung, lebar: [14, 9, 38, 6], kunci: true, beku: { baris: 5, kolom: 0 }, cetak: { kertas: kebijakan.kertas === "F4" ? "F4" : "A4", potret: true, judulBaris: [5, 5] } }])
 }
+
+/** Susunan piket dan tempat duduk (dipakai juga untuk penanda {{piket_senin}}, {{duduk_1}} di format sekolah/guru). */
+export function susunanWaliKelas(profil: Profil, siswa: Siswa[], o: OpsiWaliKelas = {}) {
+  const hari = [...hariSekolah(profil)].sort((a, b) => ((a + 6) % 7) - ((b + 6) % 7))
+  const piket: Siswa[][] = hari.map(() => [])
+  selangJk(siswa).forEach((s, i) => piket[i % hari.length].push(s))
+  const r = pengacak(o.benih)
+  const duduk = o.urutanDuduk === "acak" ? acak(siswa, r) : o.urutanDuduk === "selang_jk" ? selangJk(siswa) : siswa
+  const penanda: Record<string, string> = {}
+  hari.forEach((h, i) => {
+    penanda[`piket_${NAMA_HARI[h]}`] = piket[i].map((s) => s.nama).join(", ")
+    piket[i].forEach((s, j) => (penanda[`piket_${NAMA_HARI[h]}_${j + 1}`] = s.nama))
+  })
+  duduk.forEach((s, i) => (penanda[`duduk_${i + 1}`] = s.nama))
+  return { hari: hari.map((h) => kapital(NAMA_HARI[h])), piket, duduk, penanda }
+}
