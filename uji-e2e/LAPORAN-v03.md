@@ -467,6 +467,21 @@ E2E OpenCode (model Sumopod), format presensi sekolah tiruan (judul berpenanda, 
 | (sesi baru) "buatkan absen bulan Desember" | memakai format sekolah otomatis, dilaporkan benar |
 | "rekap nilai STS dari operator yang kemarin tolong diisi ulang… kehadiran saya isi sendiri" | `isi_rekap_sekolah` tanpa `berkas` → "4A_STS_GANJIL_2026 (diisi).xlsx": Matematika UH 12 sel, UTS 12 sel; kehadiran dibiarkan (daftar hadir Juli–September belum ada). Sebelum perbaikan peta tugas, model sempat menanyakan lokasi berkas dan menawarkan membuat daftar hadir kosong |
 
+## Pilih lokasi pemasangan (v0.20.0–v0.20.1)
+
+Uji pemasang `uji-pasang.sh` ditambah 11 cek lokasi (pasang.sh dan pasang.ps1 lewat pwsh): mode cek menyebut lokasi
+bawaan dan daftar drive tanpa memasang; folder yang sudah berisi berkas (seperti `D:\`) → subfolder AsistenGuru, berkas
+lain utuh; lokasi terpasang diingat dan dipakai pembaruan tanpa `ASISTEN_GURU_DIR`; folder sistem ditolak.
+`uji-format.ts`: plugin mencatat lokasi foldernya untuk pemasang (folder boleh dipindah).
+
+E2E OpenCode (model Sumopod) di lingkungan bersih (HOME terisolasi, folder kerja kosong), memakai README dan pemasang
+dari GitHub (v0.20.0):
+
+| Pesan guru | Hasil |
+|---|---|
+| "Tolong pasang Asisten Guru dari link ini: https://github.com/…" | `webfetch` README → mode cek (`ASISTEN_GURU_CEK=1`) → alat `question` dengan pilihan: Documents (bawaan), tiap drive beserta sisa ruang, folder lain. Mode non-interaktif tidak bisa menjawab, sehingga model memasang ke bawaan dan menyampaikannya terus terang. **Temuan:** di Linux daftar "drive" memuat mount Docker → disaring hanya disk sungguhan (v0.20.1) |
+| "jangan di Documents, taruh di folder …/dataD (ibaratnya drive D)" | pemasang dengan `ASISTEN_GURU_DIR` → terpasang di `dataD/AsistenGuru` (folder berisi foto → subfolder), foto utuh, lokasi tercatat; model menyebut salinan lama di Documents dan menawarkan membersihkannya hanya bila guru setuju |
+
 ## Cara mengulang
 1. `cd fixture && bun uji-lib.ts && bun uji-alat.ts && bun uji-cp.ts && bun uji-template.ts && bun uji-masukan.ts && bun uji-ppg.ts && bun uji-ingatan.ts && bun uji-walikelas.ts && bun uji-refleksi.ts && bun uji-rekap.ts && bun uji-format.ts`, lalu `pasang/uji-pasang.sh` (set `PWSH` untuk menguji `pasang.ps1`), lalu `cd ../rumus && bun install && bun uji-rumus-fixture.ts ../fixture && bun uji-rumus-butir.ts`.
 2. E2E: siapkan salinan `AsistenGuru` + fixture sekolah yang sudah di-`git init` (`WS`), folder HOME kosong (`ISO`), lalu

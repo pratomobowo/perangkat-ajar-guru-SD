@@ -4,7 +4,7 @@
 Guru cukup mengobrol seperti biasa, asisten menyiapkan perangkat ajar dan administrasi kelas dalam bentuk
 **Word dan Excel yang siap cetak**.
 
-> Versi **0.20.0** · tahap uji coba · untuk OpenCode 2 (Desktop atau terminal), utamanya laptop Windows.
+> Versi **0.20.1** · tahap uji coba · untuk OpenCode 2 (Desktop atau terminal), utamanya laptop Windows.
 
 ---
 

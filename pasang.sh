@@ -26,7 +26,10 @@ fi
 if [[ ${ASISTEN_GURU_CEK:-} == 1 ]]; then
   echo "ASISTEN_GURU_LOKASI_BAWAAN $BAWAAN"
   if [[ -n $TERPASANG ]]; then echo "ASISTEN_GURU_TERPASANG $TERPASANG"; fi
-  df -Pk 2>/dev/null | awk 'NR>1 && $6 !~ /^\/(proc|sys|dev|run|boot)/ && $2 > 1048576 { printf "ASISTEN_GURU_DRIVE %s bebas=%dGB\n", $6, $4/1048576 }'
+  # Hanya disk sungguhan: Linux /dev/* (tanpa loop/snap/docker/boot), macOS "/" dan /Volumes/* (disk luar).
+  df -Pk 2>/dev/null | awk -v os="$(uname -s)" 'NR>1 && $2 > 1048576 {
+    ok = (os == "Darwin") ? ($6 == "/" || $6 ~ /^\/Volumes\//) : ($1 ~ /^\/dev\// && $1 !~ /loop/ && $6 !~ /^\/(boot|snap|var\/lib|run|dev|proc|sys)/)
+    if (ok) printf "ASISTEN_GURU_DRIVE %s bebas=%dGB\n", $6, $4/1048576 }'
   exit 0
 fi
 TUJUAN=${ASISTEN_GURU_DIR:-${TERPASANG:-$BAWAAN}}

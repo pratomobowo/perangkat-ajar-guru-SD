@@ -1,9 +1,10 @@
 # Versi Paket
 
-**Versi:** 0.20.0
+**Versi:** 0.20.1
 **Tanggal:** 2026-10-16
 
 ## Catatan perubahan
+- 0.20.1 — Mode cek pemasang macOS/Linux hanya menampilkan disk sungguhan (tanpa mount Docker/snap/loop).
 - 0.20.0 — **Pilih lokasi pemasangan** (misalnya drive D:). Saat guru meminta "pasang Asisten Guru", asisten AI menjalankan
   mode cek pemasang (`ASISTEN_GURU_CEK=1`: lokasi bawaan, daftar drive beserta sisa ruang, lokasi yang sudah terpasang),
   menanyakan lokasi dengan pilihan bernomor, lalu memasang ke `ASISTEN_GURU_DIR`. Pemasang membuat subfolder AsistenGuru
